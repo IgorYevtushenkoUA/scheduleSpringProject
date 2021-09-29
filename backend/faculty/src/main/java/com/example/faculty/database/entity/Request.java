@@ -24,5 +24,4 @@ public class Request extends BaseEntity {
 
     @Column(name = "event_id")
     private long eventId;
-
 }
