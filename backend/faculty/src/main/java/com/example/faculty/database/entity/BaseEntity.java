@@ -1,6 +1,9 @@
 package com.example.faculty.database.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 
@@ -9,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.MappedSuperclass;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Base class with property 'id'.
@@ -23,10 +27,16 @@ import java.util.Date;
 public class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(generator = "UUID", strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id;
 
-    @CreatedDate
-    @Column(name = "created")
-    private long created = new Date().getTime();
+    @Column(name = "`timestamp`")
+    @CreationTimestamp
+    private Date createdAt;
+
+    @Column(name = "updated_on")
+    @UpdateTimestamp
+    private Date updatedAt;
 }
