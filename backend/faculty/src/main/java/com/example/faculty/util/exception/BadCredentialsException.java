@@ -1,6 +1,6 @@
-package com.example.faculty.exception;
+package com.example.faculty.util.exception;
 
-public class BadCredentialsException extends  CustomRuntimeException {
+public class BadCredentialsException extends CustomRuntimeException {
     public BadCredentialsException() {
         super("Not enough rights exception");
     }

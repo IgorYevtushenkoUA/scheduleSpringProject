@@ -13,7 +13,7 @@ public enum Statuses {
     NotSubscribed(51), PriceNotificationNotFound(52), SupportTimeout(53), PriceAnalyzerMinStocks(54), TimeframeNotAvailable(55), UnsupportedStockForModule(56), SettingsNotExists(57), SubscriptionAlreadyPresent(58),
     SameExchangeApiKeys(59), RegistrationFailed(60), NotImplemented(61), RequiredMinForStopLossOrTakeProfit(62);
 
-    private int status;
+    private final int status;
 
     Statuses(int status) {
         this.status = status;

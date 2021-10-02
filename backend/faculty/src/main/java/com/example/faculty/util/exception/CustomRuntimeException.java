@@ -1,4 +1,4 @@
-package com.example.faculty.exception;
+package com.example.faculty.util.exception;
 
 import lombok.extern.log4j.Log4j;
 

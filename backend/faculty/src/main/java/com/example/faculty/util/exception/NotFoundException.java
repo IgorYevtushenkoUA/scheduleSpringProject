@@ -1,9 +1,9 @@
-package com.example.faculty.exception;
+package com.example.faculty.util.exception;
 
 public class NotFoundException extends CustomRuntimeException {
 
     public NotFoundException(String message) {
-        super( message + " not found");
+        super(message + " not found");
     }
 
     public NotFoundException() {
