@@ -7,19 +7,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-public class MvcResponseObject extends MvcResponse{
+public class MvcResponseObject extends MvcResponse {
     @Getter
     @Setter
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonProperty("response")
     private Object response;
 
-    public MvcResponseObject(int status, Object response){
+    public MvcResponseObject(int status, Object response) {
         super(status);
         this.response = response;
     }
 
-    public MvcResponseObject(Statuses status, Object response){
+    public MvcResponseObject(Statuses status, Object response) {
         super(status.ordinal());
         this.response = response;
     }

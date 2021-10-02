@@ -21,7 +21,7 @@ public class MvcResponseList<T> extends MvcResponse {
         this.response = response;
     }
 
-    public void addParameter(T object){
+    public void addParameter(T object) {
         response.add(object);
     }
 

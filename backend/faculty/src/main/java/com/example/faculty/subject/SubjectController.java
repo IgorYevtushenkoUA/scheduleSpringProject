@@ -1,7 +1,5 @@
-package com.example.faculty.controllers;
+package com.example.faculty.subject;
 
-import com.example.faculty.services.interfaces.SubjectService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,9 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/subject")
 public class SubjectController {
 
-    private SubjectService subjectService;
+    private final SubjectService subjectService;
 
-    @Autowired
     public SubjectController(SubjectService subjectService) {
         this.subjectService = subjectService;
     }
