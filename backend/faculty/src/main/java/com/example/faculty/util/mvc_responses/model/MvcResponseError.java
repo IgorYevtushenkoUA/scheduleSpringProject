@@ -25,7 +25,7 @@ public class MvcResponseError extends MvcResponse {
 
     public MvcResponseError(Statuses status, String error) {
         super(status.ordinal());
-        this.error=error;
+        this.error = error;
     }
 
 

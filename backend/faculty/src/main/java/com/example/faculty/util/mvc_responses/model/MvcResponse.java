@@ -14,12 +14,12 @@ public class MvcResponse {
     @JsonProperty("status")
     protected int status;
 
-    public MvcResponse(int status){
+    public MvcResponse(int status) {
         this.status = status;
     }
 
 
-    public MvcResponse(Statuses status){
+    public MvcResponse(Statuses status) {
         this.status = status.getStatus();
     }
 }
