@@ -1,4 +1,4 @@
 package com.example.faculty.subject;
 
-public class SubjectService {
+public interface SubjectService {
 }
