@@ -1,0 +1,3 @@
+logger\ConsoleLoggerService.class
+logger\LoggerServiceAutoConfiguration.class
+logger\LoggerService.class
