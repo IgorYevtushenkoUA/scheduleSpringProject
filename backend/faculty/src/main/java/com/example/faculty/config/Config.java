@@ -1,11 +1,11 @@
 package com.example.faculty.config;
 
-import com.example.faculty.request.RequestService;
-import com.example.faculty.request.RequestServiceImpl;
-import com.example.faculty.subject.SubjectService;
-import com.example.faculty.subject.SubjectServiceImpl;
-import com.example.faculty.user.UserService;
-import com.example.faculty.user.UserServiceImpl;
+import com.example.faculty.services.interfaces.RequestService;
+import com.example.faculty.services.implementations.RequestServiceImpl;
+import com.example.faculty.services.interfaces.SubjectService;
+import com.example.faculty.services.implementations.SubjectServiceImpl;
+import com.example.faculty.services.interfaces.UserService;
+import com.example.faculty.services.implementations.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
