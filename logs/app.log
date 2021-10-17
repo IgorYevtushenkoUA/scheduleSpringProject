@@ -1,0 +1,5 @@
+2021-10-17 21:00:58,841 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting FacultyApplication using Java 14.0.2 on DESKTOP-CEMGQH1 with PID 12332 (D:\Code\java\university4\scheduleSpringProject\backend\faculty\target\classes started by i11am in D:\Code\java\university4\scheduleSpringProject) user.id=
+2021-10-17 21:00:58,841 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.5.4, Spring v5.3.9 user.id=
+2021-10-17 21:00:58,841 INFO org.springframework.boot.SpringApplication [restartedMain] The following profiles are active: dev user.id=
+2021-10-17 21:01:01,187 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started FacultyApplication in 2.644 seconds (JVM running for 3.461) user.id=
+2021-10-17 21:01:01,187 INFO com.example.faculty.FacultyApplication [restartedMain] set eventic user.id=

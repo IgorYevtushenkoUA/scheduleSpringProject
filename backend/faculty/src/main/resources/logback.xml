@@ -4,6 +4,15 @@
     <property name="DEV_HOME" value="c:/logs" />
 
     <appender name="Appender1"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss}  event.id=%X{event.id}%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="Appender2"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${DEV_HOME}/appender1.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -24,23 +33,13 @@
     </appender>
 
 
-    <appender name="Appender2"
-              class="ch.qos.logback.core.FileAppender">
-        <file>${DEV_HOME}/appender2.log</file>
-        <encoder>
-            <pattern>%d{HH:mm:ss,SSS} %-5p [%c] - %m%n</pattern>
-        </encoder>
-    </appender>
-
     <root level="info">
-        <appender-ref ref="Appender1" />
+        <appender-ref ref="Appender1"/>
     </root>
 
-    <logger name="com.example.faculty.services.implementations" level="debug" additivity="false">
-        <appender-ref ref="Appender1" />
-        <appender-ref ref="Appender2" />
+    <logger name="com.example.faculty" level="trace" additivity="false">
+        <appender-ref ref="Appender2"/>
+        <appender-ref ref="Appender1"/>
     </logger>
-
-
 
 </configuration>
