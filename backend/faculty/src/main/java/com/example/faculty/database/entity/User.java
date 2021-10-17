@@ -1,29 +1,29 @@
 package com.example.faculty.database.entity;
 
 import com.example.faculty.database.enums.UserRole;
-import com.example.faculty.database.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
-@EqualsAndHashCode(callSuper = true)
+//@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(name = "user")
-public class User extends BaseEntity {
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false, unique=true)
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -50,5 +50,17 @@ public class User extends BaseEntity {
 
     @Column(name = "avatar_id")
     private long avatarId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @CreatedDate
+    @Column(name = "created")
+    private long created = new Date().getTime();
 
 }

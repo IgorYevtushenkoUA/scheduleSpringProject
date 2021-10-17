@@ -18,15 +18,15 @@ import java.util.Date;
  * @version 1.0
  */
 
-@MappedSuperclass
-@Data
-public class BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @CreatedDate
-    @Column(name = "created")
-    private long created = new Date().getTime();
-}
+//@MappedSuperclass
+//@Data
+//public class BaseEntity {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private long id;
+//
+//    @CreatedDate
+//    @Column(name = "created")
+//    private long created = new Date().getTime();
+//}
