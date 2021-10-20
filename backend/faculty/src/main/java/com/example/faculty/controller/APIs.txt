@@ -18,3 +18,14 @@ AdminController
 
 Підтвердити заявку                  |       /admin/requests/{requestId}/confirm [Post]
 Відхилити заявку                    |       /admin/requests/{requestId}/cancel  [Post]
+
+----------------------------------------------------------------------------------------------
+StudentController
+
+Зареєструватися на івент        | /student/event/{subjectId}/enroll [Post]
+Виписатися з івенту             | /student/event/{subjectId}/drop_out [Delete]
+Переглянути свій розклад        | /student/schedule [Get]
+                                | /student/schedule/week{number} [Get]
+
+
+----------------------------------------------------------------------------------------------
