@@ -27,5 +27,10 @@ StudentController
 Переглянути свій розклад        | /student/schedule [Get]
                                 | /student/schedule/week{number} [Get]
 
-
 ----------------------------------------------------------------------------------------------
+TutorController
+
+Заповнити про себе інформацію       | /tutor/info [Get, Post]
+Переглянути свій розклад            | /tutor/schedule [Get]
+                                    | /tutor/schedule/week/{num} [Get]
+Змінити івент                       | /tutor/event/{id}/update  [Get,Post]
