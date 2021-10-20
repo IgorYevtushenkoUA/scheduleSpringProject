@@ -1,0 +1,20 @@
+AdminController
+
+Створити пару                       |       /admin/subject/create [Get,Post]
+Редагувати пару                     |       /admin/subject/{id}/update [Get,Patch]
+Видалити пару                       |       /admin/subject/{id}/delete [Delete]
+
+Створити івент                      |       /admin/event/create [Get, Post]
+Редагувати івент                    |       /admin/event/{id}/update [Get, patch]
+Видалити івент                      |       /admin/event/{id}/delete [Delete]
+
+Додати\видалити інформацію про викладача | /admin/tutor/{id}/update [Get, Patch]
+
+Переглянути всі івенти викладача    |       /admin/tutor/{tutorId}/events [Get]
+Призначити викладачу івент          |       /admin/tutor/{tutorId}/events/{eventId}/add [Post]
+Видалити івент у викладача          |       /admin/tutor/{tutorId}/events/{eventId}/delete [Post]
+
+Переглянути всі заявки              |       /admin/requests[Get]
+
+Підтвердити заявку                  |       /admin/requests/{requestId}/confirm [Post]
+Відхилити заявку                    |       /admin/requests/{requestId}/cancel  [Post]
