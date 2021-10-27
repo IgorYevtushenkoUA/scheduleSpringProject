@@ -6,19 +6,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/tutor")
 public class TutorController {
 
-    @GetMapping(name = "/schedule")
+    @GetMapping(value = "/schedule")
     public void showTutorDefaultSchedule() {
     }
 
-//    @GetMapping(name = "/schedule/week/{num}")
+//    @GetMapping(value = "/schedule/week/{num}")
 //    public void showTutorScheduleForWeekN() {
 //    }
 //
-//    @GetMapping(name = "/event/{id}/update")
+//    @GetMapping(value = "/event/{id}/update")
 //    public void eventUpdateForm() {
 //    }
 //
-//    @PostMapping(name = "/event/{id}/update")
+//    @PostMapping(value = "/event/{id}/update")
 //    public void createRequestToUpdateEvent() {
 //    }
 

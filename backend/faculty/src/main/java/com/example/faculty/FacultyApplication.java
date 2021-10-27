@@ -17,7 +17,7 @@ public class FacultyApplication {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(FacultyApplication.class, args);
-        test(applicationContext);
+//        test(applicationContext);
     }
 
     private static void test(ApplicationContext applicationContext) {
