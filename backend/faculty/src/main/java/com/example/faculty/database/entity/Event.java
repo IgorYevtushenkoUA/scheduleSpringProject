@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.Date;
 
 //@EqualsAndHashCode(callSuper = true)
@@ -22,6 +23,17 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false, unique = true)
     private Long id;
+
+    @NotNull
+    @Column(name="organizer")
+    private long organizer;
+
+    @NotNull
+    @Column(name="subject_id")
+    private long subjectId;
+
+    @Column(name="datetime")
+    private Timestamp timestamp;
 
     @NotNull
     @Column(name = "groups")
@@ -39,9 +51,9 @@ public class Event {
     @Column(name = "request")
     private boolean isRequest;
 
-    @NotNull
-    @CreatedDate
-    @Column(name = "created")
-    private long created = new Date().getTime();
+//    @NotNull
+//    @CreatedDate
+//    @Column(name = "created")
+//    private long created = new Date().getTime();
 
 }

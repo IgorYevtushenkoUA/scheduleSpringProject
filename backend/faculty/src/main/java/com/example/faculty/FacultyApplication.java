@@ -9,6 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
+import java.util.Date;
+
 @SpringBootApplication
 public class FacultyApplication {
     static Logger logger = LoggerFactory.getLogger(FacultyApplication.class);
@@ -22,6 +24,5 @@ public class FacultyApplication {
         EventServiceImpl eventService = applicationContext.getBean(EventServiceImpl.class);
         System.out.println(eventService.getEventById(1L));
         MDC.clear();
-
     }
 }

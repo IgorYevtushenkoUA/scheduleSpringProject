@@ -41,8 +41,8 @@ public class Subject {
     @Column(name = "trim")
     private String trim;
 
-    @CreatedDate
-    @Column(name = "created")
-    private long created = new Date().getTime();
+//    @CreatedDate
+//    @Column(name = "created")
+//    private long created = new Date().getTime();
 
 }

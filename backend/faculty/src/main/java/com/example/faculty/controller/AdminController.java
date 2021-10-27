@@ -11,76 +11,92 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(name = "/subject/create")
-    public void createSubjectForm() {
+    @GetMapping(name = "/subjects")
+    public void showAllSubjects() {
+
     }
 
-    @PostMapping(name = "/subject/create")
-    public void doCreateSubject() {
-    }
+//    @GetMapping(name = "/subjects/create")
+//    public void createSubjectForm() {
+//    }
 
-    @GetMapping(name = "/subject/{id}/update")
-    public void editSubjectForm() {
-    }
-
-    @PatchMapping(name = "/subject/{id}/update")
-    public void doUpdateSubject() {
-    }
-
-    @DeleteMapping(name = "/subject/{id}/delete")
-    public void deleteSubject() {
-    }
-
-    @GetMapping(name = "/event/create")
-    public void createEventForm() {
-    }
-
-    @PostMapping(name = "/event/create")
-    public void createEvent() {
-    }
-
-    @GetMapping(name = "/event/{id}/update")
-    public void updateEventForm() {
-    }
-
-    @PatchMapping(name = "/event/{id}/update")
-    public void updateEvent() {
-    }
-
-    @DeleteMapping(name = "/event/{id}/delete")
-    public void deleteEvent() {
-    }
-
-    @GetMapping("/tutor/{id}/update")
-    public void updateTutorForm() {
-    }
-
-    @PatchMapping("/tutor/{id}/update")
-    public void updateTutor() {
-    }
-
-    @GetMapping("/tutor/{id}/events")
-    public void tutorEvents() {
-    }
-
-    @PostMapping(name = "/tutor/{tutorId}/events/{eventId}/add")
-    public void addEventToTutor() {
-    }
-
-    @DeleteMapping(name = "/tutor/{tutorId}/events/{eventId}/delete")
-    public void deleteEventToTutor() {
-    }
-
-    @GetMapping(name = "/requests")
-    public void showAllRequestsList() {
-    }
-
-    @PostMapping(name = "/requests/{id}/confirm")
-    public void confirmRequest() {
-    }
-
-    @PostMapping(name = "/requests/{id}/cancel")
-    public void cancelRequest() {
-    }
+//    @PostMapping(name = "/subjects/create")
+//    public void doCreateSubject() {
+//    }
+//
+//    @GetMapping(name = "/subjects/{id}/update")
+//    public void editSubjectForm() {
+//    }
+//
+//    @PatchMapping(name = "/subjects/{id}/update")
+//    public void doUpdateSubject() {
+//    }
+//
+//    @DeleteMapping(name = "/subjects/{id}/delete")
+//    public void deleteSubject() {
+//    }
+//
+//    @GetMapping(name = "/events")
+//    public void showAllEvents() {
+//
+//    }
+//
+//    @GetMapping(name = "/events/create")
+//    public void createEventForm() {
+//    }
+//
+//    @PostMapping(name = "/events/create")
+//    public void createEvent() {
+//    }
+//
+//    @GetMapping(name = "/events/{id}/update")
+//    public void updateEventForm() {
+//    }
+//
+//    @PatchMapping(name = "/events/{id}/update")
+//    public void updateEvent() {
+//    }
+//
+//    @DeleteMapping(name = "/events/{id}/delete")
+//    public void deleteEvent() {
+//    }
+//
+//
+//    @GetMapping(name = "/tutors")
+//    public void showAllTutors() {
+//
+//    }
+//
+//    @GetMapping("/tutors/{id}/update")
+//    public void updateTutorForm() {
+//    }
+//
+//    @PatchMapping("/tutors/{id}/update")
+//    public void updateTutor() {
+//    }
+//
+//    @GetMapping("/tutors/{id}/events")
+//    public void tutorEvents() {
+//    }
+//
+//    @PostMapping(name = "/tutors/{tutorId}/events/{eventId}/add")
+//    public void addEventToTutor() {
+//    }
+//
+//    @DeleteMapping(name = "/tutors/{tutorId}/events/{eventId}/delete")
+//    public void deleteEventToTutor() {
+//    }
+//
+//    @GetMapping(name = "/requests")
+//    public void showAllRequestsList() {
+//    }
+//
+//    @PostMapping(name = "/requests/{id}/confirm")
+//    public void confirmRequest() {
+//    }
+//
+//    @PostMapping(name = "/requests/{id}/cancel")
+//    public void cancelRequest() {
+//    }
 
 }

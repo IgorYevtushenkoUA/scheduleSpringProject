@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -21,7 +22,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,21 +51,19 @@ public class User {
 
     @Min(1)
     @Max(4)
-    @NotEmpty
-    @Column(name = "course")
+    @Column(name = "course", nullable = true)
     private int course;
 
-    @NotNull
-    @Column(name = "faculty")
+    @Column(name = "faculty", nullable = true)
     private String faculty;
 
     @NotNull
     @Column(name = "avatar_id")
     private long avatarId;
 
-    @NotNull
-    @CreatedDate
-    @Column(name = "created")
-    private long created = new Date().getTime();
+//    @NotNull
+//    @CreatedDate
+//    @Column(name = "created")
+//    private long created = new Date().getTime();
 
 }

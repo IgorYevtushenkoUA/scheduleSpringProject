@@ -30,7 +30,7 @@ public class Atendee {
     @Column(name = "event_id")
     private long eventId;
 
-    @CreatedDate
-    @Column(name = "created")
-    private long created = new Date().getTime();
+//    @CreatedDate
+//    @Column(name = "created")
+//    private long created = new Date().getTime();
 }
