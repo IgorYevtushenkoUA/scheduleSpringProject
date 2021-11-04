@@ -10,16 +10,16 @@ public class TutorController {
     public void showTutorDefaultSchedule() {
     }
 
-//    @GetMapping(value = "/schedule/week/{num}")
-//    public void showTutorScheduleForWeekN() {
-//    }
-//
-//    @GetMapping(value = "/event/{id}/update")
-//    public void eventUpdateForm() {
-//    }
-//
-//    @PostMapping(value = "/event/{id}/update")
-//    public void createRequestToUpdateEvent() {
-//    }
+    @GetMapping(value = "/schedule/week/{num}")
+    public void showTutorScheduleForWeekN() {
+    }
+
+    @GetMapping(value = "/event/{id}/update")
+    public void eventUpdateForm() {
+    }
+
+    @PostMapping(value = "/event/{id}/update")
+    public void createRequestToUpdateEvent() {
+    }
 
 }

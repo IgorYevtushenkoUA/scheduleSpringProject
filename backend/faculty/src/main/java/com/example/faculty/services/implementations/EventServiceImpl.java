@@ -6,9 +6,11 @@ import com.example.faculty.database.repository.EventRepository;
 import com.example.faculty.models.requests.EventRequest;
 import com.example.faculty.services.interfaces.EventService;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+import org.jboss.logging.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventServiceImpl implements EventService {
 
-    static Logger logger = LoggerFactory.getLogger(EventServiceImpl.class);
-
+    private static final Logger logger = LogManager.getLogger(FacultyApplication.class);
+    private static final Marker MARKER_EVENT = MarkerManager.getMarker("EVENT");
 
     @Autowired
     EventRepository eventRepository;
@@ -38,10 +40,12 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event getEventById(Long requestId) {
-        MDC.put("event.id", requestId.toString());
-        logger.info("set event.id");
+        Event event = eventRepository.findById(requestId).orElse(null);
+        MDC.put("event.id", event.getId().toString());
+        logger.info(MARKER_EVENT, "MARKER_EVENT test");
+        logger.info( "Event has -> ID : ");
         MDC.clear();
-        return null;
+        return event;
     }
 
     @Override
@@ -58,6 +62,11 @@ public class EventServiceImpl implements EventService {
     public Page<Event> getAllEvents(Pageable pageable) {
         return null;
     }
+
+    public List<Event> getAllEvents() {
+        return eventRepository.getAllEvents();
+    }
+
 
     @Override
     public Page<Event> getAllEventsByGroup(String group, Pageable pageable) {

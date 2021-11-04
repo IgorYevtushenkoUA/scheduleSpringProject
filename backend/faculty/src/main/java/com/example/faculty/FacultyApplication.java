@@ -1,28 +1,45 @@
 package com.example.faculty;
 
+import com.example.faculty.database.entity.Event;
 import com.example.faculty.services.implementations.EventServiceImpl;
-import org.apache.logging.log4j.ThreadContext;
-import org.slf4j.Logger;
+import com.example.faculty.services.interfaces.EventService;
+import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 
-import java.util.Date;
+import java.util.List;
+
 
 @SpringBootApplication
-public class FacultyApplication {
-    static Logger logger = LoggerFactory.getLogger(FacultyApplication.class);
+public class FacultyApplication implements CommandLineRunner {
+
+    private static final Logger logger = LogManager.getLogger(FacultyApplication.class);
+
+
+    @Autowired
+    EventServiceImpl eventService;
+
+
 
     public static void main(String[] args) {
-        ApplicationContext applicationContext = SpringApplication.run(FacultyApplication.class, args);
-//        test(applicationContext);
+        SpringApplication.run(FacultyApplication.class, args);
+        logger.info("snickers");
     }
 
-    private static void test(ApplicationContext applicationContext) {
-        EventServiceImpl eventService = applicationContext.getBean(EventServiceImpl.class);
-        System.out.println(eventService.getEventById(1L));
-        MDC.clear();
+    @Override
+    public void run(String... args) {
+        showAllEvents();
     }
+
+    public void showAllEvents() {
+        Event event = eventService.getEventById(1l);
+
+
+    }
+
 }
