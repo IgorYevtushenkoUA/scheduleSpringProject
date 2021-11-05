@@ -1,38 +1,54 @@
 package com.example.faculty.database.entity;
 
 import com.example.faculty.database.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.Date;
+import java.util.List;
 
+//@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email")
+})
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false, unique = true)
     private Long id;
 
-    @CreatedDate
+    @NotNull
     @Column(name = "created")
-    private long created = new Date().getTime();
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationDate;
 
+    @Email
+    @Column(nullable = false)
+    private String email;
+
+    @JsonIgnore
+    private String password;
+
+    @NotNull
     @Column(name = "name")
     private String name;
 
+    @NotNull
     @Column(name = "surname")
     private String surname;
 
+    @NotNull
     @Column(name = "parental")
     private String parental;
 
@@ -44,13 +60,21 @@ public class User {
     @Column(name = "about")
     private String about;
 
+    @Min(1)
+    @Max(4)
+    @NotEmpty
     @Column(name = "course")
     private int course;
 
+    @NotNull
     @Column(name = "faculty")
     private String faculty;
 
+    @NotNull
     @Column(name = "avatar_id")
     private long avatarId;
+
+    @ManyToMany(mappedBy = "peopleInSubject",fetch = FetchType.EAGER)
+    private List<Subject> userSubjects;
 
 }

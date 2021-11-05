@@ -4,7 +4,6 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/backend/faculty/pom.xml" />
-        <option value="$PROJECT_DIR$/spring-boot-logger-starter/pom.xml" />
       </list>
     </option>
   </component>

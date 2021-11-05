@@ -1,9 +1,7 @@
 package com.example.faculty.services.interfaces;
 
 import com.example.faculty.database.entity.Event;
-import com.example.faculty.database.entity.Request;
 import com.example.faculty.models.requests.EventRequest;
-import com.example.faculty.models.requests.RequestRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

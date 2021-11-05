@@ -6,6 +6,7 @@ import com.example.faculty.database.repository.UserRepository;
 import com.example.faculty.models.requests.UserRequest;
 import com.example.faculty.services.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     UserRepository userRepository;
 
     @Override
@@ -67,4 +69,5 @@ public class UserServiceImpl implements UserService {
     public Page<User> getAllUsersByFaculty(String faculty, Pageable pageable) {
         return null;
     }
+
 }

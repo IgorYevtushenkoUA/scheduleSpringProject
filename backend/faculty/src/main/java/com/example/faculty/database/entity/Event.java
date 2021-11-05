@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+//@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
@@ -16,25 +18,30 @@ import java.util.Date;
 @Builder
 @Table(name = "event")
 public class Event {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false, unique = true)
     private Long id;
 
-    @CreatedDate
+    @NotNull
     @Column(name = "created")
-    private long created = new Date().getTime();
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationDate;
 
-    @Column(name = "group")
+    @NotNull
+    @Column(name = "groups")
     private String group;
 
+    @NotNull
     @Column(name = "name")
     private String name;
 
+    @NotNull
     @Column(name = "auditory")
     private String auditory;
 
-    @Column(name = "request")
+    @NotNull
+    @Column(name = "request", nullable = false)
     private boolean isRequest;
 
 }

@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan
 @ConditionalOnProperty(prefix = "spring.profiles", name = "active", havingValue = "dev")
 public class ProfilesConfig {
+
     @Value("${spring.profiles.active}")
     private String profile;
     @Value("${spring.datasource.url}")

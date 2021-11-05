@@ -3,27 +3,37 @@ package com.example.faculty.database.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
+//@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "subject")
+@Table(name = "subject", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "name")
+})
 public class Subject {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false, unique = true)
     private Long id;
 
-    @CreatedDate
+    @NotNull
     @Column(name = "created")
-    private long created = new Date().getTime();
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationDate;
 
     @Column(name = "name")
     private String name;
@@ -34,13 +44,20 @@ public class Subject {
     @Column(name = "speciality")
     private String speciality;
 
+    @Min(1)
+    @Max(4)
     @Column(name = "course")
     private int course;
 
     @Column(name = "code")
     private int code;
 
+    @Min(1)
+    @Max(3)
     @Column(name = "trim")
     private String trim;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<User> peopleInSubject;
 
 }

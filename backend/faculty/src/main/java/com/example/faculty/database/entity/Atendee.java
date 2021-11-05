@@ -3,12 +3,15 @@ package com.example.faculty.database.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+//@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
@@ -18,16 +21,19 @@ import java.util.Date;
 public class Atendee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false, unique = true)
     private Long id;
 
-    @CreatedDate
+    @NotNull
     @Column(name = "created")
-    private long created = new Date().getTime();
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationDate;
 
     @Column(name = "user_id")
-    private Long userId;
+    private long userId;
 
     @Column(name = "event_id")
-    private Long eventId;
+    private long eventId;
+
 }
