@@ -15,7 +15,8 @@ import javax.validation.Valid;
 public class AdminController {
 
     @GetMapping(value = "/subjects/create")
-    public String createSubjectForm() {
+    public String createSubjectForm() throws BadRequestException {
+        if(1==1) throw new BadRequestException("Bad_request_lol");
         return "";
     }
 

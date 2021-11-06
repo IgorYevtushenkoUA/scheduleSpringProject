@@ -1,20 +1,8 @@
 package com.example.faculty.util.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+public class BadRequestException extends Throwable {
 
-@ResponseStatus(HttpStatus.BAD_REQUEST)
-public class BadRequestException extends RuntimeException {
+    public BadRequestException() { super("Bad Request Exception");}
 
-    public BadRequestException() {
-        super("Bad Request lol");
-    }
-
-    public BadRequestException(String message) {
-        super(message);
-    }
-
-    public BadRequestException(String message, Throwable cause) {
-        super(message, cause);
-    }
+    public BadRequestException(String exception) { super(exception);}
 }
