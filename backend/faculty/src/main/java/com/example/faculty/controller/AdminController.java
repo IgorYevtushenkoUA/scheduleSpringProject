@@ -1,7 +1,14 @@
 package com.example.faculty.controller;
 
+import com.example.faculty.database.dto.CreateEventDto;
+import com.example.faculty.database.dto.CreateSubjectDto;
+import com.example.faculty.util.exception.BadRequestException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/api/admin")
@@ -13,8 +20,9 @@ public class AdminController {
     }
 
     @PostMapping(value = "/subjects/create")
-    public String doCreateSubject() {
-        return "redirect:/";
+    public ResponseEntity<String> doCreateSubject(@Valid @Validated @RequestBody  CreateSubjectDto subjectDto) throws BadRequestException {
+        System.out.println(subjectDto);
+        return ResponseEntity.ok("Subject is created successfully");
     }
 
     @GetMapping(value = "/subjects/{id}/update")
@@ -36,7 +44,9 @@ public class AdminController {
     }
 
     @PostMapping(value = "/events/create")
-    public void createEvent() {
+    public ResponseEntity<String> createEvent(@Valid @RequestBody CreateEventDto eventDto) {
+
+        return ResponseEntity.ok("Event is created successfully");
     }
 
     @GetMapping(value = "/events/{id}/update")

@@ -3,11 +3,11 @@
 
     <property name="DEV_HOME" value="c:/logs" />
 
-    <turboFilter class="ch.qos.logback.classic.turbo.MarkerFilter">
-        <Name>EVENT</Name>
-        <Marker>ACCESS</Marker>
-        <OnMatch>DENY</OnMatch>
-    </turboFilter>
+<!--    <turboFilter class="ch.qos.logback.classic.turbo.MarkerFilter">-->
+<!--        <Name>EVENT</Name>-->
+<!--        <Marker>ACCESS</Marker>-->
+<!--        <OnMatch>DENY</OnMatch>-->
+<!--    </turboFilter>-->
 
     <appender name="Console"
               class="ch.qos.logback.core.ConsoleAppender">
