@@ -15,10 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class EventServiceImpl implements EventService {
 
@@ -29,8 +31,8 @@ public class EventServiceImpl implements EventService {
     EventRepository eventRepository;
 
     @Override
-    public Event createEvent(EventRequest request) {
-        return null;
+    public Event createEvent(Event event) {
+        return eventRepository.save(event);
     }
 
     @Override
@@ -43,7 +45,7 @@ public class EventServiceImpl implements EventService {
         Event event = eventRepository.findById(requestId).orElse(null);
         MDC.put("event.id", event.getId().toString());
         logger.info(MARKER_EVENT, "MARKER_EVENT test");
-        logger.info( "Event has -> ID : ");
+        logger.info("Event has -> ID : ");
         MDC.clear();
         return event;
     }
@@ -51,6 +53,12 @@ public class EventServiceImpl implements EventService {
     @Override
     public void deleteEvent(Long requestId) {
 
+    }
+
+    @Override
+    public List<Event> getAll() {
+
+        return (List<Event>) eventRepository.findAll();
     }
 
     @Override

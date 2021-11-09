@@ -16,6 +16,7 @@ public class StudentController {
 
     @GetMapping(value = "/schedule")
     public void showDefaultSchedule() {
+
     }
 
     @GetMapping(value = "/schedule/week/{num}")

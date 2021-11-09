@@ -1,22 +1,27 @@
 package com.example.faculty.services.implementations;
 
 import com.example.faculty.database.entity.Subject;
+import com.example.faculty.database.repository.SubjectRepository;
 import com.example.faculty.models.requests.SubjectRequest;
 import com.example.faculty.services.interfaces.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class SubjectServiceImpl implements SubjectService {
 
+    private final SubjectRepository subjectRepository;
+
     @Override
-    public Subject createSubject(SubjectRequest SubjectRequest) {
-        return null;
+    public Subject createSubject(Subject subject) {
+        return subjectRepository.save(subject);
     }
 
     @Override
@@ -32,6 +37,11 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public void deleteSubject(Long subjectId) {
 
+    }
+
+    @Override
+    public List<Subject> getAll() {
+        return (List<Subject>) subjectRepository.findAll();
     }
 
     @Override

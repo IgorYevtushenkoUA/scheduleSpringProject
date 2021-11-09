@@ -19,7 +19,7 @@ import java.util.Date;
 @Table(name = "request")
 public class Request  {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false, unique = true)
     private Long id;
 

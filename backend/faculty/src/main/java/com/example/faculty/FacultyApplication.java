@@ -37,8 +37,6 @@ public class FacultyApplication implements CommandLineRunner {
     }
 
     public void showAllEvents() {
-        Event event = eventService.getEventById(1l);
-
 
     }
 

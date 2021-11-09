@@ -20,7 +20,7 @@ import java.util.Date;
 @Table(name = "event")
 public class Event {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false, unique = true)
     private Long id;
 
@@ -33,7 +33,7 @@ public class Event {
     private long subjectId;
 
     @Column(name="datetime")
-    private Timestamp timestamp;
+    private Timestamp datetime;
 
     @NotNull
     @Column(name = "groups")

@@ -11,13 +11,15 @@ import java.util.List;
 
 public interface EventService {
 
-    Event createEvent(EventRequest request);
+    Event createEvent(Event request);
 
     Event updateEvent(Long requestId, EventRequest request);
 
     Event getEventById(Long requestId);
 
     void deleteEvent(Long requestId);
+
+    List<Event> getAll();
 
     List<Event> getAllEventsByUser(Long userId);
 
