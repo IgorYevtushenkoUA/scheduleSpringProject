@@ -10,7 +10,7 @@ public class StudentController {
     public void enrollToEvent() {
     }
 
-    @DeleteMapping(value = "/event/{id}/drop_out")
+    @DeleteMapping(value = "/event/{id}/leave")
     public void dropOutFromEvent() {
     }
 

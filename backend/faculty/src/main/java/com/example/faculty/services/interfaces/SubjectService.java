@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SubjectService {
 
@@ -15,7 +16,7 @@ public interface SubjectService {
 
     Subject updateSubject(Long userId, SubjectRequest SubjectRequest);
 
-    Subject getSubjectById(Long subjectId);
+    Optional<Subject> getSubjectById(Long subjectId);
 
     void deleteSubject(Long subjectId);
 

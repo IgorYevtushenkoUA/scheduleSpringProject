@@ -26,7 +26,7 @@ AdminController
 StudentController
 
 Зареєструватися на івент        | /student/event/{subjectId}/enroll [Post]
-Виписатися з івенту             | /student/event/{subjectId}/drop_out [Delete]
+Виписатися з івенту             | /student/event/{subjectId}/leave [Delete]
 Переглянути свій розклад        | /student/schedule [Get]
                                 | /student/schedule/week{number} [Get]
 

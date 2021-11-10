@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -30,8 +31,8 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public Subject getSubjectById(Long subjectId) {
-        return null;
+    public Optional<Subject> getSubjectById(Long subjectId) {
+        return subjectRepository.findById(subjectId);
     }
 
     @Override

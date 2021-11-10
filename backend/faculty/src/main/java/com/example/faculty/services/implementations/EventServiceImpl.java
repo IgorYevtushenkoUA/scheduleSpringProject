@@ -37,7 +37,15 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event updateEvent(Long requestId, EventRequest request) {
-        return null;
+        Event event = this.getEventById(requestId);
+        event.setName(request.getName());
+        event.setAuditory(request.getAuditory());
+        event.setGroup(request.getGroup());
+        event.setOrganizer(request.getOrganizer());
+        event.setRequest(request.getIsRequest());
+        event.setSubjectId(request.getSubjectId());
+        eventRepository.save(event);
+        return event;
     }
 
     @Override
@@ -52,7 +60,8 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public void deleteEvent(Long requestId) {
-
+        Event event = this.getEventById(requestId);
+        eventRepository.delete(event);
     }
 
     @Override
