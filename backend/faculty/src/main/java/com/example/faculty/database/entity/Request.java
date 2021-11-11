@@ -3,13 +3,13 @@ package com.example.faculty.database.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -17,11 +17,14 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 @Table(name = "request")
-public class Request  {
+public class Request {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "request_id", updatable = false, nullable = false, unique = true)
-    private Long requestId;
+    @Column(name = "id")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @NotNull(message = "id cannot be null")
+    private UUID id;
 
     @NotNull
     @Column(name = "time")
@@ -29,10 +32,10 @@ public class Request  {
     private Date time;
 
     @Column(name = "user_id")
-    private Long userId;
+    private String userId;
 
     @Column(name = "request_event_id")
-    private Long requestEventId;
+    private String requestEventId;
 
     @ManyToOne
     @JoinColumn(name = "event_id")

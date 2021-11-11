@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -18,9 +20,11 @@ import java.util.Date;
 public class Atendee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false, unique = true)
-    private Long id;
+    @Column(name = "id")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @NotNull(message = "id cannot be null")
+    private UUID id;
 
     @NotNull
     @Column(name = "created")
@@ -28,9 +32,9 @@ public class Atendee {
     private Date creationDate;
 
     @Column(name = "user_id")
-    private long userId;
+    private String userId;
 
     @Column(name = "event_id")
-    private long eventId;
+    private String eventId;
 
 }

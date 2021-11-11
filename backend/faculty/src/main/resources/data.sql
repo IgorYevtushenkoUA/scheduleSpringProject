@@ -1,6 +1,6 @@
 CREATE TABLE users
 (
-    id        LONG AUTO_INCREMENT PRIMARY KEY,
+    id        UUID PRIMARY KEY,
     email     VARCHAR(250) NOT NULL,
     password  VARCHAR(96)  NOT NULL,
     name      VARCHAR(96)  NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE users
 
 CREATE TABLE subject
 (
-    id         LONG PRIMARY KEY,
+    id         UUID PRIMARY KEY,
     created    TIMESTAMP   NOT NULL,
     name       VARCHAR(96) NOT NULL,
     faculty    VARCHAR(96) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE subject
 
 CREATE TABLE event
 (
-    id         LONG PRIMARY KEY,
+    id         UUID PRIMARY KEY,
     organizer  LONG,
     subject_id LONG,
     created    TIMESTAMP   NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE event
 
 CREATE TABLE request
 (
-    id       LONG PRIMARY KEY,
+    id       UUID PRIMARY KEY,
     created  TIMESTAMP NOT NULL,
     user_id  LONG      NOT NULL,
     event_id LONG      NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE request
 
 CREATE TABLE atendee
 (
-    id       LONG PRIMARY KEY,
+    id       UUID PRIMARY KEY,
     created  TIMESTAMP NOT NULL,
     user_id  LONG      NOT NULL,
     event_id LONG      NOT NULL,
@@ -59,86 +59,102 @@ CREATE TABLE atendee
 
 -- USER --
 insert into users(id, email, password, name, surname, parental, role, about, avatar_id)
-values (1, 'mandy.dolton@ukma.edu.ua', '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Mandy',
+values ('efbc09df-64a8-484d-bad3-caf16a9f7db5', 'mandy.dolton@ukma.edu.ua',
+        '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Mandy',
         'Dolton', 'Claire', 'STUDENT', 'about todo', 1);
 
 insert into users(id, email, password, name, surname, parental, role, about, avatar_id)
-values (2, 'paulina.vlencia@ukma.edu.ua', '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Paulina',
+values ('efbc09df-64a8-484d-bad3-caf16a9f7db6', 'paulina.vlencia@ukma.edu.ua',
+        '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Paulina',
         'Valencia', 'Timur', 'STUDENT', 'about todo', 1);
 
 insert into users(id, name, email, password, surname, parental, role, about, avatar_id)
-values (3, 'phebe.bowes@ukma.edu.ua', '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Phebe', 'Bowes',
+values ('efbc09df-64a8-484d-bad3-caf16a9f7db7', 'phebe.bowes@ukma.edu.ua',
+        '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Phebe', 'Bowes',
         'Hania', 'STUDENT', 'about todo', 2);
 
 insert into users(id, email, password, name, surname, parental, role, about, avatar_id)
-values (4, 'bradley.davine@ukma.edu.ua', '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Bradley',
+values ('efbc09df-64a8-484d-bad3-caf16a9f7db8', 'bradley.davine@ukma.edu.ua',
+        '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Bradley',
         'Devine', 'Zayan', 'TEACHER', 'about todo', 1);
 
 insert into users(id, email, password, name, surname, parental, role, about, avatar_id)
-values (5, 'kian.mullen@ukma.edu.ua', '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Kian', 'Mullen',
+values ('efbc09df-64a8-484d-bad3-caf16a9f7db9', 'kian.mullen@ukma.edu.ua',
+        '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Kian', 'Mullen',
         'Gunn', 'TEACHER', 'about todo', 1);
 
 insert into users(id, email, password, name, surname, parental, role, about, avatar_id)
-values (6, 'teagan.nicholson@ukma.edu.ua', '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Teagan',
+values ('efbc09df-64a8-484d-bad3-caf16a9f7db4', 'teagan.nicholson@ukma.edu.ua',
+        '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Teagan',
         'Nicholson', 'Benton', 'TEACHER', 'about todo', 1);
 
 insert into users(id, email, password, name, surname, parental, role, about, avatar_id)
-values (7, 'richard.gill@ukma.edu.ua', '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Richard',
+values ('efbc09df-64a8-484d-bad3-caf16a9f7db3', 'richard.gill@ukma.edu.ua',
+        '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Richard',
         'Gill', 'Fletcher', 'TEACHER', 'about todo', 1);
 
 insert into users(id, email, password, name, surname, parental, role, about, avatar_id)
-values (8, 'bently.avila@ukma.edu.ua', '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Bentley',
+values ('efbc09df-64a8-484d-bad3-caf16a9f7db2', 'bently.avila@ukma.edu.ua',
+        '$2a$10$JQor2Lkc5wAN4hWUQQq.wudA2kb/vXUsGevKkmD.xOmCyqLnM.UHm', 'Bentley',
         'Avila', 'Hull', 'ADMINISTRATOR', 'about todo', 1);
 
 -- SUBJECT --
 insert into subject(id, created, name, faculty, speciality, course, code, trim)
-values (1, '1636092860', 'Computer Science', 'INFORMATICS', 'Computer Science', 1, 111111, 1);
+values ('afbc09df-64a8-484d-bad3-caf16a9f7db5', '1636092860', 'Computer Science', 'INFORMATICS', 'Computer Science', 1,
+        111111, 1);
 
 insert into subject(id, created, name, faculty, speciality, course, code, trim)
-values (2, '1636092860', 'Introduction to Computer Networks', 'INFORMATICS', 'Computer Science', 2, 111112, 1);
+values ('bfbc09df-64a8-484d-bad3-caf16a9f7db5', '1636092860', 'Introduction to Computer Networks', 'INFORMATICS',
+        'Computer Science', 2, 111112, 1);
 
 insert into subject(id, created, name, faculty, speciality, course, code, trim)
-values (3, '1636092860', 'Databases', 'INFORMATICS', 'Software Engineering', 3, 111113, 1);
+values ('cfbc09df-64a8-484d-bad3-caf16a9f7db5', '1636092860', 'Databases', 'INFORMATICS', 'Software Engineering', 3,
+        111113, 1);
 
 insert into subject(id, created, name, faculty, speciality, course, code, trim)
-values (4, '1636092860', 'Algebra', 'INFORMATICS', 'Mathematics', 1, 111114, 1);
+values ('dfbc09df-64a8-484d-bad3-caf16a9f7db5', '1636092860', 'Algebra', 'INFORMATICS', 'Mathematics', 1, 111114, 1);
 
 insert into subject(id, created, name, faculty, speciality, course, code, trim)
-values (5, '1636092860', 'Computer Structure', 'INFORMATICS', 'Software Engineering', 2, 111115, 1);
+values ('efac09df-64a8-484d-bad3-caf16a9f7db5', '1636092860', 'Computer Structure', 'INFORMATICS',
+        'Software Engineering', 2, 111115, 1);
 
 insert into subject(id, created, name, faculty, speciality, course, code, trim)
-values (6, '1636092860', 'Computer Architecture', 'INFORMATICS', 'Computer Science', 2, 111116, 2);
+values ('efdc09df-64a8-484d-bad3-caf16a9f7db5', '1636092860', 'Computer Architecture', 'INFORMATICS',
+        'Computer Science', 2, 111116, 2);
 
 -- EVENT --
 insert into event(id, organizer, subject_id, created, groups, name, auditory, request)
-values (1, 8, 1, '1636092860', 'gr1', 'Algebra lecture', '3-311', false);
+values ('efdc09df-64a8-184d-bad3-caf16a9f7db5', 8, 1, '1636092860', 'gr1', 'Algebra lecture', '3-311', false);
 
 insert into event(id, organizer, subject_id, created, groups, name, auditory, request)
-values (2, 8, 1, '1636092860', 'gr2', 'Algebra practice', '3-312', false);
+values ('efdc09df-64a8-284d-bad3-caf16a9f7db5', 8, 1, '1636092860', 'gr2', 'Algebra practice', '3-312', false);
 
 insert into event(id, organizer, subject_id, created, groups, name, auditory, request)
-values (3, 8, 1, '1636092860', 'gr1', 'Computer Structure lecture', '1-311', false);
+values ('efdc09df-64a8-384d-bad3-caf16a9f7db5', 8, 1, '1636092860', 'gr1', 'Computer Structure lecture', '1-311',
+        false);
 
 insert into event(id, organizer, subject_id, created, groups, name, auditory, request)
-values (4, 8, 2, '1636092860', 'gr1', 'Computer Structure practice', '1-311', false);
+values ('efdc09df-64a8-584d-bad3-caf16a9f7db5', 8, 2, '1636092860', 'gr1', 'Computer Structure practice', '1-311',
+        false);
 
 insert into event(id, organizer, subject_id, created, groups, name, auditory, request)
-values (5, 8, 2, '1636092860', 'gr1', 'Computer Architecture lecture', '1-215', false);
+values ('efdc09df-64a8-784d-bad3-caf16a9f7db5', 8, 2, '1636092860', 'gr1', 'Computer Architecture lecture', '1-215',
+        false);
 
 
 -- ATENDEE --
 insert into atendee(id, created, user_id, event_id)
-values (1, '1636092860', 1, 1);
+values ('efdc09df-64a8-484a-bad3-caf16a9f7db5', '1636092860', 1, 1);
 insert into atendee(id, created, user_id, event_id)
-values (2, '1636092860', 1, 2);
+values ('efdc09df-64a8-484b-bad3-caf16a9f7db5', '1636092860', 1, 2);
 insert into atendee(id, created, user_id, event_id)
-values (3, '1636092860', 2, 1);
+values ('efdc09df-64a8-484c-bad3-caf16a9f7db5', '1636092860', 2, 1);
 insert into atendee(id, created, user_id, event_id)
-values (4, '1636092860', 2, 2);
+values ('efdc09df-64a8-484e-bad3-caf16a9f7db5', '1636092860', 2, 2);
 insert into atendee(id, created, user_id, event_id)
-values (5, '1636092860', 3, 3);
+values ('efdc09df-64a8-484f-bad3-caf16a9f7db5', '1636092860', 3, 3);
 insert into atendee(id, created, user_id, event_id)
-values (6, '1636092860', 3, 3);
+values ('efdc09df-64a8-484g-bad3-caf16a9f7db5', '1636092860', 3, 3);
 
 
 -- REQUEST --

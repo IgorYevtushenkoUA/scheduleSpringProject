@@ -4,12 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -18,10 +19,13 @@ import java.util.List;
 @Builder
 @Table(name = "event")
 public class Event {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "event_id", updatable = false, nullable = false, unique = true)
-    private Long eventId;
+    @Column(name = "id")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @NotNull(message = "id cannot be null")
+    private UUID id;
 
     @NotNull
     @Column(name = "datetime")

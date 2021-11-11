@@ -6,11 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -23,9 +25,11 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id", updatable = false, nullable = false, unique = true)
-    private Long userId;
+    @Column(name = "id")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @NotNull(message = "id cannot be null")
+    private UUID id;
 
     @NotNull
     @Column(name = "created")
@@ -73,7 +77,7 @@ public class User {
     @Column(name = "avatar_id")
     private long avatarId;
 
-    @ManyToMany(mappedBy = "peopleInSubject",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "peopleInSubject", fetch = FetchType.EAGER)
     private List<Subject> userSubjects;
 
     @OneToMany

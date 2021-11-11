@@ -3,9 +3,8 @@ package com.example.faculty.database.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -13,6 +12,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -25,9 +25,11 @@ import java.util.List;
 public class Subject {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false, unique = true)
-    private Long id;
+    @Column(name = "id")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @NotNull(message = "id cannot be null")
+    private UUID id;
 
     @NotNull
     @Column(name = "created")
