@@ -9,8 +9,8 @@ import org.springframework.data.annotation.CreatedDate;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
-//@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
@@ -20,13 +20,13 @@ import java.util.Date;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false, unique = true)
-    private Long id;
+    @Column(name = "event_id", updatable = false, nullable = false, unique = true)
+    private Long eventId;
 
     @NotNull
-    @Column(name = "created")
+    @Column(name = "datetime")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
+    private Date dateTime;
 
     @NotNull
     @Column(name = "groups")
@@ -43,5 +43,20 @@ public class Event {
     @NotNull
     @Column(name = "request", nullable = false)
     private boolean isRequest;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @Column
+    private User organizer;
+
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    @Column
+    private Subject subjectId;
+
+    @OneToMany
+    @JoinColumn(name = "request_id")
+    @Transient
+    private List<Request> requests;
 
 }

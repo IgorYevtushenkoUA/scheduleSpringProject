@@ -11,7 +11,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-//@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
@@ -21,19 +20,23 @@ import java.util.Date;
 public class Request  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false, unique = true)
-    private Long id;
+    @Column(name = "request_id", updatable = false, nullable = false, unique = true)
+    private Long requestId;
 
     @NotNull
-    @Column(name = "created")
+    @Column(name = "time")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
+    private Date time;
 
     @Column(name = "user_id")
-    private long userId;
+    private Long userId;
 
-    @Column(name = "event_id")
-    private long eventId;
+    @Column(name = "request_event_id")
+    private Long requestEventId;
 
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    @Column
+    private Event eventId;
 
 }

@@ -3,15 +3,12 @@ package com.example.faculty.database.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-//@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor

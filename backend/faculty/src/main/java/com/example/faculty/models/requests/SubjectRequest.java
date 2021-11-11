@@ -12,5 +12,5 @@ public class SubjectRequest {
     private String speciality;
     private String trim;
     private int course;
-    private int code;
+    private String code;
 }

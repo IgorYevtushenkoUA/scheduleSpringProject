@@ -12,7 +12,6 @@ import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.List;
 
-//@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
@@ -25,8 +24,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false, unique = true)
-    private Long id;
+    @Column(name = "user_id", updatable = false, nullable = false, unique = true)
+    private Long userId;
 
     @NotNull
     @Column(name = "created")
@@ -76,5 +75,10 @@ public class User {
 
     @ManyToMany(mappedBy = "peopleInSubject",fetch = FetchType.EAGER)
     private List<Subject> userSubjects;
+
+    @OneToMany
+    @JoinColumn(name = "event_id")
+    @Transient
+    private List<Event> events;
 
 }

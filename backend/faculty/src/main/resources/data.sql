@@ -1,6 +1,6 @@
 CREATE TABLE users
 (
-    id        INT AUTO_INCREMENT PRIMARY KEY,
+    id        LONG AUTO_INCREMENT PRIMARY KEY,
     email     VARCHAR(250) NOT NULL,
     password  VARCHAR(96)  NOT NULL,
     name      VARCHAR(96)  NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE users
 
 CREATE TABLE subject
 (
-    id         INT PRIMARY KEY,
+    id         LONG PRIMARY KEY,
     created    TIMESTAMP   NOT NULL,
     name       VARCHAR(96) NOT NULL,
     faculty    VARCHAR(96) NOT NULL,
@@ -25,17 +25,21 @@ CREATE TABLE subject
 
 CREATE TABLE event
 (
-    id       INT PRIMARY KEY,
-    created  TIMESTAMP   NOT NULL,
-    groups   VARCHAR(96) NOT NULL,
-    name     VARCHAR(96) NOT NULL,
-    auditory VARCHAR(32) NOT NULL,
-    request  BOOLEAN     NOT NULL
+    id         LONG PRIMARY KEY,
+    organizer  LONG,
+    subject_id LONG,
+    created    TIMESTAMP   NOT NULL,
+    groups     VARCHAR(96) NOT NULL,
+    name       VARCHAR(96) NOT NULL,
+    auditory   VARCHAR(32) NOT NULL,
+    request    BOOLEAN     NOT NULL,
+    FOREIGN KEY (organizer) REFERENCES users (id),
+    FOREIGN KEY (subject_id) REFERENCES subject (id)
 );
 
 CREATE TABLE request
 (
-    id       INT PRIMARY KEY,
+    id       LONG PRIMARY KEY,
     created  TIMESTAMP NOT NULL,
     user_id  LONG      NOT NULL,
     event_id LONG      NOT NULL,
@@ -45,7 +49,7 @@ CREATE TABLE request
 
 CREATE TABLE atendee
 (
-    id       INT PRIMARY KEY,
+    id       LONG PRIMARY KEY,
     created  TIMESTAMP NOT NULL,
     user_id  LONG      NOT NULL,
     event_id LONG      NOT NULL,
@@ -106,20 +110,20 @@ insert into subject(id, created, name, faculty, speciality, course, code, trim)
 values (6, '1636092860', 'Computer Architecture', 'INFORMATICS', 'Computer Science', 2, 111116, 2);
 
 -- EVENT --
-insert into event(id, created, groups, name, auditory, request)
-values (1, '1636092860', 'gr1', 'Algebra lecture', '3-311', false);
+insert into event(id, organizer, subject_id, created, groups, name, auditory, request)
+values (1, 8, 1, '1636092860', 'gr1', 'Algebra lecture', '3-311', false);
 
-insert into event(id, created, groups, name, auditory, request)
-values (2, '1636092860', 'gr2', 'Algebra practice', '3-312', false);
+insert into event(id, organizer, subject_id, created, groups, name, auditory, request)
+values (2, 8, 1, '1636092860', 'gr2', 'Algebra practice', '3-312', false);
 
-insert into event(id, created, groups, name, auditory, request)
-values (3, '1636092860', 'gr1', 'Computer Structure lecture', '1-311', false);
+insert into event(id, organizer, subject_id, created, groups, name, auditory, request)
+values (3, 8, 1, '1636092860', 'gr1', 'Computer Structure lecture', '1-311', false);
 
-insert into event(id, created, groups, name, auditory, request)
-values (4, '1636092860', 'gr1', 'Computer Structure practice', '1-311', false);
+insert into event(id, organizer, subject_id, created, groups, name, auditory, request)
+values (4, 8, 2, '1636092860', 'gr1', 'Computer Structure practice', '1-311', false);
 
-insert into event(id, created, groups, name, auditory, request)
-values (5, '1636092860', 'gr1', 'Computer Architecture lecture', '1-215', false);
+insert into event(id, organizer, subject_id, created, groups, name, auditory, request)
+values (5, 8, 2, '1636092860', 'gr1', 'Computer Architecture lecture', '1-215', false);
 
 
 -- ATENDEE --

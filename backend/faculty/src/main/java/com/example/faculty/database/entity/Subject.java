@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
-//@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
@@ -50,7 +49,7 @@ public class Subject {
     private int course;
 
     @Column(name = "code")
-    private int code;
+    private String code;
 
     @Min(1)
     @Max(3)
@@ -59,5 +58,10 @@ public class Subject {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<User> peopleInSubject;
+
+    @OneToMany
+    @JoinColumn(name = "event_id")
+    @Transient
+    private List<Event> events;
 
 }
