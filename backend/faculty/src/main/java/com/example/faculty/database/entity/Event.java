@@ -48,19 +48,19 @@ public class Event {
     @Column(name = "request", nullable = false)
     private boolean isRequest;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @Column
-    private User organizer;
+    @Column(name = "user_id")
+    private String organizer;
 
     @ManyToOne
-    @JoinColumn(name = "subject_id")
-    @Column
-    private Subject subjectId;
+    @JoinColumn(name="id", nullable=false)
+    private Subject subject;
 
     @OneToMany
     @JoinColumn(name = "request_id")
     @Transient
     private List<Request> requests;
+
+    @OneToOne(mappedBy = "event")
+    private User user;
 
 }

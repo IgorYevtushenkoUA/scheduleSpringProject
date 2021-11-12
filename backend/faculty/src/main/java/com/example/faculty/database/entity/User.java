@@ -77,12 +77,14 @@ public class User {
     @Column(name = "avatar_id")
     private long avatarId;
 
-    @ManyToMany(mappedBy = "peopleInSubject", fetch = FetchType.EAGER)
-    private List<Subject> userSubjects;
+//    @ManyToMany(mappedBy = "peopleInSubject", fetch = FetchType.EAGER)
+//    private List<Subject> userSubjects;
 
-    @OneToMany
-    @JoinColumn(name = "event_id")
-    @Transient
-    private List<Event> events;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "atendee",
+            joinColumns =
+                    {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns =
+                    {@JoinColumn(name = "event_id", referencedColumnName = "id")})
+    private Event event;
 }

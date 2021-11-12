@@ -58,12 +58,10 @@ public class Subject {
     @Column(name = "trim")
     private String trim;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<User> peopleInSubject;
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private List<User> peopleInSubject;
 
-    @OneToMany
-    @JoinColumn(name = "event_id")
-    @Transient
+    @OneToMany(mappedBy="subject")
     private List<Event> events;
 
 }
