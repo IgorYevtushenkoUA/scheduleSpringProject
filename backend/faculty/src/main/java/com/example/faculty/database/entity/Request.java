@@ -19,7 +19,7 @@ import javax.persistence.Table;
 public class Request extends EventData {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User creator;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)

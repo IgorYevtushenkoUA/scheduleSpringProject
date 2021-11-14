@@ -49,9 +49,9 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     List<Attendee> attending;
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(mappedBy = "user")
     List<Request> requests;
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(mappedBy = "user")
     List<Event> created;
 }

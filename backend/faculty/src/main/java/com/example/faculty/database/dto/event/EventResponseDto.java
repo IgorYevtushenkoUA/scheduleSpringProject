@@ -1,5 +1,7 @@
 package com.example.faculty.database.dto.event;
 
+import com.example.faculty.database.dto.subject.SubjectShortDto;
+import com.example.faculty.database.dto.user.UserShortDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,4 +30,10 @@ public class EventResponseDto {
 
     @NotNull
     private String auditory;
+
+    @NotNull
+    private UserShortDto user;
+
+    @NotNull
+    private SubjectShortDto subject;
 }

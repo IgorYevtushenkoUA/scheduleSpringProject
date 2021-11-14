@@ -8,14 +8,14 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(uses = { IUserMapper.class, ISubjectMapper.class })
 public interface IEventMapper {
     IEventMapper MAPPER = Mappers.getMapper(IEventMapper.class);
 
-    @Mapping(source = "userId", target = "creator.id")
+    @Mapping(source = "userId", target = "user.id")
     @Mapping(source = "subjectId", target = "subject.id")
     Event createToEvent(EventCreateDto dto);
-    @Mapping(source = "userId", target = "creator.id")
+    @Mapping(source = "userId", target = "user.id")
     @Mapping(source = "subjectId", target = "subject.id")
     Event updateToEvent(EventUpdateDto dto);
     EventResponseDto eventToResponse(Event event);

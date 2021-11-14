@@ -25,7 +25,7 @@ public class Event extends EventData {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User creator;
+    private User user;
 
     @OneToMany(mappedBy = "event")
     List<Request> requests;
