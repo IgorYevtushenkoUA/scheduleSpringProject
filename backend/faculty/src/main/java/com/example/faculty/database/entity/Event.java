@@ -2,6 +2,7 @@ package com.example.faculty.database.entity;
 
 import com.example.faculty.database.entity.base.EventData;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -12,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @Table(name = "event")
 public class Event extends EventData {
     @Column

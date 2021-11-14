@@ -3,6 +3,7 @@ package com.example.faculty.database.entity;
 import com.example.faculty.database.entity.base.BaseEntity;
 import com.example.faculty.database.enums.UserRole;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @Table(name = "users")
 public class User extends BaseEntity {
     @Column(nullable = false)

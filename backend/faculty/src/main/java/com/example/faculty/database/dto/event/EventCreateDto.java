@@ -1,7 +1,8 @@
-package com.example.faculty.database.dto;
+package com.example.faculty.database.dto.event;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -10,8 +11,8 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class EventRequestDto {
+@SuperBuilder
+public class EventCreateDto {
     @NotNull
     @JsonProperty("datetime")
     private Timestamp datetime;

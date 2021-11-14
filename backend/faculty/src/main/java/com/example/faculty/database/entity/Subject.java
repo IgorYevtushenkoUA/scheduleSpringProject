@@ -2,6 +2,7 @@ package com.example.faculty.database.entity;
 
 import com.example.faculty.database.entity.base.BaseEntity;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @Table(name = "subject")
 public class Subject extends BaseEntity {
 

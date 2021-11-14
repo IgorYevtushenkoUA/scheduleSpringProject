@@ -1,7 +1,8 @@
 package com.example.faculty.services.implementations;
 
-import com.example.faculty.database.dto.EventRequestDto;
-import com.example.faculty.database.dto.EventResponseDto;
+import com.example.faculty.database.dto.event.EventCreateDto;
+import com.example.faculty.database.dto.event.EventResponseDto;
+import com.example.faculty.database.dto.event.EventUpdateDto;
 import com.example.faculty.database.entity.Event;
 import com.example.faculty.database.mapstruct.mappers.IEventMapper;
 import com.example.faculty.database.repository.EventRepository;
@@ -37,14 +38,14 @@ public class EventServiceImpl implements IEventService {
     }
 
     @Override
-    public EventResponseDto create(EventRequestDto dto) {
-        Event event = IEventMapper.MAPPER.requestToEvent(dto);
+    public EventResponseDto create(EventCreateDto dto) {
+        Event event = IEventMapper.MAPPER.createToEvent(dto);
         return IEventMapper.MAPPER.eventToResponse(repository.save(event));
     }
 
     @Override
-    public EventResponseDto update(EventRequestDto dto) {
-        Event event = IEventMapper.MAPPER.requestToEvent(dto);
+    public EventResponseDto update(EventUpdateDto dto) {
+        Event event = IEventMapper.MAPPER.updateToEvent(dto);
         return IEventMapper.MAPPER.eventToResponse(repository.save(event));
     }
 }

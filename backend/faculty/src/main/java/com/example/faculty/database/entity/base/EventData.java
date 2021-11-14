@@ -1,7 +1,7 @@
 package com.example.faculty.database.entity.base;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -10,6 +10,9 @@ import javax.validation.constraints.NotNull;
 @Data
 @MappedSuperclass
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class EventData extends BaseEntity {
     @NotNull
     @Column(name = "group_name")

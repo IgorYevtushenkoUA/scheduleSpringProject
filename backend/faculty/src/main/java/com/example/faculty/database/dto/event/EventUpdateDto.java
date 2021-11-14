@@ -1,31 +1,20 @@
 package com.example.faculty.database.dto.event;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class EventResponseDto {
+@SuperBuilder
+public class EventUpdateDto extends EventCreateDto {
     @NotNull
+    @JsonProperty("id")
     private UUID id;
-
-    @NotNull
-    private Timestamp datetime;
-
-    @NotNull
-    private String group;
-
-    @NotNull
-    private String name;
-
-    @NotNull
-    private String auditory;
 }

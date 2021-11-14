@@ -2,6 +2,7 @@ package com.example.faculty.database.entity;
 
 import com.example.faculty.database.entity.base.EventData;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @Table(name = "request")
 public class Request extends EventData {
     @ManyToOne

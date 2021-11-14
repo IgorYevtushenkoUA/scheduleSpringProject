@@ -1,6 +1,10 @@
 package com.example.faculty.database.entity.base;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -10,6 +14,9 @@ import java.util.UUID;
 
 @Data
 @MappedSuperclass
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

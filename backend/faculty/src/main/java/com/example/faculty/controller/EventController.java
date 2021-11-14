@@ -1,7 +1,8 @@
 package com.example.faculty.controller;
 
-import com.example.faculty.database.dto.EventRequestDto;
-import com.example.faculty.database.dto.EventResponseDto;
+import com.example.faculty.database.dto.event.EventCreateDto;
+import com.example.faculty.database.dto.event.EventResponseDto;
+import com.example.faculty.database.dto.event.EventUpdateDto;
 import com.example.faculty.services.interfaces.IEventService;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +30,12 @@ public class EventController {
     }
 
     @PostMapping("/create")
-    public EventResponseDto create(@RequestBody EventRequestDto dto) {
+    public EventResponseDto create(@RequestBody EventCreateDto dto) {
         return service.create(dto);
     }
 
     @PutMapping("/edit")
-    public EventResponseDto update(@RequestBody EventRequestDto dto) {
+    public EventResponseDto update(@RequestBody EventUpdateDto dto) {
         return service.update(dto);
     }
 
