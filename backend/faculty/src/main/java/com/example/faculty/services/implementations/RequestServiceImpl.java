@@ -2,52 +2,18 @@ package com.example.faculty.services.implementations;
 
 import com.example.faculty.database.entity.Request;
 import com.example.faculty.database.repository.RequestRepository;
-import com.example.faculty.models.requests.RequestRequest;
-import com.example.faculty.services.interfaces.RequestService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.example.faculty.services.implementations.base.BaseServiceImpl;
+import com.example.faculty.services.interfaces.IRequestService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.UUID;
 
 @Service
-public class RequestServiceImpl implements RequestService {
+public class RequestServiceImpl extends BaseServiceImpl<Request, UUID> implements IRequestService {
+    private final RequestRepository repository;
 
-    @Autowired
-    RequestRepository requestRepository;
-
-    public RequestServiceImpl() {
-
-    }
-
-    @Override
-    public Request createRequest(RequestRequest request) {
-        return null;
-    }
-
-    @Override
-    public Request updateRequest(Long requestId, RequestRequest request) {
-        return null;
-    }
-
-    @Override
-    public Request getRequestById(Long requestId) {
-        return null;
-    }
-
-    @Override
-    public void deleteRequest(Long requestId) {
-
-    }
-
-    @Override
-    public List<Request> getAllRequestsByUser(Long userId) {
-        return null;
-    }
-
-    @Override
-    public Page<Request> getAllRequests(Pageable pageable) {
-        return null;
+    public RequestServiceImpl(RequestRepository repository) {
+        super(repository);
+        this.repository = repository;
     }
 }

@@ -1,36 +1,25 @@
 package com.example.faculty.database.entity;
 
+import com.example.faculty.database.entity.base.EventData;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.util.Date;
 
-//@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(name = "request")
-public class Request  {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false, unique = true)
-    private Long id;
+public class Request extends EventData {
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User creator;
 
-    @Column(name = "user_id")
-    private long userId;
-
-    @Column(name = "event_id")
-    private long eventId;
-
-    @CreatedDate
-    @Column(name = "created")
-    private long created = new Date().getTime();
-
+    @ManyToOne
+    @JoinColumn(name="event_id", nullable=false)
+    private Event event;
 }

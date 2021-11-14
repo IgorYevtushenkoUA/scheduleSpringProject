@@ -1,70 +1,20 @@
 package com.example.faculty.services.implementations;
 
 import com.example.faculty.database.entity.User;
-import com.example.faculty.database.enums.UserRole;
 import com.example.faculty.database.repository.UserRepository;
-import com.example.faculty.models.requests.UserRequest;
-import com.example.faculty.services.interfaces.UserService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.example.faculty.services.implementations.base.BaseServiceImpl;
+import com.example.faculty.services.interfaces.IUserService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.UUID;
 
 
 @Service
-@RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<User, UUID> implements IUserService {
+    private final UserRepository repository;
 
-    UserRepository userRepository;
-
-    @Override
-    public User createUser(UserRequest userRequest) {
-        return null;
-    }
-
-    @Override
-    public User updateUser(Long userId, UserRequest userRequest) {
-        return null;
-    }
-
-    @Override
-    public User getUserById(Long userId) {
-        return null;
-    }
-
-    @Override
-    public void deleteUser(Long userId) {
-    }
-
-    @Override
-    public List<User> getAllUsersByRole(UserRole role) {
-        return null;
-    }
-
-    @Override
-    public Page<User> getAllUsersByRole(UserRole role, Pageable pageable) {
-        return null;
-    }
-
-    @Override
-    public List<User> getAllUsersByCourse(String course) {
-        return null;
-    }
-
-    @Override
-    public Page<User> getAllUsersByCourse(String course, Pageable pageable) {
-        return null;
-    }
-
-    @Override
-    public List<User> getAllUsersByFaculty(String faculty) {
-        return null;
-    }
-
-    @Override
-    public Page<User> getAllUsersByFaculty(String faculty, Pageable pageable) {
-        return null;
+    public UserServiceImpl(UserRepository repository) {
+        super(repository);
+        this.repository = repository;
     }
 }

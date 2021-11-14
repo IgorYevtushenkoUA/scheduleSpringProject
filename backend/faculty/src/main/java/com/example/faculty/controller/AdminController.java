@@ -68,13 +68,12 @@ public class AdminController {
     @PostMapping(value = "/events/create")
     public ResponseEntity<String> createEvent(@Valid @RequestBody CreateEventDto c) {
         Event event = Event.builder()
-                .organizer(c.getOrganizer())
-                .subjectId(c.getSubjectId())
+                //.organizer(c.getOrganizer())
+                //.subjectId(c.getSubjectId())
                 .datetime(new Timestamp(System.currentTimeMillis()))
-                .group(c.getGroup())
-                .name(c.getName())
-                .auditory(c.getAuditory())
-                .isRequest(c.isRequest())
+                //.group(c.getGroup())
+                //.name(c.getName())
+                //.auditory(c.getAuditory())
                 .build();
 
         event = eventService.createEvent(event);

@@ -1,59 +1,36 @@
 package com.example.faculty.database.entity;
 
+import com.example.faculty.database.entity.base.EventData;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.util.List;
 
-//@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(name = "event")
-public class Event {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false, unique = true)
-    private Long id;
-
-    @NotNull
-    @Column(name="organizer")
-    private long organizer;
-
-    @NotNull
-    @Column(name="subject_id")
-    private long subjectId;
-
-    @Column(name="datetime")
+public class Event extends EventData {
+    @Column
     private Timestamp datetime;
 
-    @NotNull
-    @Column(name = "groups")
-    private String group;
+    @ManyToOne
+    @JoinColumn(name="subject_id", nullable=false)
+    private Subject subject;
 
-    @NotNull
-    @Column(name = "name")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User creator;
 
-    @NotNull
-    @Column(name = "auditory")
-    private String auditory;
+    @OneToMany(mappedBy = "event")
+    List<Request> requests;
 
-    @NotNull
-    @Column(name = "request")
-    private boolean isRequest;
-
-//    @NotNull
-//    @CreatedDate
-//    @Column(name = "created")
-//    private long created = new Date().getTime();
-
+    @OneToMany(mappedBy = "event")
+    List<Attendee> attendees;
 }
