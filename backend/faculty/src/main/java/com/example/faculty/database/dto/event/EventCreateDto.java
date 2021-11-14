@@ -18,11 +18,11 @@ public class EventRequestDto {
 
     @NotNull
     @JsonProperty("subject_id")
-    private UUID subject_id;
+    private UUID subjectId;
 
     @NotNull
     @JsonProperty("user_id")
-    private UUID user_id;
+    private UUID userId;
 
     @NotNull
     @JsonProperty("group")
