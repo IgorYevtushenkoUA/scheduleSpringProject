@@ -1,10 +1,7 @@
 package com.example.faculty.database.entity;
 
 import com.example.faculty.database.entity.base.EventData;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -14,6 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @Table(name = "event")
 public class Event extends EventData {
@@ -21,11 +19,11 @@ public class Event extends EventData {
     private Timestamp datetime;
 
     @ManyToOne
-    @JoinColumn(name="subject_id", nullable=false)
+    @JoinColumn(name = "subject_id")
     private Subject subject;
 
     @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
+    @JoinColumn(name = "user_id")
     private User creator;
 
     @OneToMany(mappedBy = "event")

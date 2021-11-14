@@ -1,31 +1,45 @@
 package com.example.faculty.controller;
 
-import com.example.faculty.database.entity.Event;
-import com.example.faculty.models.requests.EventRequest;
-import com.example.faculty.services.interfaces.EventService;
+import com.example.faculty.database.dto.EventRequestDto;
+import com.example.faculty.database.dto.EventResponseDto;
+import com.example.faculty.services.interfaces.IEventService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/event")
 public class EventController {
-    private final EventService eventService;
+    private final IEventService service;
 
-    public EventController(EventService eventService) {
-        this.eventService = eventService;
+    public EventController(IEventService service) {
+        this.service = service;
     }
 
-    @PostMapping()
-    public Event create(@RequestBody Event event) {
-        return eventService.createEvent(event);
+    @GetMapping
+    public List<EventResponseDto> getAll() {
+        return service.getAll();
     }
 
-    @PutMapping("{id}")
-    public Event update(@PathVariable Long id, @RequestBody EventRequest request) {
-        return eventService.updateEvent(id, request);
+    @GetMapping("/{id}")
+    public Optional<EventResponseDto> get(@PathVariable UUID id) {
+        return service.get(id);
     }
 
-    @DeleteMapping("{id}")
-    public void delete(@PathVariable Long id) {
-        eventService.deleteEvent(id);
+    @PostMapping("/create")
+    public EventResponseDto create(@RequestBody EventRequestDto dto) {
+        return service.create(dto);
+    }
+
+    @PutMapping("/edit")
+    public EventResponseDto update(@RequestBody EventRequestDto dto) {
+        return service.update(dto);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable UUID id) {
+        service.delete(id);
     }
 }

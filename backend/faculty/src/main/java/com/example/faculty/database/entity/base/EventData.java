@@ -1,6 +1,7 @@
 package com.example.faculty.database.entity.base;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -8,9 +9,10 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @MappedSuperclass
+@EqualsAndHashCode(callSuper = true)
 public class EventData extends BaseEntity {
     @NotNull
-    @Column(name = "groups")
+    @Column(name = "group_name")
     private String group;
 
     @NotNull

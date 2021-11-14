@@ -1,10 +1,7 @@
 package com.example.faculty.database.entity;
 
 import com.example.faculty.database.entity.base.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -15,14 +12,15 @@ import javax.persistence.Table;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @Table(name = "attendee")
 public class Attendee extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name="event_id", nullable=false)
+    @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 
     @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }

@@ -2,10 +2,7 @@ package com.example.faculty.database.entity;
 
 import com.example.faculty.database.entity.base.BaseEntity;
 import com.example.faculty.database.enums.UserRole;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -16,6 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @Table(name = "users")
 public class User extends BaseEntity {
@@ -27,6 +25,9 @@ public class User extends BaseEntity {
 
     @Column
     private String parental;
+
+    @Column
+    private String email;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -43,9 +44,6 @@ public class User extends BaseEntity {
 
     @Column
     private String faculty;
-
-    @Column(nullable = false)
-    private long avatarId;
 
     @OneToMany(mappedBy = "user")
     List<Attendee> attending;

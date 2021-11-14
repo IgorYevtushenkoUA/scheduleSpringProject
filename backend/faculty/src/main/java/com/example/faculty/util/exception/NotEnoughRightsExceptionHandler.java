@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-public class NotEnoughRightsExceptionHandler  extends ResponseEntityExceptionHandler {
+public class NotEnoughRightsExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {NotEnoughRightsException.class})
     protected ResponseEntity<Object> handleConflict(IllegalStateException e, WebRequest req) {
 
