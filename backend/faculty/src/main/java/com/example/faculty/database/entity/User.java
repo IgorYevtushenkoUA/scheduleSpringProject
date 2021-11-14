@@ -2,7 +2,10 @@ package com.example.faculty.database.entity;
 
 import com.example.faculty.database.entity.base.BaseEntity;
 import com.example.faculty.database.enums.UserRole;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;

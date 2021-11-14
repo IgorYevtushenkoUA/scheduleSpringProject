@@ -1,7 +1,6 @@
 package com.example.faculty.database.entity.base;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -21,7 +20,7 @@ public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
-    @Type(type="uuid-char")
+    @Type(type = "uuid-char")
     private UUID id;
 
     @CreatedDate

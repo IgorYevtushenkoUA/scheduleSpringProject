@@ -10,8 +10,12 @@ import java.util.UUID;
 
 public interface IEventService {
     List<EventResponseDto> getAll();
+
     Optional<EventResponseDto> get(UUID id);
+
     void delete(UUID id);
+
     EventResponseDto create(EventCreateDto dto);
+
     EventResponseDto update(EventUpdateDto dto);
 }
