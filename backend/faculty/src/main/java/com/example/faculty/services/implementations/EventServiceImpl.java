@@ -48,4 +48,15 @@ public class EventServiceImpl implements IEventService {
         Event event = IEventMapper.MAPPER.updateToEvent(dto);
         return IEventMapper.MAPPER.eventToResponse(repository.save(event));
     }
+
+    @Override
+    public List<Event> findEventForUserByYearAndMonthAndDay(int year, int month, int day) {
+        return repository.findEventForUserByYearAndMonthAndDay(year, month, day);
+    }
+
+    @Override
+    public List<Event> findEventForUserByYearAndMonth(int year, int month) {
+        return repository.findEventForUserByYearAndMonth(year, month);
+    }
+
 }

@@ -24,7 +24,7 @@ public class BaseEntity {
     private UUID id;
 
     @CreatedDate
-    @Column
+    @Column()
     private long created_at;
 
     @LastModifiedDate

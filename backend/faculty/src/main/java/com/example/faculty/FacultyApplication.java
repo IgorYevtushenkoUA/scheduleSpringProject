@@ -7,29 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 
 @SpringBootApplication
-public class FacultyApplication implements CommandLineRunner {
+public class FacultyApplication  {
 
-    private static final Logger logger = LogManager.getLogger(FacultyApplication.class);
-
-
-    @Autowired
-    EventServiceImpl eventService;
 
 
     public static void main(String[] args) {
-        SpringApplication.run(FacultyApplication.class, args);
-        logger.info("snickers");
+        ApplicationContext applicationContext = SpringApplication.run(FacultyApplication.class, args);
+        test(applicationContext);
     }
 
-    @Override
-    public void run(String... args) {
-        showAllEvents();
-    }
 
-    public void showAllEvents() {
+    private static void test(ApplicationContext applicationContext) {
+        EventServiceImpl eventService = applicationContext.getBean(EventServiceImpl.class);
+        System.out.println(eventService.findEventForUserByYearAndMonth(2021,11));
+
 
     }
 

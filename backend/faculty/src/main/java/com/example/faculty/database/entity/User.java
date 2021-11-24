@@ -2,10 +2,7 @@ package com.example.faculty.database.entity;
 
 import com.example.faculty.database.entity.base.BaseEntity;
 import com.example.faculty.database.enums.UserRole;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -14,7 +11,7 @@ import javax.validation.constraints.Min;
 import java.util.List;
 
 @Entity
-@Data
+//@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -50,11 +47,14 @@ public class User extends BaseEntity {
     private String faculty;
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     List<Attendee> attending;
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     List<Request> requests;
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     List<Event> created;
 }
