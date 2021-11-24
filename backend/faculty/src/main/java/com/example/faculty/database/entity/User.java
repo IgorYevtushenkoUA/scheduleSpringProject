@@ -11,7 +11,7 @@ import javax.validation.constraints.Min;
 import java.util.List;
 
 @Entity
-//@Data
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)

@@ -19,14 +19,15 @@ import java.util.UUID;
 public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
+    @Column(name="id")
     @Type(type = "uuid-char")
     private UUID id;
 
     @CreatedDate
-    @Column()
+    @Column(name="created_at")
     private long created_at;
 
     @LastModifiedDate
+    @Column(name="updated_at")
     private long updated_at;
 }
