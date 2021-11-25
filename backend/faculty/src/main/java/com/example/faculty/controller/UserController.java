@@ -32,8 +32,11 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Optional<UserResponseDto> get(@PathVariable UUID id) {
-        return userService.get(id);
+    public String get(Model model, @PathVariable UUID id) {
+        Optional<UserResponseDto> user = userService.get(id);
+
+        model.addAttribute("user", user);
+        return "personalPage";
     }
 
     @PostMapping("/create")

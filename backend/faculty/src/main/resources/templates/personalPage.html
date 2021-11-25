@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+
+<div class="container">
+    <div class="row ">
+        <div class="col-4">
+            <div th:if="${user.get().getRole()} == STUDENT">
+                <img src="./images/student.png" alt="student" width="64px" height="64px">
+            </div>
+            <div th:if="${user.get().getRole()} == TEACHER">
+                <!--                <img src="../static/images/teacher.png" height="64px" width="64px"/>-->
+            </div>
+            <div th:if="${user.get().getRole()} == ADMINISTRATOR">
+                <!--                <img src="../static/images/admin.png" height="64px" width="64px"/>-->
+            </div>
+
+            <div>
+                <span class="form-control" aria-label="With textarea"
+                      type="text" name="name"
+                      th:text="${user.get().getSurname()} + ' ' + ${user.get().getName()} "></span>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="input-group p-1">
+                <span class="input-group-text" th:text="'FULL ' + 'NAME'"></span>
+                <span class="form-control" aria-label="With textarea"
+                      type="text" name="name"
+                      th:text="${user.get().getSurname()} + ' ' + ${user.get().getName()} + ' ' + ${user.get().getParental()} "></span>
+            </div>
+            <div class="input-group p-1">
+                <span class="input-group-text" th:text="'ROLE'"></span>
+                <span class="form-control" aria-label="With textarea"
+                      type="text" name="name"
+                      th:text="${user.get().getEmail()}"></span>
+            </div>
+            <div class="input-group p-1">
+                <span class="input-group-text" th:text="ROLE"></span>
+                <span class="form-control" aria-label="With textarea"
+                      type="text" name="name"
+                      th:text="${user.get().getRole()}"></span>
+            </div>
+            <div class="input-group p-1">
+                <span class="input-group-text" th:text="EMAIL"></span>
+                <span class="form-control" aria-label="With textarea"
+                      type="text" name="name"
+                      th:text="${user.get().getEmail()}"></span>
+            </div>
+            <div class="input-group p-1">
+                <span class="input-group-text" th:text="FACULTY"></span>
+                <span class="form-control" aria-label="With textarea"
+                      type="text" name="name"
+                      th:text="${user.get().getFaculty()}"></span>
+            </div>
+            <div class="input-group p-1">
+                <span class="input-group-text" th:text="ABOUT"></span>
+                <span class="form-control" aria-label="With textarea"
+                      type="text" name="name"
+                      th:text="${user.get().getAbout()}"></span>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>

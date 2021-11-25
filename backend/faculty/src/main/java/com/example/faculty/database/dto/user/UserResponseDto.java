@@ -27,4 +27,6 @@ public class UserResponseDto {
     private int course;
 
     private String faculty;
+
+    private String role;
 }
