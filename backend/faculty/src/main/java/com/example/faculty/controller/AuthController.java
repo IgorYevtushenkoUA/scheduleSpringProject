@@ -1,9 +1,24 @@
 package com.example.faculty.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/api/auth")
 public class AuthController {
+
+
+    @GetMapping("/signIn")
+    public String singIn(Model model) {
+        return "signIn";
+    }
+
+    @PostMapping("/signIn")
+    public String auth(Model model, @RequestParam(value = "email",defaultValue = "") String email) {
+        // todo write auth by email
+        System.out.println("Email = " + email);
+        return "redirect:/signIn";
+    }
+
 }

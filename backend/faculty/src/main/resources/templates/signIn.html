@@ -1,27 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" style="height: 100%">
 <head>
     <meta charset="UTF-8">
     <title>Sign In</title>
-    <link href="../css/singIn.css" th:href="@{/css/singIn.css}" rel="stylesheet" />
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link href="../static/css/singIn.css" th:href="@{/static/css/singIn.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
-<body>
 
-    <div class="container">
 
-        <div  class="row main-block">
-            <div class="col-4 info-block">
-                kek
+<section class="vh-100 ">
+    <div class="container py-5 h-100">
+        <div class="row d-flex align-items-center justify-content-center h-100">
+            <div class="col-md-8 col-lg-7 col-xl-6">
+<!--                <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">-->
+                <img src="https://i.pinimg.com/564x/dd/90/c5/dd90c50108539a9847780b27e0b0dbea.jpg" class="img-fluid" alt="Phone image">
+
             </div>
-            <div class="col-8 sing-in-block">
-                lol
-            </div>
+            <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                <form th:action="@{/api/auth/signIn}" method="post">
+                    <!-- Email input -->
+                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
 
+                    <div class="form-outline mb-4">
+                        <input type="email" id="form1Example13" class="form-control form-control-lg"
+                               placeholder="Email address" name="email"/>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+
+                </form>
+            </div>
         </div>
     </div>
-
+</section>
 
 </body>
+
 </html>
