@@ -64,7 +64,16 @@ public class UserController {
 
         LocalDate localDate = getLocalDate(year, month, 1, arrow);
         List<Integer> days = getCurrentDays(localDate.getYear(), localDate.getMonth().getValue(), 1);
+//        --------------------------
+        List<Integer> weeks = new ArrayList<>();
+        List<Integer> weekDays = List.of(0,1, 2, 3, 4, 5, 6);
+        for (int i = 0; i < days.size() / 7; i++) {
+            weeks.add(i);
+        }
 
+        model.addAttribute("weeks", weeks);
+        model.addAttribute("weekDays", weekDays);
+//        --------------------------
         // todo add userUUID
         int tempUserId = 1;
         CalendarEventDto eventDto = fillUserShowCalendarDto(1, localDate, days);

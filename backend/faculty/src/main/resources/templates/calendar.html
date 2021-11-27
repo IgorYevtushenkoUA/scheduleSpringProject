@@ -9,38 +9,41 @@
 <body>
 
 <div class="container">
-
-
+    <br>
     <div class="month-info">
-        <form th:action="@{/api/user/calendar}"
-              method="get">
 
-            <input type="number" th:name="year" th:value="${localDate.getYear()}" hidden>
-            <input type="number" th:name="month" th:value="${localDate.getMonth().getValue()}" hidden>
+        <div class="col-xs-12 col-md-6 col-sm-8 col-lg-6 center-block">
 
-            <button type="submit" th:name="arrow" th:value="previous">
-                <svg
-                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-                    <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-                </svg>
-            </button>
+            <form th:action="@{/api/user/calendar}"
+                  method="get">
+                <input type="number" th:name="year" th:value="${localDate.getYear()}" hidden>
+                <input type="number" th:name="month" th:value="${localDate.getMonth().getValue()}" hidden>
+                <p>
+                    <button class="btn btn-default btn-small" type="submit" th:name="arrow" th:value="previous">
+                        <svg
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                        </svg>
+                    </button>
+                    <span th:text="${localDate.getMonth().name()}">MONTH</span>
 
-            <p th:text="${localDate.getMonth().name()}">MONTH</p>
-
-            <button type="submit" th:name="arrow" th:value="next">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                     class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                    <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                </svg>
-            </button>
-        </form>
+                    <button class="btn btn-default btn-small" type="submit" th:name="arrow" th:value="next">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                        </svg>
+                    </button>
+                </p>
+            </form>
+        </div>
     </div>
 
+    <br>
 
     <div class="row">
 
-        <div class="col-7">
+        <div class="col-9">
 
             <div class="row row-cols-7 days-naming">
                 <div class="col"><p>Mon</p></div>
@@ -51,27 +54,54 @@
                 <div class="col"><p>Sat</p></div>
                 <div class="col"><p>Sun</p></div>
             </div>
-            <div class="row row-cols-7 days-list">
-                <div class="col" th:each="day,iter : ${days}">
-                    <div>
-                        <div th:if="${day} == null">
+
+            <div class="row row-cols-7 days-list ">
+                <div class="col " th:each="d: ${weekDays}">
+                    <div th:each="w : ${weeks}" class="" style="height: 70px;">
+                        <div th:if="${days.get(w*7+d)} == null">
                             <div>Null</div>
                         </div>
-                        <div th:if="${day} != null">
-                            <div th:attr="onclick=|showDaySchedule(${day})|">
-                                <p th:text="${day}"></p>
-                                <div th:each="event : ${eventDto.getDaysAtCalendar().get(day)}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                         fill="currentColor"
-                                         class="bi bi-circle-fill" viewBox="0 0 16 16">
-                                        <circle cx="8" cy="8" r="8"/>
-                                    </svg>
-                                </div>
+                        <div th:if="${days.get(w*7+d)} != null">
+                            <div th:attr="onclick=|showDaySchedule(${days.get(w*7+d)})|">
+                                <scan style="font-size: 1.2em;" th:text="${days.get(w*7+d)}"></scan>
+                                <p class="mt-1">
+                                    <span
+                                            th:each="event : ${eventDto.getDaysAtCalendar().get(days.get(w*7+d))}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8"
+                                             fill="currentColor"
+                                             class="bi bi-circle-fill" viewBox="0 0 8 8">
+                                            <circle cx="4" cy="4" r="4"/>
+                                        </svg>
+                                    </span>
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!--            <div class="row row-cols-7 days-list">-->
+            <!--                <div class="col" th:each="day,iter : ${days}">-->
+            <!--                    <div>-->
+            <!--                        <div th:if="${day} == null">-->
+            <!--                            <div>Null</div>-->
+            <!--                        </div>-->
+            <!--                        <div th:if="${day} != null">-->
+            <!--                            <div th:attr="onclick=|showDaySchedule(${day})|">-->
+            <!--                                <p th:text="${day}"></p>-->
+            <!--                                <div th:each="event : ${eventDto.getDaysAtCalendar().get(day)}">-->
+            <!--                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"-->
+            <!--                                         fill="currentColor"-->
+            <!--                                         class="bi bi-circle-fill" viewBox="0 0 16 16">-->
+            <!--                                        <circle cx="8" cy="8" r="8"/>-->
+            <!--                                    </svg>-->
+            <!--                                </div>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+
         </div>
         <div class="col" id="schedule-list">
             <div class="schedule" id="schedule">
@@ -102,9 +132,9 @@
              */
             console.log('here')
             $("#schedule-list").append('<div class="border border-dark" id=' + i + '>\n' +
-                '                <h6>'+ events[i].hours + '  -  ' + events[i].minutes +'</h6>\n' +
-                '                <p>'+ events[i].name +'</p>\n' +
-                '                <p>'+ events[i].auditory +'</p>\n' +
+                '                <h6>' + events[i].hours + '  -  ' + events[i].minutes + '</h6>\n' +
+                '                <p>' + events[i].name + '</p>\n' +
+                '                <p>' + events[i].auditory + '</p>\n' +
                 '            </div>');
         }
     }
