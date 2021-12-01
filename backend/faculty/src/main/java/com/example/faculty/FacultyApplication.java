@@ -13,6 +13,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,10 +21,9 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-
 @SpringBootApplication
+@EnableAspectJAutoProxy
 public class FacultyApplication {
-
 
     public static void main(String[] args) throws IOException {
         ApplicationContext applicationContext = SpringApplication.run(FacultyApplication.class, args);
