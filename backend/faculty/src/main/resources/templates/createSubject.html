@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+    <form th:action="@{/api/user/subject/create}" method="post" >
+        <div class="input-group p-1">
+            <span class="input-group-text" th:text="NAME"></span>
+            <input class="form-control"
+                   aria-label="With textarea"
+                   type="text"
+                   name="name"
+                   placeholder="NAME">
+        </div>
+
+        <div class="input-group p-1">
+            <span class="input-group-text"
+                  th:text="FACULTY"></span>
+            <select name="faculty" class="custom-select">
+                <option
+                        th:each="f:${faculties}"
+                        th:text="${f.getFaculty()}"
+                />
+            </select>
+        </div>
+
+        <div class="input-group p-1">
+            <span class="input-group-text"
+                  th:text="SPECIALITY"></span>
+            <select name="speciality" class="custom-select">
+                <option
+                        th:each="s:${specialities}"
+                        th:text="${s.getSpeciality()}"
+                />
+            </select>
+        </div>
+
+        <div class="input-group p-1">
+            <span class="input-group-text"
+                  th:text="COURSE"></span>
+            <select name="course" class="custom-select">
+                <option
+                        th:each="c:${courseB}"
+                        th:text="${c.getCourse()}"
+                />
+            </select>
+        </div>
+
+        <div class="input-group p-1">
+            <span class="input-group-text"
+                  th:text="TRIM"></span>
+            <select name="trim" class="custom-select">
+                <option
+                        th:each="t:${trim}"
+                        th:text="${t.name}"
+                />
+            </select>
+        </div>
+
+        <div class="input-group p-1">
+            <span class="input-group-text" th:text="CODE"></span>
+            <input class="form-control"
+                   aria-label="With textarea"
+                   type="number"
+                   name="code"
+                   placeholder="CODE">
+        </div>
+
+        <!--        todo buttons in one line -->
+        <div class="">
+            <button type="submit" name="action" value="cancel" class="btn btn-danger btn-block" th:text="Cancel"></button>
+            <button type="submit" name="action" value="create" class="btn btn-success btn-block" th:text="Create"></button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

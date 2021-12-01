@@ -2,11 +2,14 @@ package com.example.faculty.controller;
 
 import com.example.faculty.database.dto.calendar.CalendarEventDto;
 import com.example.faculty.database.dto.event.EventShortInfoDto;
+import com.example.faculty.database.dto.subject.SubjectCreateDto;
 import com.example.faculty.database.dto.user.UserCreateDto;
 import com.example.faculty.database.dto.user.UserResponseDto;
 import com.example.faculty.database.dto.user.UserUpdateDto;
 import com.example.faculty.database.entity.Event;
+import com.example.faculty.database.enums.*;
 import com.example.faculty.services.interfaces.IEventService;
+import com.example.faculty.services.interfaces.ISubjectService;
 import com.example.faculty.services.interfaces.IUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +23,12 @@ import java.util.*;
 public class UserController {
     private final IUserService userService;
     private final IEventService eventService;
+    private final ISubjectService subjectService;
 
-    public UserController(IUserService userService, IEventService eventService) {
+    public UserController(IUserService userService, IEventService eventService, ISubjectService subjectService) {
         this.userService = userService;
         this.eventService = eventService;
+        this.subjectService = subjectService;
     }
 
     @GetMapping
@@ -66,7 +71,7 @@ public class UserController {
         List<Integer> days = getCurrentDays(localDate.getYear(), localDate.getMonth().getValue(), 1);
 //        --------------------------
         List<Integer> weeks = new ArrayList<>();
-        List<Integer> weekDays = List.of(0,1, 2, 3, 4, 5, 6);
+        var weekDays = List.of(0, 1, 2, 3, 4, 5, 6);
         for (int i = 0; i < days.size() / 7; i++) {
             weeks.add(i);
         }
@@ -84,7 +89,44 @@ public class UserController {
         return "calendar";
     }
 
-    // todo improve
+    @GetMapping("/subject/create")
+    public String createSubjectGet(Model model) {
+        model.addAttribute("faculties", Arrays.asList(Faculty.values()));
+        model.addAttribute("specialities", Arrays.asList(Speciality.values()));
+        model.addAttribute("courseB", Arrays.asList(CourseB.values()));
+        model.addAttribute("courseM", Arrays.asList(CourseM.values()));
+        model.addAttribute("trim", Arrays.asList(Trim.values()));
+
+        return "createSubject";
+    }
+
+    @PostMapping("/subject/create")
+    public String createSubjectPost(
+            @RequestParam("name") String name,
+            @RequestParam("faculty") String faculty,
+            @RequestParam("speciality") String speciality,
+            @RequestParam("course") Integer course,
+            @RequestParam("code") String code,
+            @RequestParam("trim") String trim,
+            @RequestParam(value = "action", required = true) String action) {
+
+        if (action.equals("create")) {
+            SubjectCreateDto subject = SubjectCreateDto.builder()
+                    .name(name)
+                    .faculty(faculty)
+                    .speciality(speciality)
+                    .course(course)
+                    .code(Integer.parseInt(code))
+                    .trim(trim)
+                    .build();
+            subjectService.create(subject);
+        }
+        return "redirect:/subjects";
+    }
+
+
+
+
     public CalendarEventDto fillUserShowCalendarDto(int userId, LocalDate localDate, List<Integer> days) {
 
         Map<Integer, List<EventShortInfoDto>> map = new HashMap<>();
