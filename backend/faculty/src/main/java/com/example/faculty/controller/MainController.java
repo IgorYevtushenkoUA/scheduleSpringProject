@@ -23,22 +23,23 @@ public class MainController {
     @GetMapping("/all")
     public String allAccess() {
         return "Public Content.";
+//        return "index";
     }
 
-    @GetMapping("/user")
-    @PreAuthorize("hasRole('STUDENT') or hasRole('TEACHER') or hasRole('ADMINISTRATOR')")
+    @GetMapping("/student")
+//    @PreAuthorize("hasRole('STUDENT')")
     public String studentAccess() {
         return "Student Content.";
     }
 
     @GetMapping("/teacher")
-    @PreAuthorize("hasRole('TEACHER')")
+//    @PreAuthorize("hasRole('TEACHER')")
     public String teacherAccess() {
         return "Teacher Board.";
     }
 
     @GetMapping("/admin")
-    @PreAuthorize("hasRole('ADMINISTRATOR')")
+//    @PreAuthorize("hasRole('ADMINISTRATOR')")
     public String adminAccess() {
         return "Administrator Board.";
     }

@@ -5,7 +5,9 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,9 +26,11 @@ import java.util.Set;
 public class User extends BaseEntity {
 
     @Column(nullable = false)
+//    @Column
     private String name;
 
     @Column(nullable = false)
+//    @Column
     private String surname;
 
     @Column
@@ -49,8 +53,8 @@ public class User extends BaseEntity {
     @Column
     private String about;
 
-    @Min(1)
-    @Max(4)
+    //    @Min(1)
+//    @Max(4)
     @Column
     private int course;
 
@@ -79,6 +83,14 @@ public class User extends BaseEntity {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public User(String username, String email, String password, String name, String surname) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
     }
 
 }
