@@ -13,8 +13,13 @@ import com.example.faculty.services.interfaces.ISubjectService;
 import com.example.faculty.services.interfaces.IUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -78,8 +83,10 @@ public class UserController {
 
         model.addAttribute("weeks", weeks);
         model.addAttribute("weekDays", weekDays);
-//        --------------------------
-        // todo add userUUID
+/*
+                --------------------------
+         todo add userUUID
+        */
         int tempUserId = 1;
         CalendarEventDto eventDto = fillUserShowCalendarDto(1, localDate, days);
 
@@ -123,8 +130,6 @@ public class UserController {
         }
         return "redirect:/subjects";
     }
-
-
 
 
     public CalendarEventDto fillUserShowCalendarDto(int userId, LocalDate localDate, List<Integer> days) {
