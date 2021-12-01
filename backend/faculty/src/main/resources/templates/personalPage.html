@@ -14,13 +14,13 @@
     <div class="row ">
         <div class="col-4">
             <div th:if="${user.get().getRole()} == STUDENT">
-                <img src="./images/student.png" alt="student" width="64px" height="64px">
+                <img src="/images/student.png" alt="student" width="256px" height="256px">
             </div>
             <div th:if="${user.get().getRole()} == TEACHER">
-                <!--                <img src="../static/images/teacher.png" height="64px" width="64px"/>-->
+                <img src="/images/teacher.png" alt="teacher" width="256px" height="256px">
             </div>
             <div th:if="${user.get().getRole()} == ADMINISTRATOR">
-                <!--                <img src="../static/images/admin.png" height="64px" width="64px"/>-->
+                <img src="/images/admin.png" alt="admin" width="256px" height="256px">
             </div>
 
             <div>
