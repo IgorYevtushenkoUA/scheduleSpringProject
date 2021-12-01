@@ -8,14 +8,17 @@ import com.example.faculty.database.dto.user.UserUpdateDto;
 import com.example.faculty.database.entity.Event;
 import com.example.faculty.services.interfaces.IEventService;
 import com.example.faculty.services.interfaces.IUserService;
-import org.springframework.stereotype.Controller;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.*;
 
-@Controller
+@RestController
+@Slf4j
+@Validated
 @RequestMapping("/api/user")
 public class UserController {
     private final IUserService userService;
@@ -66,7 +69,7 @@ public class UserController {
         List<Integer> days = getCurrentDays(localDate.getYear(), localDate.getMonth().getValue(), 1);
 //        --------------------------
         List<Integer> weeks = new ArrayList<>();
-        List<Integer> weekDays = List.of(0,1, 2, 3, 4, 5, 6);
+        List<Integer> weekDays = List.of(0, 1, 2, 3, 4, 5, 6);
         for (int i = 0; i < days.size() / 7; i++) {
             weeks.add(i);
         }

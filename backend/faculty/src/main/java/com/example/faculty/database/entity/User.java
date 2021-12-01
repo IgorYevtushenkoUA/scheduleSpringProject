@@ -1,14 +1,14 @@
 package com.example.faculty.database.entity;
 
 import com.example.faculty.database.entity.base.BaseEntity;
-import com.example.faculty.database.enums.UserRole;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -16,8 +16,13 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
-@Table(name = "users")
+@Table(name = "users",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "username"),
+                @UniqueConstraint(columnNames = "email")
+        })
 public class User extends BaseEntity {
+
     @Column(nullable = false)
     private String name;
 
@@ -27,12 +32,18 @@ public class User extends BaseEntity {
     @Column
     private String parental;
 
-    @Column
+    @NotBlank
+    @Size(max = 20)
+    private String username;
+
+    @NotBlank
+    @Size(max = 50)
+    @Email
     private String email;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserRole role;
+    @NotBlank
+    @Size(max = 120)
+    private String password;
 
     @Lob
     @Column
@@ -57,4 +68,17 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     @ToString.Exclude
     List<Event> created;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
 }

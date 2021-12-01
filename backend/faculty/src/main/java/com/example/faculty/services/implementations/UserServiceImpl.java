@@ -49,4 +49,16 @@ public class UserServiceImpl implements IUserService {
         User user = IUserMapper.MAPPER.updateToUser(dto);
         return IUserMapper.MAPPER.userToResponseDto(repository.save(user));
     }
+
+    @Override
+    public User findByEmail(String email) {
+        return repository.findUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found: " + email));
+    }
+
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        User user = repository.findUserByEmail(username).orElseThrow(() -> new RuntimeException("User not found: " + username));
+//        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().name());
+//        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Arrays.asList(authority));
+//    }
 }
