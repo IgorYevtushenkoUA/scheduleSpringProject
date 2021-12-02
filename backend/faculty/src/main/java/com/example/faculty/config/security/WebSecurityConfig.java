@@ -53,11 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/test/**").permitAll()
+                .antMatchers("/api/scheduler/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/api/test/admin").access("hasRole('ADMINISTRATOR')")
-                .antMatchers("/api/test/teacher").access("hasRole('TEACHER')")
-                .antMatchers("/api/test/student").access("hasRole('STUDENT')")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
