@@ -6,6 +6,10 @@ import com.example.faculty.database.dto.event.EventUpdateDto;
 import com.example.faculty.services.interfaces.IEventService;
 import com.example.faculty.util.annotations.EvaluateTime;
 import com.example.faculty.util.annotations.LogParams;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +18,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/event")
+@CacheConfig(cacheNames={"events"})
 public class EventController {
     private final IEventService service;
 
@@ -28,8 +33,10 @@ public class EventController {
     }
 
     @LogParams
+    @Cacheable(key="#id")
     @GetMapping("/{id}")
     public Optional<EventResponseDto> get(@PathVariable UUID id) {
+        System.err.println("call method events");
         return service.get(id);
     }
 
@@ -38,11 +45,13 @@ public class EventController {
         return service.create(dto);
     }
 
+    @CachePut(key="#dto.id")
     @PutMapping("/edit")
     public EventResponseDto update(@RequestBody EventUpdateDto dto) {
         return service.update(dto);
     }
 
+    @CacheEvict(key="#dto.id")
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable UUID id) {
         service.delete(id);
