@@ -2,21 +2,18 @@ package com.example.faculty.repository;
 
 import com.example.faculty.database.entity.Subject;
 import com.example.faculty.database.repository.SubjectRepository;
-import static org.assertj.core.api.Assertions.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
-import java.util.UUID;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -74,7 +71,7 @@ public class SubjectRepositoryTests {
 
         Subject found = subjectRepository.findById(s.getId()).orElse(null);
 
-        assertThat(s.getName()).isEqualTo(newName);
+        assertThat(found.getName()).isEqualTo(newName);
     }
     @Test
     public void whenCreateWithInvalidParameter_thenExceptionIsThrown() {
