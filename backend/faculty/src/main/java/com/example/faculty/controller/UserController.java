@@ -105,7 +105,8 @@ public class UserController {
 
     @SneakyThrows
     @GetMapping("/subjects")
-    public ResponseEntity<List<SubjectResponseDto>> showAllSubjects(Model model, @RequestParam(value = "subject", defaultValue = "") String subject) {
+    public ResponseEntity<List<SubjectResponseDto>> showAllSubjects(Model model,
+                                                                    @RequestParam(value = "subject", defaultValue = "") String subject) {
         List<SubjectResponseDto> subjects = subject.equals("")
                 ? subjectService.getAll()
                 : subjectService.getByName(subject);
