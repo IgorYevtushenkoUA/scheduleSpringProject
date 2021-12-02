@@ -1,9 +1,11 @@
 package com.example.faculty;
 
 import com.example.faculty.services.implementations.EventServiceImpl;
+import com.example.faculty.services.implementations.SubjectServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,12 +26,12 @@ import java.nio.file.Files;
 @SpringBootApplication
 public class FacultyApplication {
 
-
     public static void main(String[] args) throws IOException {
         ApplicationContext applicationContext = SpringApplication.run(FacultyApplication.class, args);
+        test(applicationContext);
 
         File file = ResourceUtils.getFile("classpath:static/public/test.txt");
-        if(file.exists()) {
+        if (file.exists()) {
             byte[] fileData = Files.readAllBytes(file.toPath());
             String fileContent = new String(fileData);
             System.out.println(fileContent);
@@ -37,10 +39,12 @@ public class FacultyApplication {
 
     }
 
-
     private static void test(ApplicationContext applicationContext) {
         EventServiceImpl eventService = applicationContext.getBean(EventServiceImpl.class);
-        System.out.println(eventService.findEventForUserByYearAndMonth(2021, 11));
+        SubjectServiceImpl subjectService = applicationContext.getBean(SubjectServiceImpl.class);
+        System.out.println("----------");
+        System.out.println(subjectService.getByName("hel"));
+        System.out.println("----------");
     }
 
 

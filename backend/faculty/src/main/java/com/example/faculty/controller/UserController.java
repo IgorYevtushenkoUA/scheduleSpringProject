@@ -3,6 +3,7 @@ package com.example.faculty.controller;
 import com.example.faculty.database.dto.calendar.CalendarEventDto;
 import com.example.faculty.database.dto.event.EventShortInfoDto;
 import com.example.faculty.database.dto.subject.SubjectCreateDto;
+import com.example.faculty.database.dto.subject.SubjectResponseDto;
 import com.example.faculty.database.dto.user.UserCreateDto;
 import com.example.faculty.database.dto.user.UserResponseDto;
 import com.example.faculty.database.dto.user.UserUpdateDto;
@@ -11,15 +12,17 @@ import com.example.faculty.database.enums.*;
 import com.example.faculty.services.interfaces.IEventService;
 import com.example.faculty.services.interfaces.ISubjectService;
 import com.example.faculty.services.interfaces.IUserService;
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -29,6 +32,12 @@ public class UserController {
     private final IUserService userService;
     private final IEventService eventService;
     private final ISubjectService subjectService;
+
+    @Autowired
+    private ResourceLoader resourceLoader;
+
+    @Value("${property.name}")
+    private String property;
 
     public UserController(IUserService userService, IEventService eventService, ISubjectService subjectService) {
         this.userService = userService;
@@ -43,9 +52,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public String get(Model model, @PathVariable UUID id) {
-        Optional<UserResponseDto> user = userService.get(id);
-
-        model.addAttribute("user", user);
+        model.addAttribute("user", userService.get(id));
         return "personalPage";
     }
 
@@ -96,7 +103,22 @@ public class UserController {
         return "calendar";
     }
 
-    @GetMapping("/subject/create")
+    @SneakyThrows
+    @GetMapping("/subjects")
+    public ResponseEntity<List<SubjectResponseDto>> showAllSubjects(Model model, @RequestParam(value = "subject", defaultValue = "") String subject) {
+        List<SubjectResponseDto> subjects = subject.equals("")
+                ? subjectService.getAll()
+                : subjectService.getByName(subject);
+        // here is resource file
+        System.out.println(getPropertyFile());
+        return ResponseEntity.ok(subjects);
+    }
+
+    File getPropertyFile() throws IOException {
+        return resourceLoader.getResource(property).getFile();
+    }
+
+    @GetMapping("/subjects/create")
     public String createSubjectGet(Model model) {
         model.addAttribute("faculties", Arrays.asList(Faculty.values()));
         model.addAttribute("specialities", Arrays.asList(Speciality.values()));
@@ -107,7 +129,7 @@ public class UserController {
         return "createSubject";
     }
 
-    @PostMapping("/subject/create")
+    @PostMapping("/subjects/create")
     public String createSubjectPost(
             @RequestParam("name") String name,
             @RequestParam("faculty") String faculty,
@@ -128,7 +150,7 @@ public class UserController {
                     .build();
             subjectService.create(subject);
         }
-        return "redirect:/subjects";
+        return "redirect:/api/user/subjects";
     }
 
 
