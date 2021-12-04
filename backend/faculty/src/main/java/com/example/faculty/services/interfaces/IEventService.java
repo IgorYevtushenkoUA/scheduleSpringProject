@@ -24,4 +24,6 @@ public interface IEventService {
 
     List<Event> findEventForUserByYearAndMonth(int year, int month);
 
+    List<Event> findAllBySubject(UUID subjectId);
+
 }

@@ -1,6 +1,7 @@
 package com.example.faculty.controller;
 
 import com.example.faculty.database.dto.calendar.CalendarEventDto;
+import com.example.faculty.database.dto.event.EventResponseDto;
 import com.example.faculty.database.dto.event.EventShortInfoDto;
 import com.example.faculty.database.dto.subject.SubjectCreateDto;
 import com.example.faculty.database.dto.subject.SubjectResponseDto;
@@ -8,6 +9,7 @@ import com.example.faculty.database.dto.user.UserCreateDto;
 import com.example.faculty.database.dto.user.UserResponseDto;
 import com.example.faculty.database.dto.user.UserUpdateDto;
 import com.example.faculty.database.entity.Event;
+import com.example.faculty.database.entity.Subject;
 import com.example.faculty.database.enums.*;
 import com.example.faculty.services.interfaces.IEventService;
 import com.example.faculty.services.interfaces.ISubjectService;
@@ -105,18 +107,33 @@ public class UserController {
 
     @SneakyThrows
     @GetMapping("/subjects")
-    public ResponseEntity<List<SubjectResponseDto>> showAllSubjects(Model model,
-                                                                    @RequestParam(value = "subject", defaultValue = "") String subject) {
-        List<SubjectResponseDto> subjects = subject.equals("")
+    public String showAllSubjects(Model model,
+                                  @RequestParam(value = "name", defaultValue = "") String name) {
+        List<SubjectResponseDto> subjects = name.equals("")
                 ? subjectService.getAll()
-                : subjectService.getByName(subject);
+                : subjectService.getByName(name);
+
+        model.addAttribute("subjects", subjects);
+
         // here is resource file
-        System.out.println(getPropertyFile());
-        return ResponseEntity.ok(subjects);
+        return "subjects";
     }
 
-    File getPropertyFile() throws IOException {
-        return resourceLoader.getResource(property).getFile();
+    @GetMapping("/subjects/{id}")
+    public String subjectGet(Model model, @PathVariable("id") UUID id) {
+        List<Event> events = eventService.findAllBySubject(id);
+
+        Map<String, Event> eventsMap = new TreeMap<>();
+        for(Event e: events){
+            eventsMap.putIfAbsent(e.getGroup(), e);
+        }
+
+        model.addAttribute("subject", subjectService.get(id));
+        model.addAttribute("eventsMap", eventsMap);
+
+        System.out.println();
+        System.out.println("-----------------");
+        return "subject";
     }
 
     @GetMapping("/subjects/create")
@@ -153,7 +170,6 @@ public class UserController {
         }
         return "redirect:/api/user/subjects";
     }
-
 
     public CalendarEventDto fillUserShowCalendarDto(int userId, LocalDate localDate, List<Integer> days) {
 

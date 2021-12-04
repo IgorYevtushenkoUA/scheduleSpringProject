@@ -59,4 +59,9 @@ public class EventServiceImpl implements IEventService {
         return repository.findEventForUserByYearAndMonth(year, month);
     }
 
+    @Override
+    public List<Event> findAllBySubject(UUID subjectId) {
+        return repository.findAllBySubject(subjectId);
+    }
+
 }

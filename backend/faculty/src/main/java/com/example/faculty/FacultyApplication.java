@@ -1,5 +1,6 @@
 package com.example.faculty;
 
+import com.example.faculty.database.dto.subject.SubjectResponseDto;
 import com.example.faculty.services.implementations.EventServiceImpl;
 import com.example.faculty.services.implementations.SubjectServiceImpl;
 import org.apache.logging.log4j.LogManager;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.UUID;
 
 
 @SpringBootApplication
@@ -43,7 +45,7 @@ public class FacultyApplication {
         EventServiceImpl eventService = applicationContext.getBean(EventServiceImpl.class);
         SubjectServiceImpl subjectService = applicationContext.getBean(SubjectServiceImpl.class);
         System.out.println("----------");
-        System.out.println(subjectService.getByName("hel"));
+
         System.out.println("----------");
     }
 
