@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign In</title>
+    <link href="../static/css/singIn.css" th:href="@{/static/css/singIn.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+
+<section class="vh-100 ">
+    <div class="container py-5 h-100">
+        <div class="row d-flex align-items-center justify-content-center h-100">
+            <div class="col-md-8 col-lg-7 col-xl-6">
+                <img src="https://i.pinimg.com/564x/5c/c8/82/5cc882f21426a025376f50f18845d6a3.jpg" class="img-fluid"
+                     alt="Phone image">
+
+            </div>
+            <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                <form th:action="@{/api/auth/register}" method="post">
+                    <!-- Email input -->
+                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+
+                    <div class="input-group p-1">
+                        <span class="input-group-text" th:text="Name"></span>
+                        <input type="text" class="form-control" name="name" placeholder="Enter Name">
+                    </div>
+
+                    <div class="input-group p-1">
+                        <span class="input-group-text" th:text="Surname"></span>
+                        <input type="text" class="form-control" name="surname" placeholder="Enter Surname">
+                    </div>
+
+                    <div class="input-group p-1">
+                        <span class="input-group-text" th:text="Parental"></span>
+                        <input type="text" class="form-control" name="parental" placeholder="Enter Parental">
+                    </div>
+
+                    <div class="input-group p-1">
+                        <span class="input-group-text" th:text="Email"></span>
+                        <input type="email" class="form-control" name="email" placeholder="Enter Email">
+                    </div>
+
+                    <div class="input-group p-1">
+                        <span class="input-group-text" th:text="About"></span>
+                        <textarea type="email" class="form-control" name="about" placeholder="Enter About"></textarea>
+                    </div>
+
+                    <div class="input-group p-1">
+                        <span class="input-group-text" th:text="Course"></span>
+                        <input type="number" class="form-control" name="course" placeholder="Enter Course">
+                    </div>
+
+                    <div class="input-group p-1">
+                        <span class="input-group-text" th:text="Faculty"></span>
+                        <input type="text" class="form-control" name="faculty" placeholder="Enter faculty">
+                    </div>
+
+                    <div class="input-group p-1">
+                        <span class="input-group-text" th:text="Password"></span>
+                        <input type="password" class="form-control" name="password" placeholder="Enter Password">
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+
+</html>
