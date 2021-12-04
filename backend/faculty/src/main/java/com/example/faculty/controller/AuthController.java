@@ -20,6 +20,7 @@ public class AuthController {
                        @RequestParam(value = "password", defaultValue = "") String password) {
         // todo write auth by email
         System.out.println("Email = " + email);
+        System.out.println("Email = " + password);
         return "redirect:/signIn";
     }
 

@@ -21,9 +21,10 @@
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
                 <form th:action="@{/api/auth/register}" method="post">
                     <!-- Email input -->
-                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+                    <h3>Create an account</h3>
+                    <span class="abt">Already have an account? <a href="/api/auth/signIn">Sign In</a></span>
 
-                    <div class="input-group p-1">
+                    <div class="input-group p-1 mt-3">
                         <span class="input-group-text" th:text="Name"></span>
                         <input type="text" class="form-control" name="name" placeholder="Enter Name">
                     </div>
