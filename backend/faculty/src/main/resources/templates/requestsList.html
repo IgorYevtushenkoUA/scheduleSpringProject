@@ -12,44 +12,56 @@
 
     <div th:each="request,iter:${requests}">
 
-        <div class="infoBlock">
-            <h3 th:text="${request.getUser().getSurname() + ' ' +request.getUser().getName() + ' ' +request.getUser().getParental() }"/>
+        <form th:action="@{/api/user/requests/{id} (id=${request.getId()})}" method="post">
+            <div class="card">
+
+                <div class="card-header">
+                    <h3 th:text="${request.getUser().getSurname() + ' ' +request.getUser().getName() + ' ' +request.getUser().getParental() }"/>
+                </div>
+
+                <div class="card-body">
+                    <table class="table table-bordered table-responsive-sm">
+                        <thead>
+                        <tr>
+                            <th>Change</th>
+                            <th>FROM</th>
+                            <th>TO</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <td>Auditory</td>
+                            <td th:text="${oldEvents.get(iter.index).get().getAuditory()}"></td>
+                            <td th:text="${request.getAuditory()}"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Group</td>
+                            <td th:text="${oldEvents.get(iter.index).get().getGroup()}"></td>
+                            <td th:text="${request.getGroup()}"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Time</td>
+                            <td th:text="${oldEvents.get(iter.index).get().getDatetime()}"></td>
+                            <td th:text="${request.getDatetime()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
             <div>
-                <table class="table table-bordered table-responsive-sm">
-                    <thead>
-                    <tr>
-                        <th>NAME</th>
-                        <th>FROM</th>
-                        <th>TO</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr>
-                        <td>Auditory</td>
-                        <td th:text="${oldEvents.get(iter.index).get().getAuditory()}"></td>
-                        <td th:text="${request.getAuditory()}"></td>
-                    </tr>
-
-                    <tr class="bg-primary text-white">
-                        <td>Group</td>
-                        <td th:text="${oldEvents.get(iter.index).get().getGroup()}"></td>
-                        <td th:text="${request.getGroup()}"></td>
-                    </tr>
-
-                    <tr>
-                        <td>Time</td>
-                        <td th:text="${oldEvents.get(iter.index).get().getDatetime()}"></td>
-                        <td th:text="${request.getDatetime()}"></td>
-                    </tr>
-
-
-                    </tbody>
-                </table>
+                <div class="">
+                    <button type="submit" name="action" value="deny" class="btn btn-danger btn-block"
+                            th:text="Deny"></button>
+                    <button type="submit" name="action" value="confirm" class="btn btn-success btn-block"
+                            th:text="Confirm"></button>
+                </div>
             </div>
-        </div>
 
+        </form>
     </div>
 
 </div>

@@ -3,7 +3,7 @@ package com.example.faculty.controller;
 import com.example.faculty.database.dto.calendar.CalendarEventDto;
 import com.example.faculty.database.dto.event.EventCreateDto;
 import com.example.faculty.database.dto.event.EventResponseDto;
-import com.example.faculty.database.dto.event.EventShortInfoDto;
+import com.example.faculty.database.dto.event.EventInfoDto;
 import com.example.faculty.database.dto.request.RequestCreateDto;
 import com.example.faculty.database.dto.request.RequestResponseDto;
 import com.example.faculty.database.dto.subject.SubjectCreateDto;
@@ -12,7 +12,6 @@ import com.example.faculty.database.dto.user.UserCreateDto;
 import com.example.faculty.database.dto.user.UserResponseDto;
 import com.example.faculty.database.dto.user.UserUpdateDto;
 import com.example.faculty.database.entity.Event;
-import com.example.faculty.database.entity.Request;
 import com.example.faculty.database.enums.*;
 import com.example.faculty.services.interfaces.IEventService;
 import com.example.faculty.services.interfaces.IRequestService;
@@ -264,15 +263,15 @@ public class UserController {
 
     public CalendarEventDto fillUserShowCalendarDto(int userId, LocalDate localDate, List<Integer> days) {
 
-        Map<Integer, List<EventShortInfoDto>> map = new HashMap<>();
+        Map<Integer, List<EventInfoDto>> map = new HashMap<>();
         for (int i = 0; i < days.size(); i++) {
             if (days.get(i) != null) {
                 List<Event> events = eventService.findEventForUserByYearAndMonthAndDay(localDate.getYear(),
                         localDate.getMonth().getValue(), days.get(i));
 
-                List<EventShortInfoDto> eventShortInfoDtoList = new ArrayList<>();
+                List<EventInfoDto> eventShortInfoDtoList = new ArrayList<>();
                 for (Event e : events) {
-                    EventShortInfoDto eventShortInfoDto = EventShortInfoDto.builder()
+                    EventInfoDto eventShortInfoDto = EventInfoDto.builder()
                             .group(e.getGroup())
                             .name(e.getName())
                             .auditory(e.getAuditory())
