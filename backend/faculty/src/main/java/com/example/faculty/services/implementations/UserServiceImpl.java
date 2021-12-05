@@ -49,4 +49,9 @@ public class UserServiceImpl implements IUserService {
         User user = IUserMapper.MAPPER.updateToUser(dto);
         return IUserMapper.MAPPER.userToResponseDto(repository.save(user));
     }
+
+    @Override
+    public List<UserResponseDto> getAllTeacher() {
+        return repository.getAllTeacher().stream().map(IUserMapper.MAPPER::userToResponseDto).collect(Collectors.toList());
+    }
 }

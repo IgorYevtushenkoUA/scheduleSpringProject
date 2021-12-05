@@ -1,6 +1,7 @@
 package com.example.faculty.controller;
 
 import com.example.faculty.database.dto.calendar.CalendarEventDto;
+import com.example.faculty.database.dto.event.EventCreateDto;
 import com.example.faculty.database.dto.event.EventResponseDto;
 import com.example.faculty.database.dto.event.EventShortInfoDto;
 import com.example.faculty.database.dto.subject.SubjectCreateDto;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -124,7 +126,7 @@ public class UserController {
         List<Event> events = eventService.findAllBySubject(id);
 
         Map<String, Event> eventsMap = new TreeMap<>();
-        for(Event e: events){
+        for (Event e : events) {
             eventsMap.putIfAbsent(e.getGroup(), e);
         }
 
@@ -169,6 +171,40 @@ public class UserController {
             subjectService.create(subject);
         }
         return "redirect:/api/user/subjects";
+    }
+
+    @GetMapping("/events/create")
+    public String createEventGet(Model model) {
+        model.addAttribute("teachers", userService.getAll());
+        model.addAttribute("subjects", subjectService.getAll());
+        return "createEvent";
+    }
+
+    @PostMapping("/events/create")
+    public String createEventPost(Model model,
+                                  @RequestParam("subjectUUID") UUID subjectUUID,
+                                  @RequestParam("teacherUUID") UUID teacherUUID,
+                                  @RequestParam("name") String name,
+                                  @RequestParam("group") String group,
+                                  @RequestParam("auditory") String auditory,
+                                  @RequestParam("date") List<String> date,
+                                  @RequestParam(value = "action", required = false) String action) {
+        if (action.equals("create")) {
+
+            for(int i = 0 ; i < date.size(); i++){
+                EventCreateDto event = EventCreateDto.builder()
+                        .subjectId(subjectUUID)
+                        .userId(teacherUUID)
+                        .name(name)
+                        .group(group)
+                        .auditory(auditory)
+                        .datetime(Timestamp.valueOf(date.get(i).replace("T"," ")+":00.0"))
+                        .build();
+                eventService.create(event);
+            }
+        }
+
+        return "redirect:/api/users";
     }
 
     public CalendarEventDto fillUserShowCalendarDto(int userId, LocalDate localDate, List<Integer> days) {

@@ -18,4 +18,7 @@ public interface IUserService {
     UserResponseDto create(UserCreateDto dto);
 
     UserResponseDto update(UserUpdateDto dto);
+
+    List<UserResponseDto> getAllTeacher();
+
 }
