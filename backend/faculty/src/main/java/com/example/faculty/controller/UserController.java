@@ -4,6 +4,7 @@ import com.example.faculty.database.dto.calendar.CalendarEventDto;
 import com.example.faculty.database.dto.event.EventCreateDto;
 import com.example.faculty.database.dto.event.EventResponseDto;
 import com.example.faculty.database.dto.event.EventShortInfoDto;
+import com.example.faculty.database.dto.event.EventUpdateDto;
 import com.example.faculty.database.dto.subject.SubjectCreateDto;
 import com.example.faculty.database.dto.subject.SubjectResponseDto;
 import com.example.faculty.database.dto.user.UserCreateDto;
@@ -191,20 +192,62 @@ public class UserController {
                                   @RequestParam(value = "action", required = false) String action) {
         if (action.equals("create")) {
 
-            for(int i = 0 ; i < date.size(); i++){
+            for (int i = 0; i < date.size(); i++) {
                 EventCreateDto event = EventCreateDto.builder()
                         .subjectId(subjectUUID)
                         .userId(teacherUUID)
                         .name(name)
                         .group(group)
                         .auditory(auditory)
-                        .datetime(Timestamp.valueOf(date.get(i).replace("T"," ")+":00.0"))
+                        .datetime(transformString2Timestamp(date.get(i)))
                         .build();
                 eventService.create(event);
             }
         }
 
         return "redirect:/api/users";
+    }
+
+    @GetMapping("/events/edit/{id}")
+    public String editEventGet(Model model, @PathVariable("id") UUID id) {
+        EventResponseDto event = eventService.get(id).orElse(null);
+        model.addAttribute("event", event);
+        model.addAttribute("datetime", transformTimestamp2String(event.getDatetime()));
+        return "editEvent";
+    }
+
+    @PostMapping("/events/edit/{id}")
+    public String editEventPost(
+            @PathVariable("id") UUID id,
+            @RequestParam("group") String group,
+            @RequestParam("auditory") String auditory,
+            @RequestParam("date") String date,
+            @RequestParam("action") String action) {
+
+        if (action.equals("save")) {
+            EventResponseDto event = eventService.get(id).orElse(null);
+            EventUpdateDto eventUpdated = EventUpdateDto.builder()
+                    .id(id)
+                    .datetime(transformString2Timestamp(date))
+                    .subjectId(event.getSubject().getId())
+                    .userId(event.getUser().getId())
+                    .group(group)
+                    .name(event.getName())
+                    .auditory(auditory)
+                    .build();
+
+            eventService.update(eventUpdated);
+        }
+        return "redirect:/api/users";
+    }
+
+    private String transformTimestamp2String(Timestamp date) {
+        return date.toString().substring(0, 16).replace(" ", "T");
+    }
+
+
+    private Timestamp transformString2Timestamp(String date) {
+        return Timestamp.valueOf(date.replace("T", " ") + ":00.0");
     }
 
     public CalendarEventDto fillUserShowCalendarDto(int userId, LocalDate localDate, List<Integer> days) {
