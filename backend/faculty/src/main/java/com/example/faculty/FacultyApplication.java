@@ -2,6 +2,7 @@ package com.example.faculty;
 
 import com.example.faculty.database.dto.subject.SubjectResponseDto;
 import com.example.faculty.services.implementations.EventServiceImpl;
+import com.example.faculty.services.implementations.RequestServiceImpl;
 import com.example.faculty.services.implementations.SubjectServiceImpl;
 import com.example.faculty.services.implementations.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
@@ -42,12 +43,12 @@ public class FacultyApplication {
     private static void test(ApplicationContext applicationContext) {
         EventServiceImpl eventService = applicationContext.getBean(EventServiceImpl.class);
         SubjectServiceImpl subjectService = applicationContext.getBean(SubjectServiceImpl.class);
+        RequestServiceImpl requestService = applicationContext.getBean(RequestServiceImpl.class);
         UserServiceImpl userService = applicationContext.getBean(UserServiceImpl.class);
 
+        System.out.println(requestService.getAll());
+        System.out.println(eventService.getAll());
 
-        String date = "2021-12-05T11:50";
-        date = date.replace("T"," ")+":00.0";
-        System.out.println(Timestamp.valueOf(date));
     }
 
 

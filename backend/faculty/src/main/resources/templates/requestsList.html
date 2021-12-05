@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <title>Subjects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+
+    <div th:each="request,iter:${requests}">
+
+        <div class="infoBlock">
+            <h3 th:text="${request.getUser().getSurname() + ' ' +request.getUser().getName() + ' ' +request.getUser().getParental() }"/>
+
+            <div>
+                <table class="table table-bordered table-responsive-sm">
+                    <thead>
+                    <tr>
+                        <th>NAME</th>
+                        <th>FROM</th>
+                        <th>TO</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td>Auditory</td>
+                        <td th:text="${oldEvents.get(iter.index).get().getAuditory()}"></td>
+                        <td th:text="${request.getAuditory()}"></td>
+                    </tr>
+
+                    <tr class="bg-primary text-white">
+                        <td>Group</td>
+                        <td th:text="${oldEvents.get(iter.index).get().getGroup()}"></td>
+                        <td th:text="${request.getGroup()}"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Time</td>
+                        <td th:text="${oldEvents.get(iter.index).get().getDatetime()}"></td>
+                        <td th:text="${request.getDatetime()}"></td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

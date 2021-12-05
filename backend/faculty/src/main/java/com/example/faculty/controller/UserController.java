@@ -4,29 +4,27 @@ import com.example.faculty.database.dto.calendar.CalendarEventDto;
 import com.example.faculty.database.dto.event.EventCreateDto;
 import com.example.faculty.database.dto.event.EventResponseDto;
 import com.example.faculty.database.dto.event.EventShortInfoDto;
-import com.example.faculty.database.dto.event.EventUpdateDto;
+import com.example.faculty.database.dto.request.RequestCreateDto;
+import com.example.faculty.database.dto.request.RequestResponseDto;
 import com.example.faculty.database.dto.subject.SubjectCreateDto;
 import com.example.faculty.database.dto.subject.SubjectResponseDto;
 import com.example.faculty.database.dto.user.UserCreateDto;
 import com.example.faculty.database.dto.user.UserResponseDto;
 import com.example.faculty.database.dto.user.UserUpdateDto;
 import com.example.faculty.database.entity.Event;
-import com.example.faculty.database.entity.Subject;
+import com.example.faculty.database.entity.Request;
 import com.example.faculty.database.enums.*;
 import com.example.faculty.services.interfaces.IEventService;
+import com.example.faculty.services.interfaces.IRequestService;
 import com.example.faculty.services.interfaces.ISubjectService;
 import com.example.faculty.services.interfaces.IUserService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
@@ -37,17 +35,16 @@ public class UserController {
     private final IUserService userService;
     private final IEventService eventService;
     private final ISubjectService subjectService;
+    private final IRequestService requestService;
 
     @Autowired
     private ResourceLoader resourceLoader;
 
-    @Value("${property.name}")
-    private String property;
-
-    public UserController(IUserService userService, IEventService eventService, ISubjectService subjectService) {
+    public UserController(IUserService userService, IEventService eventService, ISubjectService subjectService, IRequestService requestService) {
         this.userService = userService;
         this.eventService = eventService;
         this.subjectService = subjectService;
+        this.requestService = requestService;
     }
 
     @GetMapping
@@ -117,8 +114,6 @@ public class UserController {
                 : subjectService.getByName(name);
 
         model.addAttribute("subjects", subjects);
-
-        // here is resource file
         return "subjects";
     }
 
@@ -205,7 +200,7 @@ public class UserController {
             }
         }
 
-        return "redirect:/api/users";
+        return "redirect:/api/user";
     }
 
     @GetMapping("/events/edit/{id}")
@@ -226,20 +221,37 @@ public class UserController {
 
         if (action.equals("save")) {
             EventResponseDto event = eventService.get(id).orElse(null);
-            EventUpdateDto eventUpdated = EventUpdateDto.builder()
-                    .id(id)
+            RequestCreateDto request = RequestCreateDto.builder()
+                    .time( new Timestamp(System.currentTimeMillis()))
+                    .userId(event.getUser().getId())
+                    .eventId(event.getId())
+                    .name(event.getName())
+                    .group(group)
+                    .auditory(auditory)
                     .datetime(transformString2Timestamp(date))
                     .subjectId(event.getSubject().getId())
-                    .userId(event.getUser().getId())
-                    .group(group)
-                    .name(event.getName())
-                    .auditory(auditory)
                     .build();
 
-            eventService.update(eventUpdated);
+            requestService.create(request);
         }
-        return "redirect:/api/users";
+        return "redirect:/api/user/requests";
     }
+
+    @GetMapping("/requests")
+    public String showAllRequests(Model model) {
+        List<RequestResponseDto> requests = requestService.getAll();
+        List<Optional<EventResponseDto>> oldEvents = new ArrayList<>();
+        for(RequestResponseDto r : requests){
+            System.out.println(r.getEvent().getId());
+            oldEvents.add(eventService.get(r.getEvent().getId()));
+        }
+        model.addAttribute("requests", requests);
+        model.addAttribute("oldEvents", oldEvents);
+        return "requestsList";
+    }
+
+    @PostMapping("/requests/{id}")
+
 
     private String transformTimestamp2String(Timestamp date) {
         return date.toString().substring(0, 16).replace(" ", "T");
