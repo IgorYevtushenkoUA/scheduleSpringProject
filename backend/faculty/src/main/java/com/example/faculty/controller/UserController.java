@@ -37,6 +37,9 @@ public class UserController {
     private final ISubjectService subjectService;
     private final IRequestService requestService;
 
+    private static List<String> specialities = new ArrayList<>();
+    private static List<Integer> courses = new ArrayList<>();
+
     @Autowired
     private ResourceLoader resourceLoader;
 
@@ -78,31 +81,43 @@ public class UserController {
     public String showCalendar(Model model,
                                @RequestParam(value = "year", required = false) Integer year,
                                @RequestParam(value = "month", required = false) Integer month,
-                               @RequestParam(value = "arrow", required = false) String arrow
+                               @RequestParam(value = "arrow", required = false) String arrow,
+                               @RequestParam(value = "speciality", required = false) List<String> speciality,
+                               @RequestParam(value = "course", required = false) List<Integer> course,
+                               @RequestParam(value = "action", required = false) String action
     ) {
 
+        specialities = setSpeciality(speciality, action);
+        courses = setCourses(course, action);
         LocalDate localDate = getLocalDate(year, month, 1, arrow);
         List<Integer> days = getCurrentDays(localDate.getYear(), localDate.getMonth().getValue(), 1);
-//        --------------------------
         List<Integer> weeks = new ArrayList<>();
         var weekDays = List.of(0, 1, 2, 3, 4, 5, 6);
         for (int i = 0; i < days.size() / 7; i++) {
             weeks.add(i);
         }
 
+
+        // todo set user UUID
+        int tempUserId = 1;
+        CalendarEventDto eventDto = 1 == 2 // todo compare is it admin or not
+                ? fillUserShowCalendarDto(1, localDate, days)
+                : fillAdminShowCalendarDto(localDate, days, specialities, courses);
+
         model.addAttribute("weeks", weeks);
         model.addAttribute("weekDays", weekDays);
-/*
-                --------------------------
-         todo add userUUID
-        */
-        int tempUserId = 1;
-        CalendarEventDto eventDto = fillUserShowCalendarDto(1, localDate, days);
-
         model.addAttribute("localDate", localDate);
         model.addAttribute("days", days);
         model.addAttribute("eventDto", eventDto);
-        return "calendar";
+        model.addAttribute("specialities", Arrays.asList(Speciality.values()));
+        model.addAttribute("courses", Arrays.asList(Courses.values()));
+        model.addAttribute("specialityList", specialities);
+        model.addAttribute("courseList", courses);
+
+        /*
+        return user is Admin ? "adminCalendar" : "calendar";
+         */
+        return "adminCalendar";
     }
 
     @SneakyThrows
@@ -270,6 +285,23 @@ public class UserController {
         return "redirect:/api/user/requests";
     }
 
+    private static List<String> setSpeciality(List<String> speciality, String action) {
+        if (speciality == null && action != null) {
+            specialities = new ArrayList<>();
+        } else if (speciality != null) {
+            specialities = speciality;
+        }
+        return specialities;
+    }
+
+    private static List<Integer> setCourses(List<Integer> course, String action) {
+        if (course == null && action != null) {
+            courses = new ArrayList<>();
+        } else if (course != null) {
+            courses = course;
+        }
+        return courses;
+    }
 
     private String transformTimestamp2String(Timestamp date) {
         return date.toString().substring(0, 16).replace(" ", "T");
@@ -280,27 +312,14 @@ public class UserController {
         return Timestamp.valueOf(date.replace("T", " ") + ":00.0");
     }
 
-    public CalendarEventDto fillUserShowCalendarDto(int userId, LocalDate localDate, List<Integer> days) {
+    private CalendarEventDto fillUserShowCalendarDto(int userId, LocalDate localDate, List<Integer> days) {
 
         Map<Integer, List<EventInfoDto>> map = new HashMap<>();
         for (int i = 0; i < days.size(); i++) {
             if (days.get(i) != null) {
                 List<Event> events = eventService.findEventForUserByYearAndMonthAndDay(localDate.getYear(),
                         localDate.getMonth().getValue(), days.get(i));
-
-                List<EventInfoDto> eventShortInfoDtoList = new ArrayList<>();
-                for (Event e : events) {
-                    EventInfoDto eventShortInfoDto = EventInfoDto.builder()
-                            .group(e.getGroup())
-                            .name(e.getName())
-                            .auditory(e.getAuditory())
-                            .subject(e.getSubject().getName())
-                            .hours(e.getDatetime().getHours())
-                            .minutes(e.getDatetime().getMinutes())
-                            .build();
-                    eventShortInfoDtoList.add(eventShortInfoDto);
-                }
-
+                List<EventInfoDto> eventShortInfoDtoList = buildEventInfoDtoList(events);
                 map.put(days.get(i), eventShortInfoDtoList);
             }
         }
@@ -310,7 +329,57 @@ public class UserController {
         return calendarEventDto;
     }
 
-    public LocalDate getLocalDate(Integer year, Integer month, Integer date, String arrow) {
+
+    private CalendarEventDto fillAdminShowCalendarDto(LocalDate localDate,
+                                                      List<Integer> days,
+                                                      List<String> specialities,
+                                                      List<Integer> courses) {
+        Map<Integer, List<EventInfoDto>> map = new HashMap<>();
+        for (int i = 0; i < days.size(); i++) {
+            if (days.get(i) != null) {
+                List<Event> events = new ArrayList<>();
+                if (specialities.isEmpty() && courses.isEmpty()) {
+                    events = eventService.findEventByYearAndMonthAndDay(localDate.getYear(),
+                            localDate.getMonth().getValue(), days.get(i));
+                } else if (!specialities.isEmpty() && courses.isEmpty()) {
+                    events = eventService.findByYearAndMonthAndDayAndSpeciality(localDate.getYear(),
+                            localDate.getMonth().getValue(), days.get(i), specialities);
+                } else if (!courses.isEmpty() && specialities.isEmpty()) {
+                    events = eventService.findByYearAndMonthAndDayAndCourse(localDate.getYear(),
+                            localDate.getMonth().getValue(), days.get(i), courses);
+                } else {
+                    events = eventService.findByYearAndMonthAndDayAndSpecialityAndCourse(localDate.getYear(),
+                            localDate.getMonth().getValue(), days.get(i), specialities, courses);
+                }
+
+                List<EventInfoDto> eventShortInfoDtoList = buildEventInfoDtoList(events);
+                map.put(days.get(i), eventShortInfoDtoList);
+            }
+        }
+        CalendarEventDto calendarEventDto = CalendarEventDto.builder()
+                .daysAtCalendar(map)
+                .build();
+        return calendarEventDto;
+    }
+
+    private List<EventInfoDto> buildEventInfoDtoList(List<Event> events) {
+        List<EventInfoDto> eventShortInfoDtoList = new ArrayList<>();
+        for (Event e : events) {
+            EventInfoDto eventShortInfoDto = EventInfoDto.builder()
+                    .group(e.getGroup())
+                    .name(e.getName())
+                    .auditory(e.getAuditory())
+                    .subject(e.getSubject().getName())
+                    .hours(e.getDatetime().getHours())
+                    .minutes(e.getDatetime().getMinutes())
+                    .build();
+            eventShortInfoDtoList.add(eventShortInfoDto);
+        }
+        return eventShortInfoDtoList;
+    }
+
+
+    private LocalDate getLocalDate(Integer year, Integer month, Integer date, String arrow) {
         LocalDate localDate = LocalDate.now();
         if (month == null || year == null || date == null || arrow == null) {
             year = localDate.getYear();
@@ -334,7 +403,7 @@ public class UserController {
         return LocalDate.of(year, month, date);
     }
 
-    public List<Integer> getCurrentDays(int year, int month, int date) {
+    private List<Integer> getCurrentDays(int year, int month, int date) {
         List<Integer> days = new ArrayList<>();
 
         LocalDate initial = LocalDate.of(year, month, date);

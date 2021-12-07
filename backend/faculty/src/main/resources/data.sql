@@ -23,19 +23,19 @@ values ('9abf6db0-4c8a-11ec-81d3-0242ac130003', 'AI', 'INFORMATICS', 'Computer S
 -- EVENT --
 insert into event(id, user_id, subject_id, datetime, group_name, name, auditory, created_at, updated_at)
 values ('b75d57c4-4c8a-11ec-81d3-0242ac130003', '6314099e-4c88-11ec-81d3-0242ac130003',
-        '9abf6df0-4c8a-11ec-81d3-0242ac130003', '2021-11-01 08:30:00.591', 'all', 'lecture', '3-311', 0, 0);
+        '9abf6df0-4c8a-11ec-81d3-0242ac130003', '2021-12-01 08:30:00.591', 'all', 'lecture', '3-311', 0, 0);
 
 insert into event(id, user_id, subject_id, datetime, group_name, name, auditory, created_at, updated_at)
 values ('b75d57c4-4c8a-11ec-81d4-0242ac130003', '6314099e-4c88-11ec-81d3-0242ac130003',
-        '9abf6df0-4c8a-11ec-81d3-0242ac130003', '2021-11-01 10:00:00.591', 'gr1', 'practice', '3-311', 0, 0);
+        '9abf6df0-4c8a-11ec-81d3-0242ac130003', '2021-12-01 10:00:00.591', 'gr1', 'practice', '3-311', 0, 0);
 
 insert into event(id, user_id, subject_id, datetime, group_name, name, auditory, created_at, updated_at)
 values ('b75d57c4-4c8a-10ec-81d5-0242ac130003', '6314099e-4c88-11ec-81d3-0242ac130003',
-        '9abf6df0-4c8a-11ec-81d3-0242ac130003', '2021-11-01 11:40:00.591', 'gr2', 'practice', '3-311', 0, 0);
+        '9abf6df0-4c8a-11ec-81d3-0242ac130003', '2021-12-01 11:40:00.591', 'gr2', 'practice', '3-311', 0, 0);
 
 insert into event(id, user_id, subject_id, datetime, group_name, name, auditory, created_at, updated_at)
 values ('b75d58c4-4c8a-12ec-81d5-0242ac130003', '6314099e-4c88-11ec-81d3-0242ac130003',
-        '9abf6df0-4c8a-11ec-81d3-0242ac130003', '2021-11-07 11:40:00.591', 'gr2', 'practice', '3-311', 0, 0);
+        '9abf6df0-4c8a-11ec-81d3-0242ac130003', '2021-12-07 11:40:00.591', 'gr2', 'practice', '3-311', 0, 0);
 
 
 -- ATTENDEE --
@@ -47,7 +47,7 @@ values ('fe3f9a8a-4c8a-11ec-81d3-0242ac130003', 'b75d57c4-4c8a-11ec-81d3-0242ac1
 --- REQUEST ---
 insert into request(id, created_at, updated_at, auditory, group_name, name, datetime, time, subject_id, event_id,
                     user_id)
-values ('25e69c33-79de-4741-8dc2-f4815d999585', 0, 0, '3-777', 'all', 'lecture', '	2021-11-01 08:30:00',
+values ('25e69c33-79de-4741-8dc2-f4815d999585', 0, 0, '3-777', 'all', 'lecture', '	2021-12-01 08:30:00',
         '2021-12-05 18:39:56.681', '9abf6df0-4c8a-11ec-81d3-0242ac130003',
         'b75d57c4-4c8a-11ec-81d3-0242ac130003', '6314099e-4c88-11ec-81d3-0242ac130003');
 
