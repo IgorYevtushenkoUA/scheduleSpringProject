@@ -4,6 +4,7 @@ import com.example.faculty.database.dto.calendar.CalendarEventDto;
 import com.example.faculty.database.dto.event.EventCreateDto;
 import com.example.faculty.database.dto.event.EventResponseDto;
 import com.example.faculty.database.dto.event.EventInfoDto;
+import com.example.faculty.database.dto.event.EventUpdateDto;
 import com.example.faculty.database.dto.request.RequestCreateDto;
 import com.example.faculty.database.dto.request.RequestResponseDto;
 import com.example.faculty.database.dto.subject.SubjectCreateDto;
@@ -221,7 +222,7 @@ public class UserController {
         if (action.equals("save")) {
             EventResponseDto event = eventService.get(id).orElse(null);
             RequestCreateDto request = RequestCreateDto.builder()
-                    .time( new Timestamp(System.currentTimeMillis()))
+                    .time(new Timestamp(System.currentTimeMillis()))
                     .userId(event.getUser().getId())
                     .eventId(event.getId())
                     .name(event.getName())
@@ -240,7 +241,7 @@ public class UserController {
     public String showAllRequests(Model model) {
         List<RequestResponseDto> requests = requestService.getAll();
         List<Optional<EventResponseDto>> oldEvents = new ArrayList<>();
-        for(RequestResponseDto r : requests){
+        for (RequestResponseDto r : requests) {
             System.out.println(r.getEvent().getId());
             oldEvents.add(eventService.get(r.getEvent().getId()));
         }
@@ -250,6 +251,24 @@ public class UserController {
     }
 
     @PostMapping("/requests/{id}")
+    public String requestPost(@PathVariable("id") UUID id,
+                              @RequestParam("action") String action) {
+        if (action.equals("confirm")) {
+            RequestResponseDto request = requestService.get(id).orElse(null);
+            EventUpdateDto event = EventUpdateDto.builder()
+                    .id(request.getEvent().getId())
+                    .datetime(request.getDatetime())
+                    .subjectId(request.getSubject().getId())
+                    .userId(request.getUser().getId())
+                    .group(request.getGroup())
+                    .name(request.getName())
+                    .auditory(request.getAuditory())
+                    .build();
+            eventService.update(event);
+        }
+        requestService.delete(id);
+        return "redirect:/api/user/requests";
+    }
 
 
     private String transformTimestamp2String(Timestamp date) {
