@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+
+<div class="container">
+
+    <form th:action="@{/api/user/events/edit/{id} (id=${event.getId()})}" method="post" enctype="multipart/form-data">
+
+
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>Teacher</th>
+                <td>
+                    <input type="text"
+                           name="teacherUUID"
+                           th:value="${event.getUser().getId()}" disabled>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Subject</th>
+                <td>
+                    <input type="text" th:value="${event.getSubject().getName()}" disabled>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Name</th>
+                <td>
+                    <input type="text" th:value="${event.getName()}" disabled>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Group</th>
+                <td>
+                    <input type="text"
+                           name="group"
+                           th:value="${event.getGroup()}">
+                </td>
+            </tr>
+
+            <tr>
+                <th>Auditory</th>
+                <td>
+                    <input
+                            type="text"
+                            name="auditory"
+                            th:value="${event.getAuditory()}">
+                </td>
+            </tr>
+
+            <tr>
+                <th>Date</th>
+                <td>
+                    <input type="datetime-local"
+                           name="date"
+                           th:value="${datetime}">
+                </td>
+            </tr>
+
+
+            </tbody>
+        </table>
+
+        <div class="">
+            <button type="submit" name="action" value="cancel" class="btn btn-danger btn-block"
+                    th:text="Cancel"></button>
+            <button type="submit" name="action" value="save" class="btn btn-success btn-block"
+                    th:text="Save"></button>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

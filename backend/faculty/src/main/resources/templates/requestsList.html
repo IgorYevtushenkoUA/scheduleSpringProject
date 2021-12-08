@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <title>Subjects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+
+    <div th:each="request,iter:${requests}">
+
+        <form th:action="@{/api/user/requests/{id} (id=${request.getId()})}" method="post">
+            <div class="card">
+
+                <div class="card-header">
+                    <h3 th:text="${request.getUser().getSurname() + ' ' +request.getUser().getName() + ' ' +request.getUser().getParental() }"/>
+                </div>
+
+                <div class="card-body">
+                    <table class="table table-bordered table-responsive-sm">
+                        <thead>
+                        <tr>
+                            <th>Change</th>
+                            <th>FROM</th>
+                            <th>TO</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <td>Auditory</td>
+                            <td th:text="${oldEvents.get(iter.index).get().getAuditory()}"></td>
+                            <td th:text="${request.getAuditory()}"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Group</td>
+                            <td th:text="${oldEvents.get(iter.index).get().getGroup()}"></td>
+                            <td th:text="${request.getGroup()}"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Time</td>
+                            <td th:text="${oldEvents.get(iter.index).get().getDatetime()}"></td>
+                            <td th:text="${request.getDatetime()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div>
+                <div class="">
+                    <button type="submit" name="action" value="deny" class="btn btn-danger btn-block"
+                            th:text="Deny"></button>
+                    <button type="submit" name="action" value="confirm" class="btn btn-success btn-block"
+                            th:text="Confirm"></button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

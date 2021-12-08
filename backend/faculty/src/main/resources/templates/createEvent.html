@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+
+<div class="container">
+
+    <form th:action="@{/api/user/events/create}" method="post" enctype="multipart/form-data">
+
+        <div class="input-group p-1">
+            <span class="input-group-text"
+                  th:text="TEACHER"></span>
+            <select name="teacherUUID" class="custom-select">
+                <option
+                        th:each="t:${teachers}"
+                        th:text="${t.getSurname() + ' ' + t.getName() + ' ' + t.getParental()}"
+                        th:value="${t.getId()}"
+                />
+            </select>
+        </div>
+
+        <div class="input-group p-1">
+            <span class="input-group-text"
+                  th:text="SUBJECT"></span>
+            <select name="subjectUUID" class="custom-select">
+                <option
+                        th:each="s:${subjects}"
+                        th:text="${s.getName()}"
+                        th:value="${s.getId()}"
+                />
+            </select>
+        </div>
+
+        <div class="input-group p-1">
+            <span class="input-group-text" th:text="NAME"></span>
+            <input class="form-control"
+                   aria-label="With textarea"
+                   type="text"
+                   name="name"
+                   placeholder="Enter name">
+        </div>
+
+        <div class="input-group p-1">
+            <span class="input-group-text" th:text="GROUP"></span>
+            <input class="form-control"
+                   aria-label="With textarea"
+                   type="text"
+                   name="group"
+                   placeholder="Enter Group">
+        </div>
+
+        <div class="input-group p-1">
+            <span class="input-group-text" th:text="AUDITORY"></span>
+            <input class="form-control"
+                   aria-label="With textarea"
+                   type="text"
+                   name="auditory"
+                   placeholder="Enter Auditory">
+        </div>
+
+        <!--        <div>-->
+        <!--            <div id="dates">-->
+        <!--                <div th:id="'date'+${0}" class="input-group p-1">-->
+        <!--                    <span class="input-group-text" th:text="Date"></span>-->
+        <!--                    <input class="form-control"-->
+        <!--                           aria-label="With textarea"-->
+        <!--                           type="datetime-local"-->
+        <!--                           name="date">-->
+        <!--                    <button class="btn btn-danger" id="btn-delete0" onClick="deleteDateField(this.id)">Delete</button>-->
+        <!--                </div>-->
+        <!--                <button class="btn btn-success" id="btn-add">Add</button>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+<!--        <div class="input_fields_wrap">-->
+<!--            <button class="add_field_button">Add More Fields</button>-->
+<!--            <div><input type="text" name="mytext[]"></div>-->
+<!--        </div>-->
+
+        <div class="input_fields_wrap">
+            <div class="input-group p-1">
+                <span class="input-group-text" th:text="Date1"></span>
+                <input class="form-control"
+                       aria-label="With textarea"
+                       type="datetime-local"
+                       name="date">
+            </div>
+        </div>
+        <button class="add_field_button btn btn-primary">Add More</button>
+
+        <div class="">
+            <button type="submit" name="action" value="cancel" class="btn btn-danger btn-block"
+                    th:text="Cancel"></button>
+            <button type="submit" name="action" value="create" class="btn btn-success btn-block"
+                    th:text="Create"></button>
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        var max_fields = 10; //maximum input boxes allowed
+        var wrapper = $(".input_fields_wrap"); //Fields wrapper
+        var add_button = $(".add_field_button"); //Add button ID
+
+        var x = 1; //initlal text box count
+        $(add_button).click(function (e) { //on add input button click
+            e.preventDefault();
+            if (x < max_fields) { //max input box allowed
+                x++; //text box increment
+                $(wrapper).append('<div class="input-group p-1">\n' +
+                    '                <span class="input-group-text">Date' + x +'</span>\n' +
+                    '                <input class="form-control"\n' +
+                    '                       aria-label="With textarea"\n' +
+                    '                       type="datetime-local"\n' +
+                    '                       name="date">\n' +
+                    '<a href="#" class="remove_field">Remove</a></div>'); //add input box
+            }
+        });
+
+        $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+            e.preventDefault();
+            $(this).parent('div').remove();
+            x--;
+        })
+    });
+</script>
+
+</body>
+</html>

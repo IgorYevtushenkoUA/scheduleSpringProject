@@ -7,6 +7,7 @@ import com.example.faculty.database.entity.Event;
 import com.example.faculty.database.mapstruct.mappers.IEventMapper;
 import com.example.faculty.database.repository.EventRepository;
 import com.example.faculty.services.interfaces.IEventService;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,8 +56,40 @@ public class EventServiceImpl implements IEventService {
     }
 
     @Override
+    public List<Event> findEventByYearAndMonthAndDay(int year, int month, int day) {
+        return repository.findEventByYearAndMonthAndDay(year, month, day);
+    }
+
+    @Override
     public List<Event> findEventForUserByYearAndMonth(int year, int month) {
         return repository.findEventForUserByYearAndMonth(year, month);
+    }
+
+    @Override
+    public List<Event> findAllBySubject(UUID subjectId) {
+        return repository.findAllBySubject(subjectId);
+    }
+
+    @Override
+    public List<Event> findByYearAndMonthAndDayAndSpeciality(int year, int month, int day, List<String> findBySpeciality) {
+        return repository.findByYearAndMonthAndDayAndSpeciality(year, month, day, findBySpeciality);
+    }
+
+    @Override
+    public List<Event> findByYearAndMonthAndDayAndCourse(int year,
+                                    int month,
+                                    int day,
+                                    List<Integer> course) {
+        return repository.findByYearAndMonthAndDayAndCourse(year, month, day, course);
+    }
+
+    @Override
+    public List<Event> findByYearAndMonthAndDayAndSpecialityAndCourse(int year,
+                                                 int month,
+                                                 int day,
+                                                 List<String> speciality,
+                                                 List<Integer> course) {
+        return repository.findByYearAndMonthAndDayAndSpecialityAndCourse(year, month, day, speciality, course);
     }
 
 }

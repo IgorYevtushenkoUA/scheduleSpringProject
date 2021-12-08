@@ -21,11 +21,18 @@
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
                 <form th:action="@{/api/auth/signIn}" method="post">
                     <!-- Email input -->
-                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+                    <h3>Sign into your account</h3>
+                    <span class="abt">What to create account? <a href="/api/auth/register">Register</a></span>
+
+                    <div class="form-outline mb-4 mt-3">
+                        <input type="email" class="form-control form-control-lg"
+                               placeholder="Email address" name="email"/>
+                    </div>
+
 
                     <div class="form-outline mb-4">
-                        <input type="email" id="form1Example13" class="form-control form-control-lg"
-                               placeholder="Email address" name="email"/>
+                        <input type="password" class="form-control form-control-lg"
+                               placeholder="Password" name="password"/>
                     </div>
 
                     <!-- Submit button -->

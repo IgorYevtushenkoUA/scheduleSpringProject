@@ -1,13 +1,11 @@
 package com.example.faculty.database.dto.calendar;
 
-import com.example.faculty.database.dto.event.EventShortInfoDto;
-import com.example.faculty.database.entity.Event;
+import com.example.faculty.database.dto.event.EventInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +15,6 @@ import java.util.Map;
 @SuperBuilder
 public class CalendarEventDto {
 
-    Map<Integer, List<EventShortInfoDto>> daysAtCalendar;
+    Map<Integer, List<EventInfoDto>> daysAtCalendar;
 
 }

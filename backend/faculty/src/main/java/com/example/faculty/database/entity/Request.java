@@ -7,10 +7,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -20,11 +19,20 @@ import javax.persistence.Table;
 @SuperBuilder
 @Table(name = "request")
 public class Request extends EventData {
-    @ManyToOne
+
+    @NotNull
+    @Column(name="time")
+    private Timestamp time;
+
+    @NotNull
+    @Column(name="datetime")
+    private Timestamp datetime;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 }

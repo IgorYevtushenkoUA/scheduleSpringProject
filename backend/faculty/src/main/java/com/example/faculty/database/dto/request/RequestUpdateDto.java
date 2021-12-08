@@ -1,6 +1,8 @@
-package com.example.faculty.database.dto.event;
+package com.example.faculty.database.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -12,16 +14,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class EventShortInfoDto {
+public class RequestUpdateDto extends RequestCreateDto {
+
     @NotNull
+    @JsonProperty
     private UUID id;
 
-    @NotNull
-    private String group;
-
-    @NotNull
-    private String name;
-
-    @NotNull
-    private String auditory;
 }

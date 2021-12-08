@@ -3,7 +3,6 @@ package com.example.faculty.services.interfaces;
 import com.example.faculty.database.dto.user.UserCreateDto;
 import com.example.faculty.database.dto.user.UserResponseDto;
 import com.example.faculty.database.dto.user.UserUpdateDto;
-import com.example.faculty.database.entity.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,5 +19,6 @@ public interface IUserService {
 
     UserResponseDto update(UserUpdateDto dto);
 
-    User findByEmail(String email);
+    List<UserResponseDto> getAllTeacher();
+
 }

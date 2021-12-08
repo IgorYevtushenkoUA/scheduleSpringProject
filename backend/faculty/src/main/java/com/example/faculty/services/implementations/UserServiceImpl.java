@@ -51,14 +51,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User findByEmail(String email) {
-        return repository.findUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found: " + email));
+    public List<UserResponseDto> getAllTeacher() {
+        return repository.getAllTeacher().stream().map(IUserMapper.MAPPER::userToResponseDto).collect(Collectors.toList());
     }
-
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User user = repository.findUserByEmail(username).orElseThrow(() -> new RuntimeException("User not found: " + username));
-//        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().name());
-//        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Arrays.asList(authority));
-//    }
 }

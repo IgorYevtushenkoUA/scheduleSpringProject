@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <title>Subject</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+
+    <h2 th:text="${subject.get().getName()}"/>
+
+    <table class="table table-bordered">
+        <tbody>
+
+        <tr>
+            <th>Faculty</th>
+            <td th:text="${subject.get().getFaculty()}"/>
+        </tr>
+
+        <tr>
+            <th>Speciality</th>
+            <td th:text="${subject.get().getSpeciality()}"/>
+        </tr>
+
+        <tr>
+            <th>Course</th>
+            <td th:text="${subject.get().getCourse()}"/>
+        </tr>
+
+        <tr>
+            <th>Code</th>
+            <td th:text="${subject.get().getCode()}"/>
+        </tr>
+
+        <tr>
+            <th>Trim</th>
+            <td th:text="${subject.get().getTrim()}"/>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-bordered table-responsive-sm">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Group</th>
+            <th>BTN</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="map,iter:${eventsMap}">
+            <th th:text="${iter.index+1}"></th>
+            <td th:text="${map.value.getName()}"></td>
+            <td th:text="${map.key}"></td>
+            <td>
+<button>BUTTON</button>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+
+</div>
+
+</body>
+</html>
