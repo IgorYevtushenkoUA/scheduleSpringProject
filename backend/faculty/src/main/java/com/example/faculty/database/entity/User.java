@@ -5,9 +5,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,10 +35,6 @@ public class User extends BaseEntity {
     private String parental;
 
     @NotBlank
-    @Size(max = 20)
-    private String username;
-
-    @NotBlank
     @Size(max = 50)
     @Email
     private String email;
@@ -49,12 +43,16 @@ public class User extends BaseEntity {
     @Size(max = 120)
     private String password;
 
+    @NotBlank
+    @Size(max = 20)
+    private String username;
+
     @Lob
     @Column
     private String about;
 
-    //    @Min(1)
-//    @Max(4)
+    @Min(1)
+    @Max(4)
     @Column
     private int course;
 
@@ -79,18 +77,17 @@ public class User extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
-
-    public User(String username, String email, String password, String name, String surname) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
+    public User(String name, String surname, String parental, String email, String password,
+                String username, String about, int course, String faculty, Set<Role> roles) {
         this.name = name;
         this.surname = surname;
+        this.parental = parental;
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.about = about;
+        this.course = course;
+        this.faculty = faculty;
+        this.roles = roles;
     }
-
 }

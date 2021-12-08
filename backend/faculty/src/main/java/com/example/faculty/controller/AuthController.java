@@ -10,7 +10,6 @@ import com.example.faculty.database.repository.UserRepository;
 import com.example.faculty.database.request.LoginRequest;
 import com.example.faculty.database.request.SignupRequest;
 import com.example.faculty.database.response.JwtResponse;
-import com.example.faculty.database.response.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +18,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.HashSet;
@@ -48,7 +50,12 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @PostMapping("/signin")
+    @GetMapping
+    public String showRegistrationForm(Model model) {
+        return "registration";
+    }
+
+    @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -70,77 +77,54 @@ public class AuthController {
                         roles));
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
-        }
-
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
-        }
-
-        // Create new user's account
-        User user = new User(signUpRequest.getUsername(),
-                signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()),
-                signUpRequest.getName(),
-                signUpRequest.getSurname());
-
-        Set<String> strRoles = signUpRequest.getRole();
-        Set<Role> roles = new HashSet<>();
-
-        if (strRoles == null) {
-            Role studentRole = roleRepository.findRoleByName(UserRole.STUDENT)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(studentRole);
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        System.out.println("ROLE " + roleRepository.findRoleByName(UserRole.ADMINISTRATOR));
-                        Role adminRole = roleRepository.findRoleByName(UserRole.ADMINISTRATOR)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-
-                        break;
-                    case "teacher":
-                        Role modRole = roleRepository.findRoleByName(UserRole.TEACHER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        System.out.println("ROLE" + modRole);
-                        roles.add(modRole);
-                        roles.add(modRole);
-
-                        break;
-                    default:
-                        Role userRole = roleRepository.findRoleByName(UserRole.STUDENT)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-                }
-            });
-        }
-
-        user.setRoles(roles);
-        userRepository.save(user);
-
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    @GetMapping(value = "/registration")
+    public ModelAndView displayRegistration(ModelAndView modelAndView, SignupRequest signUpRequest) {
+        modelAndView.addObject("user", signUpRequest);
+        modelAndView.setViewName("registration");
+        return modelAndView;
     }
+
+    @PostMapping("/registration")
+    public ModelAndView registerUser(@Valid @RequestBody SignupRequest signUpRequest,
+                                     BindingResult result, ModelAndView modelAndView) {
+        if (result.hasErrors()) {
+            modelAndView.setViewName("registration");
+        } else {
+            User existingUser = userRepository.findByEmail(signUpRequest.getEmail());
+            if (existingUser != null) {
+                modelAndView.setViewName("message");
+            } else {
+
+                if(signUpRequest.getPassword().equals(signUpRequest.getConfirmPassword()))
+                    modelAndView.setViewName("message_confirm");
+
+                Role studentRole = roleRepository.findRoleByName(UserRole.STUDENT)
+                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+
+                Set<Role> roles = new HashSet<>();
+                roles.add(studentRole);
+
+                // Create new user's account
+                User user = new User(signUpRequest.getName(),
+                        signUpRequest.getSurname(),
+                        signUpRequest.getParental(),
+                        signUpRequest.getEmail(),
+                        encoder.encode(signUpRequest.getPassword()),
+                        signUpRequest.getEmail(),
+                        signUpRequest.getAbout(),
+                        signUpRequest.getCourse(),
+                        signUpRequest.getFaculty(),
+                        roles);
+
+                userRepository.save(user);
+
+                modelAndView.setViewName("success");
+            }
+        }
+
+        return modelAndView;
+    }
+
+
 }
 
-//    @GetMapping("/signIn")
-//    public String singIn(Model model) {
-//        return "signIn";
-//    }
-//
-//    @PostMapping("/signIn")
-//    public String auth(Model model, @RequestParam(value = "email",defaultValue = "") String email) {
-//        // todo write auth by email
-//        System.out.println("Email = " + email);
-//        return "redirect:/signIn";
-//    }
-//
-//}

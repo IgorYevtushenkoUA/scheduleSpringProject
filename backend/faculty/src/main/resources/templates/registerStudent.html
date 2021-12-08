@@ -19,7 +19,10 @@
 
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                <form th:action="@{/api/auth/register}" method="post">
+                <div th:if="${param.success}">
+                    <div class="alert alert-info">You've successfully registered to our awesome app!</div>
+                </div>
+                <form th:action="@{/api/auth/registration}" method="post">
                     <!-- Email input -->
                     <h3>Create an account</h3>
                     <span class="abt">Already have an account? <a href="/api/auth/signIn">Sign In</a></span>
@@ -27,16 +30,22 @@
                     <div class="input-group p-1 mt-3">
                         <span class="input-group-text" th:text="Name"></span>
                         <input type="text" class="form-control" name="name" placeholder="Enter Name">
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
+                             th:errors="*{name}"></div>
                     </div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Surname"></span>
                         <input type="text" class="form-control" name="surname" placeholder="Enter Surname">
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('surname')}"
+                             th:errors="*{surname}"></div>
                     </div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Parental"></span>
                         <input type="text" class="form-control" name="parental" placeholder="Enter Parental">
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('parental')}"
+                             th:errors="*{parental}"></div>
                     </div>
 
                     <div class="input-group p-1">
@@ -47,21 +56,38 @@
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="About"></span>
                         <textarea type="email" class="form-control" name="about" placeholder="Enter About"></textarea>
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}"
+                             th:errors="*{email}"></div>
+                        <div class="alert alert-warning" th:if="${param.message}">This email already exists!</div>
                     </div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Course"></span>
                         <input type="number" class="form-control" name="course" placeholder="Enter Course">
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('course')}"
+                             th:errors="*{course}"></div>
                     </div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Faculty"></span>
                         <input type="text" class="form-control" name="faculty" placeholder="Enter faculty">
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('faculty')}"
+                             th:errors="*{faculty}"></div>
                     </div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Password"></span>
                         <input type="password" class="form-control" name="password" placeholder="Enter Password">
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}"
+                             th:errors="*{password}"></div>
+                    </div>
+
+                    <div class="input-group p-1">
+                        <span class="input-group-text" th:text="Confirm password"></span>
+                        <input type="confirmPassword" class="form-control" name="confirmPassword" placeholder="Enter one more time">
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('confirmPassword')}"
+                             th:errors="*{confirmPassword}"></div>
+                        <div class="alert alert-warning" th:if="${param.message}">Try repeat password one more time!</div>
                     </div>
 
                     <!-- Submit button -->
