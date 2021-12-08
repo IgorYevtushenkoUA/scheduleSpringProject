@@ -51,7 +51,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public List<UserResponseDto> getAllTeacher() {
-        return repository.getAllTeacher().stream().map(IUserMapper.MAPPER::userToResponseDto).collect(Collectors.toList());
+    public User findByEmail(String email) {
+        return repository.findUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found: " + email));
     }
 }
