@@ -10,12 +10,11 @@
 
 <div th:insert="components/navbar :: navbar"/>
 
-<div class="container">
+<div class="ml-5 mr-5 ">
+
     <br>
-    <div class="month-info">
-
-        <div class="col-xs-12 col-md-6 col-sm-8 col-lg-6 center-block">
-
+    <div class="d-flex justify-content-center">
+        <div class="center-block">
             <form th:action="@{/api/user/calendar}"
                   method="get">
                 <input type="number" th:name="year" th:value="${localDate.getYear()}" hidden>
@@ -28,7 +27,7 @@
                             <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
                         </svg>
                     </button>
-                    <span th:text="${localDate.getMonth().name()}">MONTH</span>
+                    <span th:text="${localDate.getMonth().name()}" class="font-weight-bold">MONTH</span>
 
                     <button class="btn btn-default btn-small" type="submit" th:name="arrow" th:value="next">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -45,7 +44,8 @@
 
     <div class="row">
 
-        <div class="col-9">
+
+        <div class="col-8">
 
             <div class="row row-cols-7 days-naming">
                 <div class="col"><p>Mon</p></div>
@@ -82,32 +82,13 @@
                 </div>
             </div>
 
-            <!--            <div class="row row-cols-7 days-list">-->
-            <!--                <div class="col" th:each="day,iter : ${days}">-->
-            <!--                    <div>-->
-            <!--                        <div th:if="${day} == null">-->
-            <!--                            <div>Null</div>-->
-            <!--                        </div>-->
-            <!--                        <div th:if="${day} != null">-->
-            <!--                            <div th:attr="onclick=|showDaySchedule(${day})|">-->
-            <!--                                <p th:text="${day}"></p>-->
-            <!--                                <div th:each="event : ${eventDto.getDaysAtCalendar().get(day)}">-->
-            <!--                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"-->
-            <!--                                         fill="currentColor"-->
-            <!--                                         class="bi bi-circle-fill" viewBox="0 0 16 16">-->
-            <!--                                        <circle cx="8" cy="8" r="8"/>-->
-            <!--                                    </svg>-->
-            <!--                                </div>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
-
         </div>
-        <div class="col" id="schedule-list">
+        <div class="col-4">
             <div class="schedule" id="schedule">
-                Schedule
+                <h4>SCHEDULE</h4>
+                <div id="schedule-list" class="">
+
+                </div>
             </div>
         </div>
 
@@ -121,22 +102,39 @@
 
     function showDaySchedule(day) {
         let events = userEvent[day];
+
         // delete all from div schedule
 
         var el = document.getElementById('schedule-list');
         while (el.firstChild) el.removeChild(el.firstChild);
 
-        for (let i = 0; i < events.length; i++) {
-            /*
-            datatime
-            lesson
-            auditory
-             */
-            console.log('here')
-            $("#schedule-list").append('<div class="border border-dark" id=' + i + '>\n' +
-                '                <h6>' + events[i].hours + '  -  ' + events[i].minutes + '</h6>\n' +
-                '                <p>' + events[i].name + '</p>\n' +
-                '                <p>' + events[i].auditory + '</p>\n' +
+        if (events.length != 0) {
+            for (let i = 0; i < events.length; i++) {
+
+                let minutes = events[i].minutes === 0 ? "00" : events[i].minutes;
+
+                $("#schedule-list").append('<div class="card mt-1" id=' + i + '>\n' +
+                    '<div class="card-body">\n' +
+                    '                <h5 class="card-title">' + events[i].subject + '</h5>\n' +
+                    '                <p class="card-subtitle mb-2 text-muted">' + events[i].hours + ':' + minutes + '</p>\n' +
+                    '                <p class="card-subtitle mb-2 text-muted">' + events[i].name + '</p>\n' +
+                    '                <p class="card-subtitle mb-2 text-muted">' + events[i].auditory + '</p>\n' +
+                    '     </div> \n' +
+                    '       </div>')
+            }
+        } else {
+            $("#schedule-list").append('<div class="mt-5"' +
+                '<p class="mt-1">\n' +
+                '<p class="h4">NO LESSONS</p>\n' +
+                '<span>\n' +
+                '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"\n' +
+                '        className="bi bi-emoji-sunglasses" viewBox="0 0 32 32">\n' +
+                '  <path\n' +
+                '      d="M4.968 9.75a.5.5 0 1 0-.866.5A4.498 4.498 0 0 0 8 12.5a4.5 4.5 0 0 0 3.898-2.25.5.5 0 1 0-.866-.5A3.498 3.498 0 0 1 8 11.5a3.498 3.498 0 0 1-3.032-1.75zM7 5.116V5a1 1 0 0 0-1-1H3.28a1 1 0 0 0-.97 1.243l.311 1.242A2 2 0 0 0 4.561 8H5a2 2 0 0 0 1.994-1.839A2.99 2.99 0 0 1 8 6c.393 0 .74.064 1.006.161A2 2 0 0 0 11 8h.438a2 2 0 0 0 1.94-1.515l.311-1.242A1 1 0 0 0 12.72 4H10a1 1 0 0 0-1 1v.116A4.22 4.22 0 0 0 8 5c-.35 0-.69.04-1 .116z"/>\n' +
+                '   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-1 0A7 7 0 1 0 1 8a7 7 0 0 0 14 0z"/>\n' +
+                '</svg>\n' +
+                '</span>\n' +
+                '<\p>\n' +
                 '            </div>');
         }
     }

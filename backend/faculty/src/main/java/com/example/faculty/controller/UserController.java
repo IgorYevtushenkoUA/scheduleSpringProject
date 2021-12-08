@@ -100,7 +100,7 @@ public class UserController {
 
         // todo set user UUID
         int tempUserId = 1;
-        CalendarEventDto eventDto = 1 == 1 // todo compare is it admin or not
+        CalendarEventDto eventDto = 1 == 2 // todo compare is it admin or not
                 ? fillUserShowCalendarDto(1, localDate, days)
                 : fillAdminShowCalendarDto(localDate, days, specialities, courses);
 

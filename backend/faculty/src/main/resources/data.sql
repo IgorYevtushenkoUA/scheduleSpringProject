@@ -10,7 +10,7 @@ values ('88f38f3e-4c8a-11ec-81d3-0242ac130003', 'Valeria', 'Shartz', 'Dorian', '
 
 -- SUBJECT --
 insert into subject(id, name, faculty, speciality, course, code, trim, created_at, updated_at)
-values ('9abf6df0-4c8a-11ec-81d3-0242ac130003', 'Computer Science', 'INFORMATICS', 'Computer Science', 1, 111111, 1, 0,
+values ('9abf6df0-4c8a-11ec-81d3-0242ac130003', 'Algebra', 'INFORMATICS', 'Computer Science', 1, 111111, 1, 0,
         0);
 insert into subject(id, name, faculty, speciality, course, code, trim, created_at, updated_at)
 values ('9abf6da0-4c8a-11ec-81d3-0242ac130003', 'C++', 'INFORMATICS', 'Computer Science', 1, 111112, 1, 0,
