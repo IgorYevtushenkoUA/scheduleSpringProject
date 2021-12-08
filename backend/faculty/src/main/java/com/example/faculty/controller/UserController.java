@@ -150,20 +150,24 @@ public class UserController {
     }
 
     @PostMapping("/subjects/{id}/{group}")
-    public String enrollToSubject(@PathVariable("id") UUID id, @PathVariable("group") String group) {
+    public String enrollToSubject(@RequestParam("action") String action,
+                                  @PathVariable("id") UUID id,
+                                  @PathVariable("group") String group) {
         // todo add user credentials
-        // find all events where subject id is id and type is type
         List<Event> events = eventService.findAllBySubjectAndGroup(id, group);
         for (Event e : events) {
-// todo add user
-            //            Attendee a = Attendee.builder()
-//                    .user(user)
-//                    .event(e)
-//                    .build();
-//            attendeeService.create(a);
+            if (action.equals("enroll")) {
+                // todo add user
+                // Attendee a = Attendee.builder()
+                //      .user(user)
+                //      .event(e)
+                //      .build();
+                // attendeeService.create(a);
+            } else {
+                // todo userUUID
+                // attendeeService.deleteByUserAndEvent(userUUID, e.getId());
+            }
         }
-
-
         return "redirect:/api/user/subjects/{id}";
     }
 

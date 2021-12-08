@@ -37,4 +37,9 @@ public class AttendeeServiceImpl implements IAttendeeService {
     public Attendee update(Attendee attendee) {
         return repository.save(attendee);
     }
+
+    @Override
+    public Attendee deleteByUserAndEvent(UUID userUUId, UUID eventUUID) {
+        return repository.deleteByUserAndEvent(userUUId, eventUUID);
+    }
 }

@@ -9,7 +9,7 @@
 
 <div th:insert="components/navbar :: navbar"/>
 
-<div class="container">
+<div class="container mt-5">
     <form th:action="@{/api/user/subjects/create}" method="post" >
         <div class="input-group p-1">
             <span class="input-group-text" th:text="NAME"></span>
@@ -30,17 +30,6 @@
                 />
             </select>
         </div>
-
-<!--        <div class="input-group p-1">-->
-<!--            <span class="input-group-text"-->
-<!--                  th:text="SPECIALITY"></span>-->
-<!--            <select name="speciality" class="custom-select">-->
-<!--                <option-->
-<!--                        th:each="s:${specialities}"-->
-<!--                        th:text="${s.getSpeciality()}"-->
-<!--                />-->
-<!--            </select>-->
-<!--        </div>-->
 
         <div class="input-group p-1">
             <span class="input-group-text" th:text="SPECIALITY"></span>
@@ -81,12 +70,17 @@
                    name="code"
                    placeholder="Enter code">
         </div>
-
-        <!--        todo buttons in one line -->
-        <div class="">
-            <button type="submit" name="action" value="cancel" class="btn btn-danger btn-block" th:text="Cancel"></button>
-            <button type="submit" name="action" value="create" class="btn btn-success btn-block" th:text="Create"></button>
+        <div class="d-flex justify-content-center mt-3">
+            <div class="w-50 ml-3 mr-2">
+                <button type="submit" name="action" value="cancel" class="btn btn btn-danger btn-block"
+                        th:text="Cancel"></button>
+            </div>
+            <div class="w-50 ml-2 mr-3">
+                <button type="submit" name="action" value="create" class="btn btn-dark btn-block"
+                        th:text="Create"></button>
+            </div>
         </div>
+
     </form>
 </div>
 </body>

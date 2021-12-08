@@ -18,4 +18,6 @@ public interface IAttendeeService {
 
     Attendee update(Attendee dto);
 
+    Attendee deleteByUserAndEvent(UUID userUUId, UUID eventUUID);
+
 }
