@@ -8,6 +8,8 @@
 </head>
 <body>
 
+<div th:insert="components/navbar :: navbar"/>
+
 <div class="container">
 
     <form th:action="@{/api/user/events/create}" method="post" enctype="multipart/form-data">
@@ -62,25 +64,6 @@
                    name="auditory"
                    placeholder="Enter Auditory">
         </div>
-
-        <!--        <div>-->
-        <!--            <div id="dates">-->
-        <!--                <div th:id="'date'+${0}" class="input-group p-1">-->
-        <!--                    <span class="input-group-text" th:text="Date"></span>-->
-        <!--                    <input class="form-control"-->
-        <!--                           aria-label="With textarea"-->
-        <!--                           type="datetime-local"-->
-        <!--                           name="date">-->
-        <!--                    <button class="btn btn-danger" id="btn-delete0" onClick="deleteDateField(this.id)">Delete</button>-->
-        <!--                </div>-->
-        <!--                <button class="btn btn-success" id="btn-add">Add</button>-->
-        <!--            </div>-->
-        <!--        </div>-->
-
-<!--        <div class="input_fields_wrap">-->
-<!--            <button class="add_field_button">Add More Fields</button>-->
-<!--            <div><input type="text" name="mytext[]"></div>-->
-<!--        </div>-->
 
         <div class="input_fields_wrap">
             <div class="input-group p-1">
