@@ -12,12 +12,10 @@ import com.example.faculty.database.dto.subject.SubjectResponseDto;
 import com.example.faculty.database.dto.user.UserCreateDto;
 import com.example.faculty.database.dto.user.UserResponseDto;
 import com.example.faculty.database.dto.user.UserUpdateDto;
+import com.example.faculty.database.entity.Attendee;
 import com.example.faculty.database.entity.Event;
 import com.example.faculty.database.enums.*;
-import com.example.faculty.services.interfaces.IEventService;
-import com.example.faculty.services.interfaces.IRequestService;
-import com.example.faculty.services.interfaces.ISubjectService;
-import com.example.faculty.services.interfaces.IUserService;
+import com.example.faculty.services.interfaces.*;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -36,6 +34,7 @@ public class UserController {
     private final IEventService eventService;
     private final ISubjectService subjectService;
     private final IRequestService requestService;
+    private final IAttendeeService attendeeService;
 
     private static List<String> specialities = new ArrayList<>();
     private static List<Integer> courses = new ArrayList<>();
@@ -43,11 +42,12 @@ public class UserController {
     @Autowired
     private ResourceLoader resourceLoader;
 
-    public UserController(IUserService userService, IEventService eventService, ISubjectService subjectService, IRequestService requestService) {
+    public UserController(IUserService userService, IEventService eventService, ISubjectService subjectService, IRequestService requestService, IAttendeeService attendeeService) {
         this.userService = userService;
         this.eventService = eventService;
         this.subjectService = subjectService;
         this.requestService = requestService;
+        this.attendeeService = attendeeService;
     }
 
     @GetMapping
@@ -147,6 +147,24 @@ public class UserController {
         System.out.println();
         System.out.println("-----------------");
         return "subject";
+    }
+
+    @PostMapping("/subjects/{id}/{group}")
+    public String enrollToSubject(@PathVariable("id") UUID id, @PathVariable("group") String group) {
+        // todo add user credentials
+        // find all events where subject id is id and type is type
+        List<Event> events = eventService.findAllBySubjectAndGroup(id, group);
+        for (Event e : events) {
+// todo add user
+            //            Attendee a = Attendee.builder()
+//                    .user(user)
+//                    .event(e)
+//                    .build();
+//            attendeeService.create(a);
+        }
+
+
+        return "redirect:/api/user/subjects/{id}";
     }
 
     @GetMapping("/subjects/create")

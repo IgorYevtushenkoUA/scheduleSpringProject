@@ -37,27 +37,31 @@ public interface EventRepository extends JpaRepository<Event, UUID> {
             "where YEAR(e.datetime) = :year and  MONTH(e.datetime) = :month and DAY(e.datetime)= :day " +
             "and s.speciality in (:speciality)", nativeQuery = true)
     List<Event> findByYearAndMonthAndDayAndSpeciality(@Param("year") int year,
-                                 @Param("month") int month,
-                                 @Param("day") int day,
-                                 @Param("speciality") List<String> speciality);
+                                                      @Param("month") int month,
+                                                      @Param("day") int day,
+                                                      @Param("speciality") List<String> speciality);
 
     @Query(value = "SELECT e.id , e.created_at, e.updated_at, e.auditory, e.group_name, e.name, e.datetime, e.subject_id, e.user_id from Event e \n" +
             "inner join subject s on s.id = e.subject_id \n" +
             "where YEAR(e.datetime) = :year and  MONTH(e.datetime) = :month and DAY(e.datetime)= :day " +
             "and s.course in (:course)", nativeQuery = true)
     List<Event> findByYearAndMonthAndDayAndCourse(@Param("year") int year,
-                             @Param("month") int month,
-                             @Param("day") int day,
-                             @Param("course") List<Integer> course);
+                                                  @Param("month") int month,
+                                                  @Param("day") int day,
+                                                  @Param("course") List<Integer> course);
 
     @Query(value = "SELECT e.id , e.created_at, e.updated_at, e.auditory, e.group_name, e.name, e.datetime, e.subject_id, e.user_id from Event e \n" +
             "inner join subject s on s.id = e.subject_id \n" +
             "where YEAR(e.datetime) = :year and  MONTH(e.datetime) = :month and DAY(e.datetime)= :day " +
             "and s.speciality in (:speciality) and s.course in (:course)", nativeQuery = true)
     List<Event> findByYearAndMonthAndDayAndSpecialityAndCourse(@Param("year") int year,
-                                          @Param("month") int month,
-                                          @Param("day") int day,
-                                          @Param("speciality") List<String> speciality,
-                                          @Param("course") List<Integer> course);
+                                                               @Param("month") int month,
+                                                               @Param("day") int day,
+                                                               @Param("speciality") List<String> speciality,
+                                                               @Param("course") List<Integer> course);
+
+    @Query("select e from Event e " +
+            "where e.subject.id =:id and e.group=:group")
+    List<Event> findAllBySubjectAndGroup(@Param("id") UUID id, @Param("group") String group);
 
 }
