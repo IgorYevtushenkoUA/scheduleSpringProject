@@ -23,6 +23,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -96,6 +97,7 @@ public class UserController {
     }
 
     // todo випрвити повідомлення про місяці, показує коректно , але в url - застаріла інформація
+    @PreAuthorize("hasAuthority('STUDENT') or hasAuthority('TEACHER') or hasAuthority('ADMINISTRATOR')")
     @GetMapping("/calendar")
     public String showCalendar(Model model,
                                @RequestParam(value = "year", required = false) Integer year,
@@ -119,7 +121,7 @@ public class UserController {
 
         // todo set user UUID
         int tempUserId = 1;
-        CalendarEventDto eventDto = 1 == 1 // todo compare is it admin or not
+        CalendarEventDto eventDto = 1 == 2 // todo compare is it admin or not
                 ? fillUserShowCalendarDto(1, localDate, days)
                 : fillAdminShowCalendarDto(localDate, days, specialities, courses);
 
@@ -141,6 +143,7 @@ public class UserController {
 
     @SneakyThrows
     @GetMapping("/subjects")
+    @PreAuthorize("hasAuthority('STUDENT') or hasAuthority('TEACHER') or hasAuthority('ADMINISTRATOR')")
     public String showAllSubjects(Model model,
                                   @RequestParam(value = "name", defaultValue = "") String name) {
 

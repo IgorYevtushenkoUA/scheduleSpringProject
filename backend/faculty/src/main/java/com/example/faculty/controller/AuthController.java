@@ -1,5 +1,6 @@
 package com.example.faculty.controller;
 
+import com.example.faculty.config.security.AuthTokenFilter;
 import com.example.faculty.config.security.JwtUtils;
 import com.example.faculty.database.dto.user.LoginRequest;
 import com.example.faculty.database.dto.user.SignupRequest;
@@ -9,6 +10,8 @@ import com.example.faculty.database.repository.UserRepository;
 import com.example.faculty.services.interfaces.ISubjectService;
 import com.example.faculty.services.interfaces.IUserService;
 import com.example.faculty.util.annotations.LogInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,8 +24,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -36,6 +43,8 @@ public class AuthController {
     private final PasswordEncoder encoder;
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     public AuthController(AuthenticationManager authenticationManager, IUserService service, PasswordEncoder encoder,
                           JwtUtils jwtUtils, UserRepository userRepository, ISubjectService subjectService) {
@@ -80,7 +89,7 @@ public class AuthController {
         User userDetails = (User) authentication.getPrincipal();
 
         Cookie cookie = new Cookie("token", jwt);
-        cookie.setMaxAge(3600);
+        cookie.setMaxAge(-1);
         cookie.setPath("/api");
         response.addCookie(cookie);
 
@@ -128,6 +137,26 @@ public class AuthController {
         }
 
         return "login";
+    }
+
+    @GetMapping(value = "/logout")
+    public ModelAndView logout(ModelAndView modelAndView, LoginRequest loginRequest,
+                               HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+        List<Cookie> cookies = Arrays.stream(httpServletRequest.getCookies()).filter(x -> x.getName().equals("token")).collect(Collectors.toList());
+        Cookie cookie = null;
+
+        if (cookies.size() > 0) {
+            cookie = cookies.get(0);
+            cookie.setMaxAge(0);
+        }
+        logger.info(cookie.getName());
+        logger.info(cookie.getValue());
+        SecurityContextHolder.getContext().setAuthentication(null);
+        cookie.setPath("/api");
+        httpServletResponse.addCookie(cookie);
+
+        modelAndView.setViewName("login");
+        return modelAndView;
     }
 
 }

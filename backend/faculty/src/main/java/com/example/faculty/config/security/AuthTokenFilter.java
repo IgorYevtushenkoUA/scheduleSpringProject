@@ -36,14 +36,17 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         try {
             String jwt = parseJwt(request);
-
+            logger.info("jwt", jwt);
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
                 UserDetails userDetails = service.loadUserByUsername(username);
+                logger.info("userDetails", userDetails.getAuthorities());
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                logger.info("Login authentication", authentication);
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
@@ -62,10 +65,10 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
         String bearerToken = cookies.size() > 0 ? cookies.get(0).getValue() : null;
         logger.info("cookie " + bearerToken);
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
-        }
-        return null;
+//        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+//            return bearerToken.substring(7);
+//        }
+        return bearerToken;
     }
 
 
