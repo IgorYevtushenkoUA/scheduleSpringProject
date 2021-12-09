@@ -37,12 +37,12 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login(Model model) {
-//        model.addAttribute("loginRequest", new LoginDto());
+        model.addAttribute("loginRequest", new LoginDto());
         return "login";
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginDto loginRequest) {
+    public ResponseEntity<?> authenticateUser(@ModelAttribute LoginDto loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
