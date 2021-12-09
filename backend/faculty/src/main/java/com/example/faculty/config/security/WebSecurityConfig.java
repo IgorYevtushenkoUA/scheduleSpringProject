@@ -1,7 +1,6 @@
 package com.example.faculty.config.security;
 
-import com.example.faculty.services.implementations.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.faculty.services.interfaces.IUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,12 +18,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private final IUserService service;
+    private final AuthEntryPointJwt unauthorizedHandler;
 
-    @Autowired
-    UserDetailsServiceImpl userDetailsService;
-
-    @Autowired
-    private AuthEntryPointJwt unauthorizedHandler;
+    public WebSecurityConfig(AuthEntryPointJwt unauthorizedHandler, IUserService service) {
+        this.unauthorizedHandler = unauthorizedHandler;
+        this.service = service;
+    }
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        authenticationManagerBuilder.userDetailsService(service).passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                .authorizeRequests().antMatchers("/api/auth/**", "/api/user/**").permitAll()
                 .antMatchers("/api/scheduler/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers(

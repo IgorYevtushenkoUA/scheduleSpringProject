@@ -7,7 +7,11 @@ import com.example.faculty.database.entity.User;
 import com.example.faculty.database.mapstruct.mappers.IUserMapper;
 import com.example.faculty.database.repository.UserRepository;
 import com.example.faculty.services.interfaces.IUserService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -53,5 +57,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User findByEmail(String email) {
         return repository.findUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found: " + email));
+    }
+
+    @Transactional
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return repository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
     }
 }
