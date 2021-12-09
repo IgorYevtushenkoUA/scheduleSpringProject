@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/api/user")
@@ -135,6 +136,12 @@ public class UserController {
     @GetMapping("/subjects/{id}")
     public String subjectGet(Model model, @PathVariable("id") UUID id) {
         List<Event> events = eventService.findAllBySubject(id);
+        // todo set real userUUID
+        List<String> listOfEnrolledGroup = eventService.findAllStudentEventsBySubject(id)
+                .stream()
+                .map(Event::getGroup)
+                .distinct()
+                .collect(Collectors.toList());
 
         Map<String, Event> eventsMap = new TreeMap<>();
         for (Event e : events) {
@@ -143,9 +150,8 @@ public class UserController {
 
         model.addAttribute("subject", subjectService.get(id));
         model.addAttribute("eventsMap", eventsMap);
+        model.addAttribute("listOfEnrolledGroup", listOfEnrolledGroup);
 
-        System.out.println();
-        System.out.println("-----------------");
         return "subject";
     }
 

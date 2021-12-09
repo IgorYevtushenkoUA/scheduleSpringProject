@@ -97,4 +97,9 @@ public class EventServiceImpl implements IEventService {
         return repository.findAllBySubjectAndGroup(id, group);
     }
 
+    @Override
+    public List<Event> findAllStudentEventsBySubject( UUID subjectUUID) {
+        return repository.findAllStudentEventsBySubject( subjectUUID);
+    }
+
 }

@@ -35,4 +35,7 @@ public interface IEventService {
     List<Event> findByYearAndMonthAndDayAndSpecialityAndCourse(int year, int month, int day, List<String> speciality, List<Integer> course);
 
     List<Event> findAllBySubjectAndGroup(UUID id, String group);
+
+    // todo add userUUID
+    List<Event> findAllStudentEventsBySubject(UUID subjectUUID);
 }

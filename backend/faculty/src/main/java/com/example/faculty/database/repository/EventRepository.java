@@ -64,4 +64,10 @@ public interface EventRepository extends JpaRepository<Event, UUID> {
             "where e.subject.id =:id and e.group=:group")
     List<Event> findAllBySubjectAndGroup(@Param("id") UUID id, @Param("group") String group);
 
+    // todo set UUID real not test
+    @Query("select e from Event e " +
+            "inner join Attendee a on e.id = a.event.id " +
+            "where e.subject.id=:subjectUUID " +
+            "and a.user.id='88f38f3e-4c8a-11ec-81d3-0242ac130003'")
+    List<Event> findAllStudentEventsBySubject(@Param("subjectUUID") UUID subjectUUID);
 }
