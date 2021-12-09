@@ -147,7 +147,7 @@ public class UserController {
     public String showAllSubjects(Model model,
                                   @RequestParam(value = "name", defaultValue = "") String name) {
 
-
+        System.out.println("User is now " + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         List<SubjectResponseDto> subjects = name.equals("")
                 ? subjectService.getAll()
                 : subjectService.getByName(name);
