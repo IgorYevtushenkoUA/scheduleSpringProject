@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/subject")
-@CacheConfig(cacheNames={"subjects"})
+@CacheConfig(cacheNames = {"subjects"})
 public class SubjectController {
 
     private final ISubjectService service;
@@ -31,7 +31,7 @@ public class SubjectController {
     }
 
     @GetMapping("/{id}")
-    @Cacheable(key="#id")
+    @Cacheable(key = "#id")
     public Optional<SubjectResponseDto> get(@PathVariable UUID id) {
         System.err.println("call method subjects");
         return service.get(id);
@@ -42,13 +42,13 @@ public class SubjectController {
         return service.create(dto);
     }
 
-    @CachePut(key="#dto.id")
+    @CachePut(key = "#dto.id")
     @PutMapping("/edit")
     public SubjectResponseDto update(@RequestBody SubjectUpdateDto dto) {
         return service.update(dto);
     }
 
-    @CacheEvict(key="#dto.id")
+    @CacheEvict(key = "#dto.id")
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable UUID id) {
         service.delete(id);

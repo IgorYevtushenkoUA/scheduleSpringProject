@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-
     <property name="DEV_HOME" value="c:/logs" />
-
-<!--    <turboFilter class="ch.qos.logback.classic.turbo.MarkerFilter">-->
-<!--        <Name>EVENT</Name>-->
-<!--        <Marker>ACCESS</Marker>-->
-<!--        <OnMatch>DENY</OnMatch>-->
-<!--    </turboFilter>-->
-
     <appender name="Console"
               class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
@@ -41,7 +33,7 @@
         <appender-ref ref="Console" />
     </root>
 
-    <logger name="com.example.faculty" level="trace" additivity="false">
+    <logger name="com.example.faculty" level="info" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
     </logger>

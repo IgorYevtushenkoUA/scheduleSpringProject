@@ -1,9 +1,9 @@
 package com.example.faculty.database.dto.event;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor

@@ -12,10 +12,11 @@ import java.util.logging.Logger;
 @Aspect
 @Component
 public class TimeMeasureAspect {
-    private Logger logger = Logger.getLogger(getClass().getName());
+    private final Logger logger = Logger.getLogger(getClass().getName());
 
     @Pointcut("execution(public * *(..)) && @annotation(com.example.faculty.util.annotations.EvaluateTime)")
-    public void evaluateTimeMethods() {};
+    public void evaluateTimeMethods() {
+    }
 
     @Around("evaluateTimeMethods()")
     public Object measureMethodExecutionTime(ProceedingJoinPoint pjp) throws Throwable {

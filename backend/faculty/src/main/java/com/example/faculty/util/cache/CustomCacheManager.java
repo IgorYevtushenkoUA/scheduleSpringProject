@@ -12,7 +12,7 @@ import java.util.HashMap;
 @EnableCaching
 @Component
 public class CustomCacheManager implements CacheManager {
-    private HashMap<String, Cache> map;
+    private final HashMap<String, Cache> map;
 
     public CustomCacheManager() {
         this.map = new HashMap<>();

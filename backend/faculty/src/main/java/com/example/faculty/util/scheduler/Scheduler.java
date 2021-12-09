@@ -1,7 +1,6 @@
 package com.example.faculty.util.scheduler;
 
 import com.example.faculty.util.cache.CacheUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;

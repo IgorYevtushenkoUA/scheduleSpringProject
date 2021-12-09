@@ -22,7 +22,7 @@ public enum Speciality {
     Multimedia_Systems("Multimedia Systems"),
     Network_Technologies("Network Technologies");
 
-    private String speciality;
+    private final String speciality;
 
     Speciality(String speciality) {
         this.speciality = speciality;

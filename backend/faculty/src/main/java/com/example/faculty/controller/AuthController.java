@@ -1,10 +1,10 @@
 package com.example.faculty.controller;
 
 import com.example.faculty.config.security.JwtUtils;
+import com.example.faculty.database.dto.user.JwtDto;
+import com.example.faculty.database.dto.user.LoginDto;
 import com.example.faculty.database.dto.user.UserCreateDto;
 import com.example.faculty.database.entity.User;
-import com.example.faculty.database.dto.user.LoginDto;
-import com.example.faculty.database.dto.user.JwtDto;
 import com.example.faculty.services.interfaces.IUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -11,10 +11,11 @@ import java.util.logging.Logger;
 @Aspect
 @Component
 public class ParamsAspect {
-    private Logger logger = Logger.getLogger(getClass().getName());
+    private final Logger logger = Logger.getLogger(getClass().getName());
 
     @Pointcut("execution(public * *(..)) && @annotation(com.example.faculty.util.annotations.LogParams)")
-    public void logParamsMethods() {};
+    public void logParamsMethods() {
+    }
 
     @Around("logParamsMethods()")
     public Object measureMethodExecutionTime(ProceedingJoinPoint pjp) throws Throwable {

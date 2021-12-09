@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/event")
-@CacheConfig(cacheNames={"events"})
+@CacheConfig(cacheNames = {"events"})
 public class EventController {
     private final IEventService service;
 
@@ -33,7 +33,7 @@ public class EventController {
     }
 
     @LogParams
-    @Cacheable(key="#id")
+    @Cacheable(key = "#id")
     @GetMapping("/{id}")
     public Optional<EventResponseDto> get(@PathVariable UUID id) {
         System.err.println("call method events");
@@ -45,13 +45,13 @@ public class EventController {
         return service.create(dto);
     }
 
-    @CachePut(key="#dto.id")
+    @CachePut(key = "#dto.id")
     @PutMapping("/edit")
     public EventResponseDto update(@RequestBody EventUpdateDto dto) {
         return service.update(dto);
     }
 
-    @CacheEvict(key="#dto.id")
+    @CacheEvict(key = "#dto.id")
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable UUID id) {
         service.delete(id);

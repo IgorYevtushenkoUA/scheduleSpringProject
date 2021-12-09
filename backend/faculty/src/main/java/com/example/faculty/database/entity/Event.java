@@ -15,7 +15,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @Table(name = "event")
-public class Event extends EventData{
+public class Event extends EventData {
 
     @Column(name = "datetime")
     private Timestamp datetime;

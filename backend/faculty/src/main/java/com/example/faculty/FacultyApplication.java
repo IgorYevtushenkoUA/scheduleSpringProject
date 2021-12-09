@@ -3,10 +3,9 @@ package com.example.faculty;
 import com.example.faculty.services.implementations.EventServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
-import org.springframework.util.ResourceUtils;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +19,7 @@ public class FacultyApplication {
         ApplicationContext applicationContext = SpringApplication.run(FacultyApplication.class, args);
 
         File file = ResourceUtils.getFile("classpath:static/public/test.txt");
-        if(file.exists()) {
+        if (file.exists()) {
             byte[] fileData = Files.readAllBytes(file.toPath());
             String fileContent = new String(fileData);
             System.out.println(fileContent);

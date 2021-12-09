@@ -8,7 +8,6 @@ import com.example.faculty.database.mapstruct.mappers.IUserMapper;
 import com.example.faculty.database.repository.UserRepository;
 import com.example.faculty.services.interfaces.IUserService;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
