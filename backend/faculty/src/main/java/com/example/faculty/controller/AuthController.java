@@ -1,7 +1,6 @@
 package com.example.faculty.controller;
 
 import com.example.faculty.config.security.JwtUtils;
-import com.example.faculty.database.dto.subject.SubjectResponseDto;
 import com.example.faculty.database.dto.user.LoginRequest;
 import com.example.faculty.database.dto.user.SignupRequest;
 import com.example.faculty.database.entity.User;
@@ -24,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.List;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -86,10 +84,7 @@ public class AuthController {
         cookie.setPath("/api");
         response.addCookie(cookie);
 
-        List<SubjectResponseDto> subjects = subjectService.getAll();
-
-        model.addAttribute("subjects", subjects);
-        return "subjects";
+        return "redirect:/api/user/subjects";
 
     }
 
