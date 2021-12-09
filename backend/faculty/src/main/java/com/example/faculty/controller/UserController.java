@@ -13,6 +13,7 @@ import com.example.faculty.database.dto.user.UserCreateDto;
 import com.example.faculty.database.dto.user.UserResponseDto;
 import com.example.faculty.database.dto.user.UserUpdateDto;
 import com.example.faculty.database.entity.Event;
+import com.example.faculty.database.entity.User;
 import com.example.faculty.database.enums.*;
 import com.example.faculty.services.interfaces.*;
 import com.example.faculty.util.annotations.LogInfo;
@@ -62,6 +63,10 @@ public class UserController {
     @GetMapping
     public List<UserResponseDto> getAll() {
         return userService.getAll();
+    }
+
+    public User getUser() {
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     @GetMapping("/{id}")
@@ -118,12 +123,10 @@ public class UserController {
             weeks.add(i);
         }
 
-
-        // todo set user UUID
-        int tempUserId = 1;
-        CalendarEventDto eventDto = 1 == 2 // todo compare is it admin or not
-                ? fillUserShowCalendarDto(1, localDate, days)
-                : fillAdminShowCalendarDto(localDate, days, specialities, courses);
+        User user = getUser();
+        CalendarEventDto eventDto = user.getRole().equals(UserRole.ADMINISTRATOR)
+                ? fillAdminShowCalendarDto(user.getId(), localDate, days, specialities, courses)
+                : fillUserShowCalendarDto(user.getId(), localDate, days, user.getRole().name());
 
         model.addAttribute("weeks", weeks);
         model.addAttribute("weekDays", weekDays);
@@ -135,10 +138,9 @@ public class UserController {
         model.addAttribute("specialityList", specialities);
         model.addAttribute("courseList", courses);
 
-        /*
-        return user is Admin ? "adminCalendar" : "calendar";
-         */
-        return "adminCalendar";
+        return user.getRole().equals(UserRole.ADMINISTRATOR)
+                ? "adminCalendar"
+                : "calendar";
     }
 
     @SneakyThrows
@@ -170,6 +172,7 @@ public class UserController {
         for (Event e : events) {
             eventsMap.putIfAbsent(e.getGroup(), e);
         }
+        System.out.println("User is now2 " + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         model.addAttribute("subject", subjectService.get(id));
         model.addAttribute("eventsMap", eventsMap);
@@ -376,13 +379,15 @@ public class UserController {
         return Timestamp.valueOf(date.replace("T", " ") + ":00.0");
     }
 
-    private CalendarEventDto fillUserShowCalendarDto(int userId, LocalDate localDate, List<Integer> days) {
+    private CalendarEventDto fillUserShowCalendarDto(UUID userUUID, LocalDate localDate, List<Integer> days, String role) {
 
         Map<Integer, List<EventInfoDto>> map = new HashMap<>();
         for (int i = 0; i < days.size(); i++) {
             if (days.get(i) != null) {
-                List<Event> events = eventService.findEventForUserByYearAndMonthAndDay(localDate.getYear(),
-                        localDate.getMonth().getValue(), days.get(i));
+                List<Event> events =
+                        role.equals(UserRole.STUDENT.name())
+                                ? eventService.findEventForUserByYearAndMonthAndDay(userUUID, localDate.getYear(), localDate.getMonth().getValue(), days.get(i))
+                                : eventService.findEventForTeacherByYearAndMonthAndDay(userUUID, localDate.getYear(), localDate.getMonth().getValue(), days.get(i));
                 List<EventInfoDto> eventShortInfoDtoList = buildEventInfoDtoList(events);
                 map.put(days.get(i), eventShortInfoDtoList);
             }
@@ -394,7 +399,8 @@ public class UserController {
     }
 
 
-    private CalendarEventDto fillAdminShowCalendarDto(LocalDate localDate,
+    private CalendarEventDto fillAdminShowCalendarDto(UUID userUUID,
+                                                      LocalDate localDate,
                                                       List<Integer> days,
                                                       List<String> specialities,
                                                       List<Integer> courses) {

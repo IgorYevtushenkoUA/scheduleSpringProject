@@ -20,7 +20,9 @@ public interface IEventService {
 
     EventResponseDto update(EventUpdateDto dto);
 
-    List<Event> findEventForUserByYearAndMonthAndDay(int year, int month, int day);
+    List<Event> findEventForUserByYearAndMonthAndDay(UUID userUUId, int year, int month, int day);
+
+    List<Event> findEventForTeacherByYearAndMonthAndDay(UUID userUUID, int year, int month, int day);
 
     List<Event> findEventByYearAndMonthAndDay(int year, int month, int day);
 
