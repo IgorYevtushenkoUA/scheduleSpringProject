@@ -6,6 +6,7 @@ import com.example.faculty.database.dto.user.LoginDto;
 import com.example.faculty.database.dto.user.UserCreateDto;
 import com.example.faculty.database.entity.User;
 import com.example.faculty.services.interfaces.IUserService;
+import com.example.faculty.util.annotations.LogInfo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +23,7 @@ import javax.validation.Valid;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping("/api/auth")
+@LogInfo
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final IUserService service;

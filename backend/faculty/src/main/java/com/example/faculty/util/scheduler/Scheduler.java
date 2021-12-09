@@ -1,36 +1,35 @@
+
 package com.example.faculty.util.scheduler;
 
-import com.example.faculty.util.cache.CacheUtil;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import java.util.logging.Logger;
+
 
 @EnableAsync
 @Component
 @EnableScheduling
 public class Scheduler {
-    private final CacheUtil util;
+    private final Logger logger = Logger.getLogger(getClass().getName());
 
-    public Scheduler(CacheUtil util) {
-        this.util = util;
-    }
-
-    @Async
-    @Scheduled(fixedRate = 500000)
-    public void scheduleFixedRateTaskAsync() {
-        System.out.println(
-                "5 Seconds - " + System.currentTimeMillis() / 1000);
-        util.clearSubjectsCache();
+    @Scheduled(cron = "1 * * * * *")
+    @CacheEvict(value = "events", allEntries = true)
+    public void clearEventsCache() {
+        logger.info(" ---- Clear cache for events ---- ");
     }
 
     @Scheduled(cron = "1 * * * * *")
-    public void scheduleTaskUsingCronExpression() {
-        long now = System.currentTimeMillis() / 1000;
-        System.out.println(
-                "New minute - " + now);
-        util.clearEventsCache();
-    }
-}
+    @CacheEvict(value = "subjects", allEntries = true)
+    public void clearUserCache() { logger.info(" ---- Clear cache for subjects ---- "); }
 
+    @Scheduled(cron = "2 * * * * *")
+    @CacheEvict(value = "requests", allEntries = true)
+    public void clearRequestCache() { logger.info(" ---- Clear cache for request ---- "); }
+
+    @Scheduled(cron = "3 * * * * *")
+    @CacheEvict(value = "users", allEntries = true)
+    public void clearUsersCache() { logger.info(" ---- Clear cache for users ---- "); }
+}
