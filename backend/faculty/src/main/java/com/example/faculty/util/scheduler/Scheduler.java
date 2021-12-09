@@ -18,7 +18,7 @@ public class Scheduler {
     }
 
     @Async
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 500000)
     public void scheduleFixedRateTaskAsync() {
         System.out.println(
                 "5 Seconds - " + System.currentTimeMillis() / 1000);

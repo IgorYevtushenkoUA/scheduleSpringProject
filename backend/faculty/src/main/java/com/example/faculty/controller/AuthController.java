@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,9 +35,10 @@ public class AuthController {
         this.jwtUtils = jwtUtils;
     }
 
-    @GetMapping("/signIn")
-    public String signIn(){
-        return "signIn";
+    @GetMapping("/login")
+    public String login(Model model) {
+//        model.addAttribute("loginRequest", new LoginDto());
+        return "login";
     }
 
     @PostMapping("/login")
@@ -63,9 +65,8 @@ public class AuthController {
     }
 
 
-
-    @GetMapping("/register")
-    public String registerAuth(){
-        return "registerStudent";
+    @GetMapping("/signup")
+    public String signupAuth() {
+        return "signupStudent";
     }
 }

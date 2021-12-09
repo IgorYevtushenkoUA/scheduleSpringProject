@@ -19,10 +19,12 @@ import com.example.faculty.services.interfaces.*;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
@@ -59,6 +61,13 @@ public class UserController {
     @GetMapping("/{id}")
     public String get(Model model, @PathVariable UUID id) {
         model.addAttribute("user", userService.get(id));
+        return "personalPage";
+    }
+
+    @GetMapping("/")
+    public String getPersonalPage() {
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
         return "personalPage";
     }
 
@@ -125,6 +134,9 @@ public class UserController {
     @GetMapping("/subjects")
     public String showAllSubjects(Model model,
                                   @RequestParam(value = "name", defaultValue = "") String name) {
+
+
+
         List<SubjectResponseDto> subjects = name.equals("")
                 ? subjectService.getAll()
                 : subjectService.getByName(name);

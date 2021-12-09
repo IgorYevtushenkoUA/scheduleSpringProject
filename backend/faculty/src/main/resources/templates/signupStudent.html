@@ -2,8 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" style="height: 100%">
 <head>
     <meta charset="UTF-8">
-    <title>Sign In</title>
-    <link href="../static/css/singIn.css" th:href="@{/static/css/singIn.css}" rel="stylesheet"/>
+    <title></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -22,10 +21,10 @@
 
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                <form th:action="@{/api/auth/register}" method="post">
+                <form th:action="@{/api/auth/signup}" method="post">
                     <!-- Email input -->
                     <h3>Create an account</h3>
-                    <span class="abt">Already have an account? <a href="/api/auth/signIn">Sign In</a></span>
+                    <span class="abt">Already have an account? <a href="/api/auth/login">Login</a></span>
 
                     <div class="input-group p-1 mt-3">
                         <span class="input-group-text" th:text="Name"></span>
@@ -68,7 +67,7 @@
                     </div>
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Sign up</button>
 
                 </form>
             </div>
