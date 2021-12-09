@@ -1,11 +1,11 @@
 --USER --
 insert into users(id, name, surname, parental, role, about, course, faculty, email, created_at, updated_at, password, username)
 values ('6314099e-4c88-11ec-81d3-0242ac130003', 'Mandy', 'Dolton', 'Claire', 'TEACHER', 'about todo', 1, 'INFORMATICS',
-        'teacher@gmail.com', 0, 0, '', 'mem');
+        'teacher@gmail.com', 0, 0, '$2a$12$6szy.C0uMpGqBWreK.0i.OPx4.ngPZcqtUgdpUeey9I1DMlQTh/5e', 'mem');
 
 insert into users(id, name, surname, parental, role, about, course, faculty, email, created_at, updated_at, password, username)
 values ('88f38f3e-4c8a-11ec-81d3-0242ac130003', 'Valeria', 'Shartz', 'Dorian', 'STUDENT', 'about todo', 1,
-        'INFORMATICS', 'student@gmail.com', 0, 0, '', 'igo_ory');
+        'INFORMATICS', 'student@gmail.com', 0, 0, '$2a$12$6szy.C0uMpGqBWreK.0i.OPx4.ngPZcqtUgdpUeey9I1DMlQTh/5e', 'igo_ory');
 
 
 -- SUBJECT --
