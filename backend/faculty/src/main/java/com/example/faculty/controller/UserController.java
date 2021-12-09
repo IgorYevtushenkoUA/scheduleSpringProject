@@ -24,10 +24,12 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
@@ -67,6 +69,14 @@ public class UserController {
     @Cacheable(key = "#id")
     public String get(Model model, @PathVariable UUID id) {
         model.addAttribute("user", userService.get(id));
+        return "personalPage";
+    }
+
+    @GetMapping("/personalPage")
+    public String getPersonalPage() {
+        // todo print userIfon
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
         return "personalPage";
     }
 
@@ -135,6 +145,9 @@ public class UserController {
     @GetMapping("/subjects")
     public String showAllSubjects(Model model,
                                   @RequestParam(value = "name", defaultValue = "") String name) {
+
+
+
         List<SubjectResponseDto> subjects = name.equals("")
                 ? subjectService.getAll()
                 : subjectService.getByName(name);

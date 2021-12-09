@@ -28,8 +28,6 @@ public class FacultyApplication {
         RequestServiceImpl requestService = applicationContext.getBean(RequestServiceImpl.class);
         UserServiceImpl userService = applicationContext.getBean(UserServiceImpl.class);
 
-        System.out.println(requestService.getAll());
-        System.out.println(eventService.getAll());
     }
 
 }

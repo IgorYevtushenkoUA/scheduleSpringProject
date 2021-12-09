@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" style="height: 100%">
 <head>
     <meta charset="UTF-8">
-    <title>Sign In</title>
+    <title>Login</title>
     <link href="../static/css/singIn.css" th:href="@{/static/css/singIn.css}" rel="stylesheet"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -17,29 +17,30 @@
     <div class="container py-5 h-100">
         <div class="row d-flex align-items-center justify-content-center h-100">
             <div class="col-md-8 col-lg-7 col-xl-6">
-<!--                <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">-->
-                <img src="https://i.pinimg.com/564x/dd/90/c5/dd90c50108539a9847780b27e0b0dbea.jpg" class="img-fluid" alt="Phone image">
+                <!--                <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">-->
+                <img src="https://i.pinimg.com/564x/dd/90/c5/dd90c50108539a9847780b27e0b0dbea.jpg" class="img-fluid"
+                     alt="Phone image">
 
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                <form th:action="@{/api/auth/signIn}" method="post">
+                <form th:action="@{/api/auth/login}" method="post" th:object="${loginRequest}">
                     <!-- Email input -->
-                    <h3>Sign into your account</h3>
-                    <span class="abt">What to create account? <a href="/api/auth/register">Register</a></span>
+                    <h3>Login into your account</h3>
+                    <span class="abt">What to create account? <a href="/api/auth/signup">Sing up</a></span>
 
                     <div class="form-outline mb-4 mt-3">
-                        <input type="email" class="form-control form-control-lg"
-                               placeholder="Email address" name="email"/>
+                        <input type="text" class="form-control form-control-lg"
+                               placeholder="Email address" th:field="*{username}" value="mem"/>
                     </div>
 
 
                     <div class="form-outline mb-4">
                         <input type="password" class="form-control form-control-lg"
-                               placeholder="Password" name="password"/>
+                               placeholder="Password" th:field="*{password}" value="password"/>
                     </div>
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
 
                 </form>
             </div>
