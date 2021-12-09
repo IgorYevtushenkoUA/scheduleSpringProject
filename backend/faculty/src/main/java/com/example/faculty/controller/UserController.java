@@ -2,8 +2,8 @@ package com.example.faculty.controller;
 
 import com.example.faculty.database.dto.calendar.CalendarEventDto;
 import com.example.faculty.database.dto.event.EventCreateDto;
-import com.example.faculty.database.dto.event.EventResponseDto;
 import com.example.faculty.database.dto.event.EventInfoDto;
+import com.example.faculty.database.dto.event.EventResponseDto;
 import com.example.faculty.database.dto.event.EventUpdateDto;
 import com.example.faculty.database.dto.request.RequestCreateDto;
 import com.example.faculty.database.dto.request.RequestResponseDto;
@@ -12,7 +12,6 @@ import com.example.faculty.database.dto.subject.SubjectResponseDto;
 import com.example.faculty.database.dto.user.UserCreateDto;
 import com.example.faculty.database.dto.user.UserResponseDto;
 import com.example.faculty.database.dto.user.UserUpdateDto;
-import com.example.faculty.database.entity.Attendee;
 import com.example.faculty.database.entity.Event;
 import com.example.faculty.database.enums.*;
 import com.example.faculty.services.interfaces.*;
@@ -29,7 +28,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
@@ -145,7 +143,6 @@ public class UserController {
     @GetMapping("/subjects")
     public String showAllSubjects(Model model,
                                   @RequestParam(value = "name", defaultValue = "") String name) {
-
 
 
         List<SubjectResponseDto> subjects = name.equals("")
@@ -270,15 +267,14 @@ public class UserController {
     }
 
 
-
     @GetMapping("/events/delete/{id}/{place}")
-    public String deleteEvent1(){
+    public String deleteEvent1() {
         // todo write to delte events in all [attendee, events]
         return "redirect:/api/user/events/{id}";
     }
 
     @PostMapping("/events/delete/{id}/{place}")
-    public String deleteEvent(@PathVariable("id") UUID id){
+    public String deleteEvent(@PathVariable("id") UUID id) {
         // todo write to delte events in all [attendee, events]
         return "redirect:/api/user/events/{id}";
     }

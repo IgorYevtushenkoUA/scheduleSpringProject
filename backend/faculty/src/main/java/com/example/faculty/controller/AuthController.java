@@ -82,6 +82,8 @@ public class AuthController {
         User userDetails = (User) authentication.getPrincipal();
 
         Cookie cookie = new Cookie("token", jwt);
+        cookie.setMaxAge(3600);
+        cookie.setPath("/api");
         response.addCookie(cookie);
 
         List<SubjectResponseDto> subjects = subjectService.getAll();
@@ -89,13 +91,6 @@ public class AuthController {
         model.addAttribute("subjects", subjects);
         return "subjects";
 
-
-//        return ResponseEntity.ok(
-//                new JwtDto(jwt,
-//                        userDetails.getId(),
-//                        userDetails.getUsername(),
-//                        userDetails.getEmail(),
-//                        userDetails.getRole()));
     }
 
     @GetMapping(value = "/signup")
