@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -21,10 +22,12 @@ import java.util.List;
 @Table(name = "subject")
 public class Subject extends BaseEntity {
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank
     private String name;
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank
     private String faculty;
 
     @Column
@@ -32,13 +35,15 @@ public class Subject extends BaseEntity {
 
     @Column
     @Min(1)
-    @Max(4)
+    @Max(6)
     private int course;
 
-    @Column(nullable = false)
+    @Column
+    @NonNull
     private int code;
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank
     private String trim;
 
     @OneToMany(mappedBy = "subject")

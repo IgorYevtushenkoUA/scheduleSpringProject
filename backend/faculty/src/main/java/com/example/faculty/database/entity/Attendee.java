@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -22,9 +23,11 @@ import javax.persistence.Table;
 public class Attendee extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
+    @NotNull
     private Event event;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @NotNull
     private User user;
 }

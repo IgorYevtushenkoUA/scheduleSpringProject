@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,27 +21,28 @@ import java.util.List;
 @SuperBuilder
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {
-    //private static final long serialVersionUID = 1L;
-
-    @Column(nullable = false)
+    @Column
+    @NotBlank
     private String name;
 
-    @Column(nullable = false)
+    @Column
+    @NotBlank
     private String surname;
+
+    @Column(unique = true)
+    @NotBlank
+    private String username;
+
+    @Column(unique = true)
+    @NotBlank
+    private String email;
+
+    @Column(nullable = false)
+    @NotBlank
+    private String password;
 
     @Column
     private String parental;
-
-    @Column(nullable = false, unique = true)
-    private String username;
-
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @NotBlank
-    @Size(max = 120)
-    @Column(nullable = false)
-    private String password;
 
     @Lob
     @Column

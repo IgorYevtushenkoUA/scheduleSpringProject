@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Data
@@ -21,13 +22,16 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     @Type(type = "uuid-char")
+    @NotNull
     private UUID id;
 
     @CreatedDate
     @Column(name = "created_at")
+    @NotNull
     private long created_at;
 
     @LastModifiedDate
     @Column(name = "updated_at")
+    @NotNull
     private long updated_at;
 }

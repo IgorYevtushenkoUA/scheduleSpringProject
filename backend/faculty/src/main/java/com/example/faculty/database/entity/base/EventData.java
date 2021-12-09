@@ -11,7 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @MappedSuperclass
@@ -20,15 +20,15 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventData extends BaseEntity {
-    @NotNull
+    @NotBlank
     @Column(name = "group_name")
     private String group;
 
-    @NotNull
+    @NotBlank
     @Column(name = "name")
     private String name;
 
-    @NotNull
+    @NotBlank
     @Column(name = "auditory")
     private String auditory;
 
