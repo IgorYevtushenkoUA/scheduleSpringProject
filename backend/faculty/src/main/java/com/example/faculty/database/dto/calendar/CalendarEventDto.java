@@ -14,7 +14,5 @@ import java.util.Map;
 @AllArgsConstructor
 @SuperBuilder
 public class CalendarEventDto {
-
     Map<Integer, List<EventInfoDto>> daysAtCalendar;
-
 }

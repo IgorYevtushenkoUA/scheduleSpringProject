@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -22,13 +23,13 @@ public class EventResponseDto {
     @NotNull
     private Timestamp datetime;
 
-    @NotNull
+    @NotBlank
     private String group;
 
-    @NotNull
+    @NotBlank
     private String name;
 
-    @NotNull
+    @NotBlank
     private String auditory;
 
     @NotNull

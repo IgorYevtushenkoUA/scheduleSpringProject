@@ -15,6 +15,5 @@ import java.util.UUID;
 @SuperBuilder
 public class UserUpdateDto extends UserCreateDto {
     @NotNull
-    @JsonProperty
     private UUID id;
 }

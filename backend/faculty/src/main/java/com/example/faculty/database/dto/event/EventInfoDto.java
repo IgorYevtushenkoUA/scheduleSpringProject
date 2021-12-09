@@ -3,6 +3,7 @@ package com.example.faculty.database.dto.event;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -16,16 +17,16 @@ public class EventInfoDto {
     @NotNull
     private UUID id;
 
-    @NotNull
+    @NotBlank
     private String group;
 
-    @NotNull
+    @NotBlank
     private String name;
 
-    @NotNull
+    @NotBlank
     private String auditory;
 
-    @NotNull
+    @NotBlank
     private String subject;
 
     @NotNull

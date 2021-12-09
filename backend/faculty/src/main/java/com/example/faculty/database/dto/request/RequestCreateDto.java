@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -18,34 +19,26 @@ import java.util.UUID;
 public class RequestCreateDto {
 
     @NotNull
-    @JsonProperty
     private Timestamp time;
 
     @NotNull
-    @JsonProperty
     private UUID userId;
 
     @NotNull
-    @JsonProperty
     private UUID eventId;
 
-    @NotNull
-    @JsonProperty
+    @NotBlank
     private String name;
 
-    @NotNull
-    @JsonProperty
+    @NotBlank
     private String group;
 
-    @NotNull
-    @JsonProperty
+    @NotBlank
     private String auditory;
 
     @NotNull
-    @JsonProperty
     private Timestamp datetime;
 
     @NotNull
-    @JsonProperty
     private UUID subjectId;
 }

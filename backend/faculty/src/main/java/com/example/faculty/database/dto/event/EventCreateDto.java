@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -16,7 +17,6 @@ import java.util.UUID;
 @SuperBuilder
 public class EventCreateDto {
     @NotNull
-    @JsonProperty("datetime")
     private Timestamp datetime;
 
     @NotNull
@@ -27,15 +27,12 @@ public class EventCreateDto {
     @JsonProperty("user_id")
     private UUID userId;
 
-    @NotNull
-    @JsonProperty("group")
+    @NotBlank
     private String group;
 
-    @NotNull
-    @JsonProperty("name")
+    @NotBlank
     private String name;
 
-    @NotNull
-    @JsonProperty("auditory")
+    @NotBlank
     private String auditory;
 }

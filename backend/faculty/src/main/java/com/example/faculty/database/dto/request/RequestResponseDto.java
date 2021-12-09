@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -17,7 +18,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class RequestResponseDto {
-
     @NotNull
     private UUID id;
 
@@ -30,13 +30,13 @@ public class RequestResponseDto {
     @NotNull
     private EventShortInfoDto event;
 
-    @NotNull
+    @NotBlank
     private String name;
 
-    @NotNull
+    @NotBlank
     private String group;
 
-    @NotNull
+    @NotBlank
     private String auditory;
 
     @NotNull

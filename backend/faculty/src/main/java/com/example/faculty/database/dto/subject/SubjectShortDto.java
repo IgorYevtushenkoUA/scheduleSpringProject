@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
@@ -19,9 +20,9 @@ public class SubjectShortDto {
     @NotNull
     private int code;
 
-    @NotNull
+    @NotBlank
     private String faculty;
 
-    @NotNull
+    @NotBlank
     private String name;
 }

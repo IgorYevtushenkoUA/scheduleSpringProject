@@ -1,16 +1,14 @@
 package com.example.faculty.database.dto.user;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @Data
 public class LoginDto {
-    @NotNull
-    @JsonProperty
+    @NotBlank
     private String username;
 
-    @JsonProperty
+    @NotBlank
     private String password;
 }

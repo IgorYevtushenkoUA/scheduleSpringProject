@@ -15,9 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @SuperBuilder
 public class RequestUpdateDto extends RequestCreateDto {
-
     @NotNull
-    @JsonProperty
     private UUID id;
 
 }

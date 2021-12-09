@@ -15,6 +15,5 @@ import java.util.UUID;
 @SuperBuilder
 public class SubjectUpdateDto extends SubjectCreateDto {
     @NotNull
-    @JsonProperty
     private UUID id;
 }

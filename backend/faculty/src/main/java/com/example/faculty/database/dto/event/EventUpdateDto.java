@@ -15,6 +15,5 @@ import java.util.UUID;
 @SuperBuilder
 public class EventUpdateDto extends EventCreateDto {
     @NotNull
-    @JsonProperty("id")
     private UUID id;
 }

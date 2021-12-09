@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -15,29 +16,23 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @SuperBuilder
 public class SubjectCreateDto {
-    @NotNull
-    @JsonProperty
+    @NotBlank
     private String name;
 
-    @NotNull
-    @JsonProperty
+    @NotBlank
     private String faculty;
 
-    @NotNull
-    @JsonProperty
+    @NotBlank
     private String speciality;
 
     @NotNull
     @Min(1)
-    @Max(4)
-    @JsonProperty
+    @Max(6)
     private int course;
 
     @NotNull
-    @JsonProperty
     private int code;
 
     @NotNull
-    @JsonProperty
     private String trim;
 }
