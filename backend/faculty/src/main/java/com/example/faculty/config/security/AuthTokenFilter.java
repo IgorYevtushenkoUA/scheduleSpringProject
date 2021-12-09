@@ -13,9 +13,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class AuthTokenFilter extends OncePerRequestFilter {
@@ -51,10 +55,15 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     }
 
     private String parseJwt(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
+        //String bearerToken = request.getHeader("Authorization");
+
+        List<Cookie> cookies = Arrays.stream(request.getCookies()).filter(x -> x.getName().equals("token")).collect(Collectors.toList());
+        String bearerToken = cookies.size() > 0 ? cookies.get(0).getValue() : null;
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
         return null;
     }
+
+
 }

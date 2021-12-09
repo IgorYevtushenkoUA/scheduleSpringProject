@@ -22,21 +22,21 @@
                 <div th:if="${param.success}">
                     <div class="alert alert-info">You've successfully registered to our awesome app!</div>
                 </div>
-                <form th:action="@{/api/auth/registration}" th:object="${signUpRequest}" method="post" class="form">
+                <form th:action="@{/api/auth/signup}" th:object="${signUpRequest}" method="post" class="form">
 
                     <h3>Create an account</h3>
                     <span class="abt">Already have an account? <a href="/api/auth/login">Sign In</a></span>
 
                     <div class="input-group p-1 mt-3">
                         <span class="input-group-text" th:text="Name"></span>
-                        <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Enter Name"/>
+                        <input type="text" class="form-control" th:field="*{name}" placeholder="Enter Name"/>
                         <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
                              th:errors="*{name}"></div>
                     </div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Surname"></span>
-                        <input type="text" class="form-control" th:field="*{surname}"placeholder="Enter Surname">
+                        <input type="text" class="form-control" th:field="*{surname}" placeholder="Enter Surname">
                         <div class="alert alert-warning" th:if="${#fields.hasErrors('surname')}"
                              th:errors="*{surname}"></div>
                     </div>
