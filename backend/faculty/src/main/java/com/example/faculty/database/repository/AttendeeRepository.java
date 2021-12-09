@@ -13,4 +13,8 @@ public interface AttendeeRepository extends JpaRepository<Attendee, UUID> {
     @Query("delete from Attendee a where a.user.id=:userUUID and a.event.id=:eventUUID")
     Attendee deleteByUserAndEvent(@Param("userUUID") UUID userUUID, @Param("eventUUID") UUID eventUUID);
 
+
+    @Query("select a from Attendee a where a.user.id=:userUUID and a.event.id=:eventUUID")
+    Attendee getByUserAndEvent(@Param("userUUID") UUID userUUID, @Param("eventUUID") UUID eventUUID);
+
 }

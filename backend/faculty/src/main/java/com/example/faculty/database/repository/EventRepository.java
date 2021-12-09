@@ -76,6 +76,6 @@ public interface EventRepository extends JpaRepository<Event, UUID> {
     @Query("select e from Event e " +
             "inner join Attendee a on e.id = a.event.id " +
             "where e.subject.id=:subjectUUID " +
-            "and a.user.id='88f38f3e-4c8a-11ec-81d3-0242ac130003'")
-    List<Event> findAllStudentEventsBySubject(@Param("subjectUUID") UUID subjectUUID);
+            "and a.user.id=:userUUID")
+    List<Event> findAllStudentEventsBySubject(@Param("userUUID") UUID userUUID, @Param("subjectUUID") UUID subjectUUID);
 }

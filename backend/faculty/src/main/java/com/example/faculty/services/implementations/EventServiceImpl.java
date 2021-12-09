@@ -102,8 +102,8 @@ public class EventServiceImpl implements IEventService {
     }
 
     @Override
-    public List<Event> findAllStudentEventsBySubject(UUID subjectUUID) {
-        return repository.findAllStudentEventsBySubject(subjectUUID);
+    public List<Event> findAllStudentEventsBySubject(UUID userUUID, UUID subjectUUID) {
+        return repository.findAllStudentEventsBySubject(userUUID, subjectUUID);
     }
 
 }

@@ -20,4 +20,6 @@ public interface IAttendeeService {
 
     Attendee deleteByUserAndEvent(UUID userUUId, UUID eventUUID);
 
+    Attendee getByUserAndEvent(UUID userUUId, UUID eventUUID);
+
 }

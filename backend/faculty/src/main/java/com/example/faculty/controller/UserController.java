@@ -12,6 +12,7 @@ import com.example.faculty.database.dto.subject.SubjectResponseDto;
 import com.example.faculty.database.dto.user.UserCreateDto;
 import com.example.faculty.database.dto.user.UserResponseDto;
 import com.example.faculty.database.dto.user.UserUpdateDto;
+import com.example.faculty.database.entity.Attendee;
 import com.example.faculty.database.entity.Event;
 import com.example.faculty.database.entity.User;
 import com.example.faculty.database.enums.*;
@@ -101,7 +102,7 @@ public class UserController {
         userService.delete(id);
     }
 
-    // todo випрвити повідомлення про місяці, показує коректно , але в url - застаріла інформація
+
     @PreAuthorize("hasAuthority('STUDENT') or hasAuthority('TEACHER') or hasAuthority('ADMINISTRATOR')")
     @GetMapping("/calendar")
     public String showCalendar(Model model,
@@ -159,10 +160,11 @@ public class UserController {
     }
 
     @GetMapping("/subjects/{id}")
+    @PreAuthorize("hasAuthority('STUDENT') or hasAuthority('TEACHER') or hasAuthority('ADMINISTRATOR')")
     public String subjectGet(Model model, @PathVariable("id") UUID id) {
         List<Event> events = eventService.findAllBySubject(id);
-        // todo set real userUUID
-        List<String> listOfEnrolledGroup = eventService.findAllStudentEventsBySubject(id)
+        User user = getUser();
+        List<String> listOfEnrolledGroup = eventService.findAllStudentEventsBySubject(user.getId(), id)
                 .stream()
                 .map(Event::getGroup)
                 .distinct()
@@ -172,32 +174,33 @@ public class UserController {
         for (Event e : events) {
             eventsMap.putIfAbsent(e.getGroup(), e);
         }
-        System.out.println("User is now2 " + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         model.addAttribute("subject", subjectService.get(id));
         model.addAttribute("eventsMap", eventsMap);
         model.addAttribute("listOfEnrolledGroup", listOfEnrolledGroup);
+        model.addAttribute("role", user.getRole().name());
 
         return "subject";
     }
 
+    @PreAuthorize("hasAuthority('STUDENT')")
     @PostMapping("/subjects/{id}/{group}")
     public String enrollToSubject(@RequestParam("action") String action,
                                   @PathVariable("id") UUID id,
                                   @PathVariable("group") String group) {
         // todo add user credentials
         List<Event> events = eventService.findAllBySubjectAndGroup(id, group);
+        User user = getUser();
         for (Event e : events) {
             if (action.equals("enroll")) {
-                // todo add user
-                // Attendee a = Attendee.builder()
-                //      .user(user)
-                //      .event(e)
-                //      .build();
-                // attendeeService.create(a);
+                Attendee a = Attendee.builder()
+                        .user(user)
+                        .event(e)
+                        .build();
+                attendeeService.create(a);
             } else {
-                // todo userUUID
-                // attendeeService.deleteByUserAndEvent(userUUID, e.getId());
+                Attendee a = attendeeService.getByUserAndEvent(user.getId(), e.getId());
+                attendeeService.delete(a.getId());
             }
         }
         return "redirect:/api/user/subjects/{id}";

@@ -38,6 +38,5 @@ public interface IEventService {
 
     List<Event> findAllBySubjectAndGroup(UUID id, String group);
 
-    // todo add userUUID
-    List<Event> findAllStudentEventsBySubject(UUID subjectUUID);
+    List<Event> findAllStudentEventsBySubject(UUID userUUId, UUID subjectUUID);
 }
