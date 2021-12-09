@@ -206,6 +206,7 @@ public class UserController {
                         .build();
                 attendeeService.create(a);
             } else {
+                System.out.println(attendeeService.getAll());
                 Attendee a = attendeeService.getByUserAndEvent(user.getId(), e.getId());
                 attendeeService.delete(a.getId());
             }

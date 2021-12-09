@@ -50,11 +50,9 @@ values ('b75d58c4-4c8a-12ec-81d5-0242ac130003', '6314099e-4c88-11ec-81d3-0242ac1
 insert into attendee(id, event_id, user_id, created_at, updated_at)
 values ('fe3f9a8a-4c8a-11ec-81d3-0242ac130003', 'b75d57c4-4c8a-11ec-81d3-0242ac130003',
         '88f38f3e-4c8a-11ec-81d3-0242ac130003', 0, 0);
+
 insert into attendee(id, event_id, user_id, created_at, updated_at)
-values ('fe3f9a8a-4d8a-11ec-81d3-0242ac130003', 'b75d57c4-4c8a-10ec-81d5-0242ac130003',
-        '88f38f3e-4c8a-11ec-81d3-0242ac130003', 0, 0);
-insert into attendee(id, event_id, user_id, created_at, updated_at)
-values ('fe3f9a8a-4s8a-11ec-81d3-0242ac130003', 'b75d58c4-4c8a-12ec-81d5-0242ac130003',
+values ('fe3f9a8a-4c8a-111c-81d3-0242ac130003', 'b75d57c4-4c8a-11ec-81d4-0242ac130003',
         '88f38f3e-4c8a-11ec-81d3-0242ac130003', 0, 0);
 
 
