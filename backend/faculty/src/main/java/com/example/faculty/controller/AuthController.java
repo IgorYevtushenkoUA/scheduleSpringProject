@@ -73,14 +73,14 @@ public class AuthController {
                         userDetails.getRole()));
     }
 
-    @GetMapping(value = "/registration")
+    @GetMapping(value = "/signup")
     public ModelAndView displayRegistration(ModelAndView modelAndView, SignupRequest signUpRequest) {
         modelAndView.addObject("user", signUpRequest);
         modelAndView.setViewName("registerStudent");
         return modelAndView;
     }
 
-    @PostMapping("/registration")
+    @PostMapping("/signup")
     public String registerUser(@Valid @ModelAttribute("signUpRequest") SignupRequest signUpRequest,
                                BindingResult result, Model model) {
         if (result.hasErrors()) {
