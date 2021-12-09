@@ -32,12 +32,14 @@
         </div>
 
         <div class="input-group p-1">
-            <span class="input-group-text" th:text="SPECIALITY"></span>
-            <input class="form-control"
-                   aria-label="With textarea"
-                   type="text"
-                   name="speciality"
-                   placeholder="Enter speciality">
+            <span class="input-group-text"
+                  th:text="SPECIALITY"></span>
+            <select name="speciality" class="custom-select">
+                <option
+                        th:each="s:${specialities}"
+                        th:text="${s.getSpeciality()}"
+                />
+            </select>
         </div>
 
         <div class="input-group p-1">

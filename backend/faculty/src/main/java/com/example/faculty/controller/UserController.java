@@ -163,6 +163,7 @@ public class UserController {
                 : subjectService.getByName(name);
 
         model.addAttribute("subjects", subjects);
+        model.addAttribute("role", getUser().getRole().name());
         return "subjects";
     }
 
@@ -195,7 +196,6 @@ public class UserController {
     public String enrollToSubject(@RequestParam("action") String action,
                                   @PathVariable("id") UUID id,
                                   @PathVariable("group") String group) {
-        // todo add user credentials
         List<Event> events = eventService.findAllBySubjectAndGroup(id, group);
         User user = getUser();
         for (Event e : events) {
@@ -206,7 +206,6 @@ public class UserController {
                         .build();
                 attendeeService.create(a);
             } else {
-                System.out.println(attendeeService.getAll());
                 Attendee a = attendeeService.getByUserAndEvent(user.getId(), e.getId());
                 attendeeService.delete(a.getId());
             }
@@ -215,6 +214,7 @@ public class UserController {
     }
 
     @GetMapping("/subjects/create")
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     public String createSubjectGet(Model model) {
         model.addAttribute("faculties", Arrays.asList(Faculty.values()));
         model.addAttribute("specialities", Arrays.asList(Speciality.values()));
@@ -226,6 +226,7 @@ public class UserController {
     }
 
     @PostMapping("/subjects/create")
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     public String createSubjectPost(
             @RequestParam("name") String name,
             @RequestParam("faculty") String faculty,
