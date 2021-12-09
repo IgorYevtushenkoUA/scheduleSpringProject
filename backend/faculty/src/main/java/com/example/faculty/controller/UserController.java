@@ -101,7 +101,7 @@ public class UserController {
 
         // todo set user UUID
         int tempUserId = 1;
-        CalendarEventDto eventDto = 1 == 2 // todo compare is it admin or not
+        CalendarEventDto eventDto = 1 == 1 // todo compare is it admin or not
                 ? fillUserShowCalendarDto(1, localDate, days)
                 : fillAdminShowCalendarDto(localDate, days, specialities, courses);
 
@@ -244,6 +244,20 @@ public class UserController {
         }
 
         return "redirect:/api/user";
+    }
+
+
+
+    @GetMapping("/events/delete/{id}/{place}")
+    public String deleteEvent1(){
+        // todo write to delte events in all [attendee, events]
+        return "redirect:/api/user/events/{id}";
+    }
+
+    @PostMapping("/events/delete/{id}/{place}")
+    public String deleteEvent(@PathVariable("id") UUID id){
+        // todo write to delte events in all [attendee, events]
+        return "redirect:/api/user/events/{id}";
     }
 
     @GetMapping("/events/edit/{id}")
@@ -394,6 +408,7 @@ public class UserController {
         List<EventInfoDto> eventShortInfoDtoList = new ArrayList<>();
         for (Event e : events) {
             EventInfoDto eventShortInfoDto = EventInfoDto.builder()
+                    .id(e.getId())
                     .group(e.getGroup())
                     .name(e.getName())
                     .auditory(e.getAuditory())
