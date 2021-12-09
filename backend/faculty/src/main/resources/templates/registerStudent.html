@@ -10,9 +10,6 @@
 </head>
 
 <body>
-
-<div th:insert="components/navbar :: navbar"/>
-
 <section class="vh-100 ">
     <div class="container py-5 h-100">
         <div class="row d-flex align-items-center justify-content-center h-100">
@@ -22,49 +19,79 @@
 
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                <form th:action="@{/api/auth/register}" method="post">
-                    <!-- Email input -->
+                <div th:if="${param.success}">
+                    <div class="alert alert-info">You've successfully registered to our awesome app!</div>
+                </div>
+                <form th:action="@{/api/auth/registration}" th:object="${signUpRequest}" method="post" class="form">
+
                     <h3>Create an account</h3>
-                    <span class="abt">Already have an account? <a href="/api/auth/signIn">Sign In</a></span>
+                    <span class="abt">Already have an account? <a href="/api/auth/login">Sign In</a></span>
 
                     <div class="input-group p-1 mt-3">
                         <span class="input-group-text" th:text="Name"></span>
-                        <input type="text" class="form-control" name="name" placeholder="Enter Name">
+                        <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Enter Name"/>
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
+                             th:errors="*{name}"></div>
                     </div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Surname"></span>
-                        <input type="text" class="form-control" name="surname" placeholder="Enter Surname">
+                        <input type="text" class="form-control" th:field="*{surname}"placeholder="Enter Surname">
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('surname')}"
+                             th:errors="*{surname}"></div>
                     </div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Parental"></span>
-                        <input type="text" class="form-control" name="parental" placeholder="Enter Parental">
+                        <input type="text" class="form-control"  th:field="*{parental}" placeholder="Enter Parental">
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('parental')}"
+                             th:errors="*{parental}"></div>
                     </div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Email"></span>
-                        <input type="email" class="form-control" name="email" placeholder="Enter Email">
+                        <input type="email" class="form-control" name="email" th:field="*{email}" placeholder="Enter Email">
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}"
+                             th:errors="*{email}"></div>
+                        <div class="alert alert-warning" th:if="${param.message}">This email already exists!</div>
                     </div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="About"></span>
                         <textarea type="email" class="form-control" name="about" placeholder="Enter About"></textarea>
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('about')}"
+                             th:errors="*{about}"></div>
                     </div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Course"></span>
-                        <input type="number" class="form-control" name="course" placeholder="Enter Course">
+                        <input type="number" class="form-control" name="course" th:field="*{course}" placeholder="Enter Course">
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('course')}"
+                             th:errors="*{course}"></div>
                     </div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Faculty"></span>
-                        <input type="text" class="form-control" name="faculty" placeholder="Enter faculty">
+                        <input type="text" class="form-control" name="faculty" th:field="*{faculty}" placeholder="Enter faculty">
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('faculty')}"
+                             th:errors="*{faculty}"></div>
                     </div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Password"></span>
-                        <input type="password" class="form-control" name="password" placeholder="Enter Password">
+                        <input type="password" class="form-control" name="password" th:field="*{password}" placeholder="Enter Password">
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}"
+                             th:errors="*{password}"></div>
+                    </div>
+
+                    <div class="input-group p-1">
+                        <span class="input-group-text" th:text="Confirmpassword"></span>
+                        <input type="password" class="form-control" name="confirmPassword" th:field="*{confirmPassword}"
+                               placeholder="Enter one more time">
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('confirmPassword')}"
+                             th:errors="*{confirmPassword}"></div>
+                        <div class="alert alert-warning" th:if="${param.message}">Try repeat password one more time!
+                        </div>
                     </div>
 
                     <!-- Submit button -->

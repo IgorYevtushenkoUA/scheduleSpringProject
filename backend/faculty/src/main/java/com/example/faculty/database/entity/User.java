@@ -79,6 +79,20 @@ public class User extends BaseEntity implements UserDetails {
         this.role = UserRole.STUDENT;
     }
 
+    public User(String name, String surname, String parental, String email, String password,
+                String username, String about, int course, String faculty, UserRole role) {
+        this.name = name;
+        this.surname = surname;
+        this.parental = parental;
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.about = about;
+        this.course = course;
+        this.faculty = faculty;
+        this.role = role;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
