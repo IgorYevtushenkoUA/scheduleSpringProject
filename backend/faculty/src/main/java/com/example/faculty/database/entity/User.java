@@ -73,6 +73,8 @@ public class User extends BaseEntity {
     @ToString.Exclude
     List<Event> created;
 
+    private String role;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
