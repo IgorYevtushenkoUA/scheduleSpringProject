@@ -19,11 +19,11 @@ public class EventCreateDto {
     @JsonProperty("datetime")
     private Timestamp datetime;
 
-    @NotNull
+    //@NotNull
     @JsonProperty("subject_id")
     private UUID subjectId;
 
-    @NotNull
+    //@NotNull
     @JsonProperty("user_id")
     private UUID userId;
 

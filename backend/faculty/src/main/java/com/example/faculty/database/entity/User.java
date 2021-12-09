@@ -9,7 +9,9 @@ import javax.validation.constraints.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
+//@Builder
 @Entity
 @Data
 @NoArgsConstructor
@@ -89,5 +91,28 @@ public class User extends BaseEntity {
         this.course = course;
         this.faculty = faculty;
         this.roles = roles;
+    }
+
+    public User(String name, String surname, String parental, String email,
+                String about, int course, String faculty) {
+        this.name = name;
+        this.surname = surname;
+        this.parental = parental;
+        this.email = email;
+        this.about = about;
+        this.course = course;
+        this.faculty = faculty;
+    }
+
+    public User(UUID id, String name, String surname, String parental, String email,
+                String about, int course, String faculty) {
+        super(id, 0, 0);
+        this.name = name;
+        this.surname = surname;
+        this.parental = parental;
+        this.email = email;
+        this.about = about;
+        this.course = course;
+        this.faculty = faculty;
     }
 }

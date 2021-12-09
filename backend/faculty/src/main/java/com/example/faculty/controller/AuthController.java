@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ import java.util.stream.Collectors;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RestController
+@Controller
 @RequestMapping("/api/auth")
 public class AuthController {
 
@@ -50,9 +51,14 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @ModelAttribute("signUpRequest")
+    public SignupRequest userDto() {
+        return new SignupRequest();
+    }
+
     @GetMapping
     public String showRegistrationForm(Model model) {
-        return "registration";
+        return "registerStudent";
     }
 
     @PostMapping("/login")
@@ -80,23 +86,24 @@ public class AuthController {
     @GetMapping(value = "/registration")
     public ModelAndView displayRegistration(ModelAndView modelAndView, SignupRequest signUpRequest) {
         modelAndView.addObject("user", signUpRequest);
-        modelAndView.setViewName("registration");
+        modelAndView.setViewName("registerStudent");
         return modelAndView;
     }
 
     @PostMapping("/registration")
-    public ModelAndView registerUser(@Valid @RequestBody SignupRequest signUpRequest,
-                                     BindingResult result, ModelAndView modelAndView) {
+    public String registerUser(@Valid @ModelAttribute("signUpRequest") SignupRequest signUpRequest,
+                                     BindingResult result, Model model) {
         if (result.hasErrors()) {
-            modelAndView.setViewName("registration");
+            return "registerStudent";
         } else {
             User existingUser = userRepository.findByEmail(signUpRequest.getEmail());
             if (existingUser != null) {
-                modelAndView.setViewName("message");
+                model.addAttribute("message", true);
             } else {
 
                 if(signUpRequest.getPassword().equals(signUpRequest.getConfirmPassword()))
-                    modelAndView.setViewName("message_confirm");
+                    model.addAttribute("message_confirm", true);
+
 
                 Role studentRole = roleRepository.findRoleByName(UserRole.STUDENT)
                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -118,11 +125,11 @@ public class AuthController {
 
                 userRepository.save(user);
 
-                modelAndView.setViewName("success");
+                model.addAttribute("success", true);
             }
         }
 
-        return modelAndView;
+        return "registerStudent";
     }
 
 

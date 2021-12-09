@@ -21,7 +21,7 @@ public class RequestCreateDto {
     @JsonProperty
     private Timestamp time;
 
-    @NotNull
+    //@NotNull
     @JsonProperty
     private UUID userId;
 

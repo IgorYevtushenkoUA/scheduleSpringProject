@@ -10,8 +10,12 @@ import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
 
-    @Query("select u from User u where u.role='TEACHER'")
-    List<User> getAllTeacher();
+    @Query(value = "SELECT * FROM USERS u\n" +
+            "left join user_roles ur on u.id=ur.user_id\n" +
+            "left join roles r on r.id=ur.role_id\n" +
+            " WHERE r.name='TEACHER';", nativeQuery = true)
+    //@Query("select u from User u where u.role   'TEACHER'")
+    List<User> getAllTeachers();
 
     boolean existsByEmail(String email);
 
