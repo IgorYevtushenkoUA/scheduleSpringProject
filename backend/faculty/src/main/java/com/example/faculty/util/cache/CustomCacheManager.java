@@ -18,6 +18,8 @@ public class CustomCacheManager implements CacheManager {
         this.map = new HashMap<>();
         map.put("events", new ConcurrentMapCache("events"));
         map.put("subjects", new ConcurrentMapCache("subjects"));
+        map.put("users", new ConcurrentMapCache("users"));
+        map.put("requests", new ConcurrentMapCache("requests"));
     }
 
     @Override

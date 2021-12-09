@@ -4,6 +4,7 @@ import com.example.faculty.database.dto.subject.SubjectCreateDto;
 import com.example.faculty.database.dto.subject.SubjectResponseDto;
 import com.example.faculty.database.dto.subject.SubjectUpdateDto;
 import com.example.faculty.services.interfaces.ISubjectService;
+import com.example.faculty.util.annotations.LogInfo;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/subject")
 @CacheConfig(cacheNames = {"subjects"})
+@LogInfo
 public class SubjectController {
 
     private final ISubjectService service;

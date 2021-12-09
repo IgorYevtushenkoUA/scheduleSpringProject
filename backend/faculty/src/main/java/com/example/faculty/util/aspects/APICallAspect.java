@@ -10,21 +10,20 @@ import java.util.logging.Logger;
 
 @Aspect
 @Component
-public class ParamsAspect {
+public class APICallAspect {
     private final Logger logger = Logger.getLogger(getClass().getName());
 
-    @Pointcut("execution(public * *(..)) && @annotation(com.example.faculty.util.annotations.LogParams)")
+    @Pointcut("execution(public * *(..)) && within(@com.example.faculty.util.annotations.LogInfo *)")
     public void logParamsMethods() {
     }
 
     @Around("logParamsMethods()")
     public Object measureMethodExecutionTime(ProceedingJoinPoint pjp) throws Throwable {
         StringBuffer buffer = new StringBuffer();
-
-        buffer.append("Method params for ");
-        buffer.append(pjp.getSignature().getName());
+        String method = pjp.getSignature().getName();
+        buffer.append("Call method: ");
+        buffer.append(method);
         buffer.append("(");
-
         Object[] args = pjp.getArgs();
         for (int i = 0; i < args.length; i++) {
             buffer.append(args[i]).append(",");
@@ -32,13 +31,11 @@ public class ParamsAspect {
         if (args.length > 0) {
             buffer.deleteCharAt(buffer.length() - 1);
         }
+        buffer.append(")");
 
-        buffer.append(") -> ");
-
-        Object retval = pjp.proceed();
-        buffer.append(retval);
         logger.info(buffer.toString());
-
+        Object retval = pjp.proceed();
+        logger.info("Method " + method + " returned: " + retval.toString());
         return retval;
     }
 }

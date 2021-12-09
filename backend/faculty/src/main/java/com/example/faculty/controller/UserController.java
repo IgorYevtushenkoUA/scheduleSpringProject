@@ -16,8 +16,13 @@ import com.example.faculty.database.entity.Attendee;
 import com.example.faculty.database.entity.Event;
 import com.example.faculty.database.enums.*;
 import com.example.faculty.services.interfaces.*;
+import com.example.faculty.util.annotations.LogInfo;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +35,8 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/api/user")
+@LogInfo
+@CacheConfig(cacheNames = {"users"})
 public class UserController {
     private final IUserService userService;
     private final IEventService eventService;
@@ -57,6 +64,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @Cacheable(key = "#id")
     public String get(Model model, @PathVariable UUID id) {
         model.addAttribute("user", userService.get(id));
         return "personalPage";
@@ -68,11 +76,13 @@ public class UserController {
     }
 
     @PutMapping("/edit")
+    @CachePut(key = "#dto.id")
     public UserResponseDto update(@RequestBody UserUpdateDto dto) {
         return userService.update(dto);
     }
 
     @DeleteMapping("/delete/{id}")
+    @CacheEvict(key = "#dto.id")
     public void delete(@PathVariable UUID id) {
         userService.delete(id);
     }

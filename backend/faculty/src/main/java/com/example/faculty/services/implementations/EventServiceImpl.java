@@ -7,7 +7,6 @@ import com.example.faculty.database.entity.Event;
 import com.example.faculty.database.mapstruct.mappers.IEventMapper;
 import com.example.faculty.database.repository.EventRepository;
 import com.example.faculty.services.interfaces.IEventService;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
