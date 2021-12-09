@@ -16,6 +16,9 @@
         <div class="col-4">
             <div th:if="${user.get().getRole()} == STUDENT">
                 <img src="/images/student.png" alt="student" width="256px" height="256px">
+                <img src="./images/student.png" alt="student" width="256px" height="256px">
+                <img src="static/images/student.png" alt="student" width="256px" height="256px">
+                <img src="./static/images/student.png" alt="student" width="256px" height="256px">
             </div>
             <div th:if="${user.get().getRole()} == TEACHER">
                 <img src="/images/teacher.png" alt="teacher" width="256px" height="256px">
@@ -37,18 +40,14 @@
                       type="text" name="name"
                       th:text="${user.get().getSurname()} + ' ' + ${user.get().getName()} + ' ' + ${user.get().getParental()} "></span>
             </div>
-            <div class="input-group p-1">
-                <span class="input-group-text" th:text="'ROLE'"></span>
-                <span class="form-control" aria-label="With textarea"
-                      type="text" name="name"
-                      th:text="${user.get().getEmail()}"></span>
-            </div>
-            <div class="input-group p-1">
-                <span class="input-group-text" th:text="ROLE"></span>
-                <span class="form-control" aria-label="With textarea"
-                      type="text" name="name"
-                      th:text="${user.get().getRole()}"></span>
-            </div>
+
+<!--            <div class="input-group p-1">-->
+<!--                <span class="input-group-text" th:text="ROLE"></span>-->
+<!--                <span class="form-control" aria-label="With textarea"-->
+<!--                      type="text" name="name"-->
+<!--                      th:text="${user.get().getRole()}"></span>-->
+<!--            </div>-->
+
             <div class="input-group p-1">
                 <span class="input-group-text" th:text="EMAIL"></span>
                 <span class="form-control" aria-label="With textarea"

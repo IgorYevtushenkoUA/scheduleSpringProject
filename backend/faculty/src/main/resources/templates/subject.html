@@ -70,13 +70,6 @@
                             value="enroll" class="btn btn-light">ENROLL
                     </button>
                 </form>
-                <form th:if="${role=='TEACHER'}"
-                      th:action="@{/api/user/subjects/{id}/{group} (id=${subject.get().getId()},group=${map.value.getGroup()})}"
-                      method="post">
-                    <button type="submit" value="edit" class="btn btn-light">EDIT
-                        todo
-                    </button>
-                </form>
             </td>
         </tr>
         </tbody>

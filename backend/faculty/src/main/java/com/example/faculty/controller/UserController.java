@@ -70,6 +70,12 @@ public class UserController {
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
+//    @ModelAttribute
+//    public void addAttributes(Model model) {
+////        String role = getUser().getRole().name();
+//        model.addAttribute("role", "!Guest");
+//    }
+
     @GetMapping("/{id}")
     @Cacheable(key = "#id")
     public String get(Model model, @PathVariable UUID id) {
@@ -77,11 +83,12 @@ public class UserController {
         return "personalPage";
     }
 
-    @GetMapping("/personalPage")
-    public String getPersonalPage() {
-        // todo print userIfon
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-
+    @GetMapping("/")
+    @PreAuthorize("hasAuthority('STUDENT') or hasAuthority('TEACHER') or hasAuthority('ADMINISTRATOR')")
+    public String getPersonalPage(Model model) {
+        User user = getUser();
+        model.addAttribute("user", userService.get(user.getId()));
+        model.addAttribute("role", user.getRole().name());
         return "personalPage";
     }
 
@@ -103,8 +110,8 @@ public class UserController {
     }
 
 
-    @PreAuthorize("hasAuthority('STUDENT') or hasAuthority('TEACHER') or hasAuthority('ADMINISTRATOR')")
     @GetMapping("/calendar")
+    @PreAuthorize("hasAuthority('STUDENT') or hasAuthority('TEACHER') or hasAuthority('ADMINISTRATOR')")
     public String showCalendar(Model model,
                                @RequestParam(value = "year", required = false) Integer year,
                                @RequestParam(value = "month", required = false) Integer month,
