@@ -44,8 +44,33 @@
 
     <div class="row">
 
+        <div class="col-3">
+            <form th:action="@{/api/user/calendar}" method="get">
 
-        <div class="col-8">
+                <h3>Speciality</h3>
+                <div th:each="speciality,iter:${specialities}">
+                    <div class="form-check">
+                        <input th:checked="${specialityList.contains(speciality.getSpeciality())}"
+                               th:value="${speciality.getSpeciality()}" name="speciality" class="form-check-input"
+                               type="checkbox" value="" id="'speciality' + ${iter}">
+                        <label class="form-check-label" th:for="'speciality' + ${iter}"
+                               th:text="${speciality.getSpeciality()}"/>
+                    </div>
+                </div>
+
+                <h3>Course</h3>
+                <div th:each="course,iter:${courses}">
+                    <div class="form-check">
+                        <input th:checked="${courseList.contains(course.getCourse())}" th:value="${course.getCourse()}"
+                               name="course" class="form-check-input" type="checkbox" value="" id="'course' + ${iter}">
+                        <label class="form-check-label" th:for="'course' + ${iter}" th:text="${course.getCourse()}"/>
+                    </div>
+                </div>
+                <button type="submit" name="action" value="search" class="btn btn-light btn-block"
+                        th:text="Search"></button>
+            </form>
+        </div>
+        <div class="col-7">
 
             <div class="row row-cols-7 days-naming">
                 <div class="col"><p>Mon</p></div>
@@ -83,7 +108,7 @@
             </div>
 
         </div>
-        <div class="col-4">
+        <div class="col-2">
             <div class="schedule" id="schedule">
                 <h4>SCHEDULE</h4>
                 <div id="schedule-list" class="">
@@ -103,8 +128,6 @@
     function showDaySchedule(day) {
         let events = userEvent[day];
 
-        // delete all from div schedule
-
         var el = document.getElementById('schedule-list');
         while (el.firstChild) el.removeChild(el.firstChild);
 
@@ -112,13 +135,16 @@
             for (let i = 0; i < events.length; i++) {
 
                 let minutes = events[i].minutes === 0 ? "00" : events[i].minutes;
-
+                console.log(events[i])
+                // let id = events[i].
                 $("#schedule-list").append('<div class="card mt-1" id=' + i + '>\n' +
                     '<div class="card-body">\n' +
                     '                <h5 class="card-title">' + events[i].subject + '</h5>\n' +
                     '                <p class="card-subtitle mb-2 text-muted">' + events[i].hours + ':' + minutes + '</p>\n' +
                     '                <p class="card-subtitle mb-2 text-muted">' + events[i].name + '</p>\n' +
                     '                <p class="card-subtitle mb-2 text-muted">' + events[i].auditory + '</p>\n' +
+                    '<a class="btn btn-danger" href="/api/user/events/delete/' + events[i].id + '/calendar)}" role="button">DELETE</a>\n' +
+                    '<a class="btn btn-dark" th:href="@{/api/user/events/edit/{id}/{place} (id=' + events[i].id + ',place=calendar)}" role="button">EDIT</a>\n' +
                     '     </div> \n' +
                     '       </div>')
             }
@@ -138,6 +164,7 @@
                 '            </div>');
         }
     }
+
 
 </script>
 

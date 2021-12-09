@@ -26,4 +26,7 @@ public interface IUserService extends UserDetailsService {
     User findByEmail(String email);
 
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+
+    List<UserResponseDto> getAllTeacher();
+
 }

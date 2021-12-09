@@ -12,13 +12,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RestController
+@Controller
 @RequestMapping("/api/auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
@@ -31,6 +32,11 @@ public class AuthController {
         this.service = service;
         this.encoder = encoder;
         this.jwtUtils = jwtUtils;
+    }
+
+    @GetMapping("/signIn")
+    public String signIn(){
+        return "signIn";
     }
 
     @PostMapping("/login")
@@ -54,5 +60,12 @@ public class AuthController {
         createDto.setPassword(encoder.encode(createDto.getPassword()));
         service.create(createDto);
         return ResponseEntity.ok("User registered successfully!");
+    }
+
+
+
+    @GetMapping("/register")
+    public String registerAuth(){
+        return "registerStudent";
     }
 }

@@ -23,5 +23,9 @@ public class UserShortDto {
     private String surname;
 
     @NotNull
+    private String parental;
+
+    @NotNull
     private String email;
+
 }

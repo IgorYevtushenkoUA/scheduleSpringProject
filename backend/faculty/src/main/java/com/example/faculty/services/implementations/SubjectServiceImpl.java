@@ -48,4 +48,11 @@ public class SubjectServiceImpl implements ISubjectService {
         Subject subject = ISubjectMapper.MAPPER.updateToSubject(dto);
         return ISubjectMapper.MAPPER.subjectToResponse(repository.save(subject));
     }
+
+    @Override
+    public List<SubjectResponseDto> getByName(String name) {
+        return repository.findByName(name).stream().map(ISubjectMapper.MAPPER::subjectToResponse).collect(Collectors.toList());
+    }
+
+
 }

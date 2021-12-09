@@ -1,0 +1,29 @@
+<div th:fragment="navbar"
+     class="navbar navbar-light bg-light">
+
+
+    <div class="d-flex justify-content-lg-start">
+        <a class="navbar-brand" href="/api/user/subjects" th:text="SCHEDULE"/>
+    </div>
+
+    <div class="d-flex justify-content-center ">
+        <ul class="nav  justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="/api/user/subjects">SUBJECTS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/api/user/calendar">CALENDAR</a>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <ul class="nav  justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="/api/auth/signIn">SIGN IN</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/api/auth/register">REGISTER</a>
+            </li>
+        </ul>
+    </div>
+</div>

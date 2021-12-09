@@ -63,4 +63,8 @@ public class UserServiceImpl implements IUserService {
         return repository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
     }
+
+    public List<UserResponseDto> getAllTeacher() {
+        return repository.getAllTeacher().stream().map(IUserMapper.MAPPER::userToResponseDto).collect(Collectors.toList());
+    }
 }

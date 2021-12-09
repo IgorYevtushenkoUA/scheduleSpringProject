@@ -18,4 +18,6 @@ public interface ISubjectService {
     SubjectResponseDto create(SubjectCreateDto dto);
 
     SubjectResponseDto update(SubjectUpdateDto dto);
+
+    List<SubjectResponseDto> getByName(String name);
 }

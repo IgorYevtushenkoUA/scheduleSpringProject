@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Course</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+
+</head>
+<body>
+
+<div th:insert="components/navbar :: navbar"/>
+
+<div class="container">
+
+
+    <form th:action="@{/api/user/subjects}" method="get">
+        <div class="input-group mt-4">
+            <input type="text" class="form-control" name="name" placeholder="Name">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                         fill="currentColor"
+                         class="bi bi-search"
+                         viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </span>
+        </div>
+    </form>
+
+    <div th:each="subject:${subjects}">
+        <div class="input-group p-1 mt-3">
+            <input type="text" class="form-control" name="name" th:value="${subject.getName()}" disabled>
+            <span class="input-group-text">
+            <a th:href="@{/api/user/subjects/{id} (id=${subject.getId()})}">More...</a>
+                </span>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
