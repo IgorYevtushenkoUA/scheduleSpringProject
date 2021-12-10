@@ -18,7 +18,7 @@
             <div class="card">
 
                 <div class="card-header">
-                    <h3 th:text="${request.getUser().getSurname() + ' ' +request.getUser().getName() + ' ' +request.getUser().getParental() }"/>
+                    <h4 th:text="'CREATED'+ ' ' + 'BY:'+' ' + ${request.getUser().getSurname() + ' ' +request.getUser().getName() + ' ' +request.getUser().getParental() }"/>
                 </div>
 
                 <div class="card-body">
@@ -52,17 +52,17 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-
-            <div>
-                <div class="">
-                    <button type="submit" name="action" value="deny" class="btn btn-danger btn-block"
-                            th:text="Deny"></button>
-                    <button type="submit" name="action" value="confirm" class="btn btn-success btn-block"
-                            th:text="Confirm"></button>
+                <div class="d-flex justify-content-center">
+                    <div class="w-50 ml-3 mr-2">
+                        <button type="submit" name="action" value="cancel" class="btn btn btn-danger btn-block"
+                                th:text="Cancel"></button>
+                    </div>
+                    <div class="w-50 ml-2 mr-3">
+                        <button type="submit" name="action" value="confirm" class="btn btn-dark btn-block"
+                                th:text="Confirm"></button>
+                    </div>
                 </div>
             </div>
-
         </form>
     </div>
 

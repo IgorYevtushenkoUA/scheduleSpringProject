@@ -14,6 +14,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/api/user/calendar">CALENDAR</a>
             </li>
+            <li th:if="${role=='ADMINISTRATOR'}" class="nav-item">
+                <a class="nav-link" href="/api/user/requests">REQUESTS</a>
+            </li>
         </ul>
     </div>
     <div th:if="${role=='GUEST'}">
