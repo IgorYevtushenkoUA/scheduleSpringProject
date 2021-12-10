@@ -145,7 +145,7 @@ public class UserController {
         model.addAttribute("courses", Arrays.asList(Courses.values()));
         model.addAttribute("specialityList", specialities);
         model.addAttribute("courseList", courses);
-
+        model.addAttribute("role", user.getRole().name());
         return user.getRole().equals(UserRole.ADMINISTRATOR)
                 ? "adminCalendar"
                 : "calendar";
@@ -191,6 +191,7 @@ public class UserController {
         return "subject";
     }
 
+
     @PreAuthorize("hasAuthority('STUDENT')")
     @PostMapping("/subjects/{id}/{group}")
     public String enrollToSubject(@RequestParam("action") String action,
@@ -221,7 +222,7 @@ public class UserController {
         model.addAttribute("courseB", Arrays.asList(CourseB.values()));
         model.addAttribute("courseM", Arrays.asList(CourseM.values()));
         model.addAttribute("trim", Arrays.asList(Trim.values()));
-
+        model.addAttribute("role", getUser().getRole().name());
         return "createSubject";
     }
 
@@ -247,6 +248,7 @@ public class UserController {
                     .build();
             subjectService.create(subject);
         }
+
         return "redirect:/api/user/subjects";
     }
 
@@ -254,6 +256,7 @@ public class UserController {
     public String createEventGet(Model model) {
         model.addAttribute("teachers", userService.getAll());
         model.addAttribute("subjects", subjectService.getAll());
+        model.addAttribute("role", getUser().getRole().name());
         return "createEvent";
     }
 
@@ -286,8 +289,9 @@ public class UserController {
 
 
     @GetMapping("/events/delete/{id}/{place}")
-    public String deleteEvent1() {
+    public String deleteEvent1(Model model) {
         // todo write to delte events in all [attendee, events]
+        model.addAttribute("role", getUser().getRole().name());
         return "redirect:/api/user/events/{id}";
     }
 
@@ -332,6 +336,7 @@ public class UserController {
     }
 
     @GetMapping("/requests")
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     public String showAllRequests(Model model) {
         List<RequestResponseDto> requests = requestService.getAll();
         List<Optional<EventResponseDto>> oldEvents = new ArrayList<>();
@@ -341,10 +346,12 @@ public class UserController {
         }
         model.addAttribute("requests", requests);
         model.addAttribute("oldEvents", oldEvents);
+        model.addAttribute("role", getUser().getRole().name());
         return "requestsList";
     }
 
     @PostMapping("/requests/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     public String requestPost(@PathVariable("id") UUID id,
                               @RequestParam("action") String action) {
         if (action.equals("confirm")) {
