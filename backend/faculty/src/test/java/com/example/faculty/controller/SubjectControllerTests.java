@@ -7,6 +7,7 @@ import com.example.faculty.database.entity.Subject;
 import com.example.faculty.database.mapstruct.mappers.ISubjectMapper;
 import com.example.faculty.database.repository.SubjectRepository;
 import com.example.faculty.services.interfaces.ISubjectService;
+import com.example.faculty.services.interfaces.IUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@WebMvcTest(SubjectController.class)
 @AutoConfigureMockMvc
 public class SubjectControllerTests {
     @Autowired
@@ -45,6 +46,9 @@ public class SubjectControllerTests {
 
     @MockBean
     private ISubjectService subjectService;
+
+    @MockBean
+    private IUserService userService;
 
 
     @Test

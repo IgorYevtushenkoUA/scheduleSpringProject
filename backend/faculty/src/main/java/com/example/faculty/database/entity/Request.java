@@ -21,11 +21,11 @@ import java.sql.Timestamp;
 public class Request extends EventData {
 
     @NotNull
-    @Column(name="time")
+    @Column(name = "time")
     private Timestamp time;
 
     @NotNull
-    @Column(name="datetime")
+    @Column(name = "datetime")
     private Timestamp datetime;
 
     @ManyToOne(fetch = FetchType.EAGER)

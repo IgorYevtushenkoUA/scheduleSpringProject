@@ -22,7 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(MockitoJUnitRunner.class)
 public class EventServiceTests {
 
-
     @InjectMocks
     private EventServiceImpl eventService;
 

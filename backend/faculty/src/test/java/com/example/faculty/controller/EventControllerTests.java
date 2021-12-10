@@ -1,5 +1,7 @@
 package com.example.faculty.controller;
 
+import com.example.faculty.config.security.AuthEntryPointJwt;
+import com.example.faculty.config.security.WebSecurityConfig;
 import com.example.faculty.database.dto.event.EventCreateDto;
 import com.example.faculty.database.dto.event.EventResponseDto;
 import com.example.faculty.database.dto.subject.SubjectCreateDto;
@@ -8,8 +10,11 @@ import com.example.faculty.database.entity.Event;
 import com.example.faculty.database.entity.Subject;
 import com.example.faculty.database.mapstruct.mappers.IEventMapper;
 import com.example.faculty.database.mapstruct.mappers.ISubjectMapper;
+import com.example.faculty.database.repository.UserRepository;
+import com.example.faculty.services.implementations.UserServiceImpl;
 import com.example.faculty.services.interfaces.IEventService;
 import com.example.faculty.services.interfaces.ISubjectService;
+import com.example.faculty.services.interfaces.IUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,9 +23,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -37,8 +45,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 @AutoConfigureMockMvc
+@WebMvcTest({EventController.class})
 public class EventControllerTests {
     @Autowired
     private MockMvc mockMvc;
@@ -48,6 +56,10 @@ public class EventControllerTests {
 
     @MockBean
     private IEventService eventService;
+
+    @MockBean
+    private IUserService userService;
+
     @Test
     @WithMockUser(username = "admin",password = "password",authorities = "ADMINISTRATOR")
     public void whenPostEvent_thenReturnStatus200()

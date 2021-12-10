@@ -1,7 +1,7 @@
 package com.example.faculty.config.security;
 
 import com.example.faculty.services.interfaces.IUserService;
-import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,25 +13,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@TestConfiguration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final IUserService service;
-    private final AuthEntryPointJwt unauthorizedHandler;
 
-    public WebSecurityConfig(AuthEntryPointJwt unauthorizedHandler, IUserService service) {
-        this.unauthorizedHandler = unauthorizedHandler;
+    private final IUserService service;
+
+    public WebSecurityConfig(IUserService service) {
         this.service = service;
     }
 
-//    @Bean
-//    public AuthTokenFilter authenticationJwtTokenFilter() {
-//        return new AuthTokenFilter();
-//    }
+    @Bean
+    public AuthEntryPointJwt entryPointJwt() { return new AuthEntryPointJwt(); }
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -52,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .exceptionHandling().authenticationEntryPoint(entryPointJwt()).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/**", "/api/user/**").permitAll()
                 .antMatchers("/api/scheduler/**").permitAll()

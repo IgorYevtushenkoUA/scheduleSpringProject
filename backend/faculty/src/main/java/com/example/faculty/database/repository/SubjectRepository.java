@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.UUID;
 
+
 public interface SubjectRepository extends JpaRepository<Subject, UUID> {
 
     @Query("select s from Subject s where lower(s.name) like lower(concat('%', :name ,'%') )")

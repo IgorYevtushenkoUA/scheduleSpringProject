@@ -2,7 +2,7 @@ package com.example.faculty.database.enums;
 
 public enum Speciality {
 
-//    Cultural_Studies("Cultural Studies"),
+    //    Cultural_Studies("Cultural Studies"),
 //    English_Language("English Language"),
 //    General_and_Slavic_Linguistics("General and Slavic Linguistics"),
 //    History("History"),

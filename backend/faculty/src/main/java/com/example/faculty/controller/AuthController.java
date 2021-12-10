@@ -1,6 +1,5 @@
 package com.example.faculty.controller;
 
-import com.example.faculty.config.security.AuthTokenFilter;
 import com.example.faculty.config.security.JwtUtils;
 import com.example.faculty.database.dto.user.LoginRequest;
 import com.example.faculty.database.dto.user.SignupRequest;
