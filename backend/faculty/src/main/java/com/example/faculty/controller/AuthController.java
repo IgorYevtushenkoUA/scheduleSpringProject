@@ -71,8 +71,9 @@ public class AuthController {
     }
 
     @GetMapping(value = "/login")
-    public ModelAndView displaySignIn(ModelAndView modelAndView, LoginRequest loginRequest) {
+    public ModelAndView displaySignIn(Model model,ModelAndView modelAndView, LoginRequest loginRequest) {
         modelAndView.setViewName("login");
+        model.addAttribute("role", "GUEST");
         return modelAndView;
     }
 
@@ -94,7 +95,8 @@ public class AuthController {
     }
 
     @GetMapping(value = "/signup")
-    public ModelAndView displayRegistration(ModelAndView modelAndView, SignupRequest signUpRequest) {
+    public ModelAndView displayRegistration(Model model, ModelAndView modelAndView, SignupRequest signUpRequest) {
+        model.addAttribute("role", "GUEST");
         modelAndView.addObject("user", signUpRequest);
         modelAndView.setViewName("signupStudent");
         return modelAndView;
@@ -103,6 +105,8 @@ public class AuthController {
     @PostMapping("/signup")
     public String registerUser(@Valid @ModelAttribute("signUpRequest") SignupRequest signUpRequest,
                                BindingResult result, Model model) {
+        model.addAttribute("role", "GUEST");
+
         if (result.hasErrors()) {
             return "signupStudent";
         } else {
@@ -131,12 +135,11 @@ public class AuthController {
                 model.addAttribute("success", true);
             }
         }
-
         return "login";
     }
 
     @GetMapping(value = "/logout")
-    public ModelAndView logout(ModelAndView modelAndView, LoginRequest loginRequest,
+    public ModelAndView logout(Model model, ModelAndView modelAndView, LoginRequest loginRequest,
                                HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         List<Cookie> cookies = Arrays.stream(httpServletRequest.getCookies()).filter(x -> x.getName().equals("token")).collect(Collectors.toList());
         Cookie cookie = null;
@@ -152,6 +155,7 @@ public class AuthController {
         httpServletResponse.addCookie(cookie);
 
         modelAndView.setViewName("login");
+        model.addAttribute("role", "GUEST");
         return modelAndView;
     }
 
