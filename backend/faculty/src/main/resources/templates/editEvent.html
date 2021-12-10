@@ -20,9 +20,16 @@
             <tr>
                 <th>Teacher</th>
                 <td>
-                    <input type="text"
-                           name="teacherUUID"
-                           th:value="${event.getUser().getId()}" disabled>
+                    <select name="teacherUUID" class="custom-select">
+                        <option th:each="t:${teachers}"
+                                th:checked="${user.getId().equals(t.getId())}"
+                                th:text="${t.getSurname() + ' ' + t.getName() + ' ' + t.getParental()}"
+                                th:value="${t.getId()}"/>
+                    </select>
+<!--                    -->
+<!--                    <input type="text"-->
+<!--                           name="teacherUUID"-->
+<!--                           th:value="${event.getUser().getId()}" disabled>-->
                 </td>
             </tr>
 
@@ -67,16 +74,18 @@
                            th:value="${datetime}">
                 </td>
             </tr>
-
-
             </tbody>
         </table>
 
-        <div class="">
-            <button type="submit" name="action" value="cancel" class="btn btn-danger btn-block"
-                    th:text="Cancel"></button>
-            <button type="submit" name="action" value="save" class="btn btn-success btn-block"
-                    th:text="Save"></button>
+        <div class="d-flex justify-content-center">
+            <div class="w-50 ml-3 mr-2">
+                <button type="submit" name="action" value="cancel" class="btn btn btn-danger btn-block"
+                        th:text="Cancel"></button>
+            </div>
+            <div class="w-50 ml-2 mr-3">
+                <button type="submit" name="action" value="save" class="btn btn-dark btn-block"
+                        th:text="Save"></button>
+            </div>
         </div>
 
     </form>

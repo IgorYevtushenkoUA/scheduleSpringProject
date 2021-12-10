@@ -252,28 +252,32 @@ public class UserController {
         return "redirect:/api/user/subjects";
     }
 
-    @GetMapping("/events/create")
-    public String createEventGet(Model model) {
+    @GetMapping("/subjects/{id}/events/create")
+    @PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('TEACHER')")
+    public String createEventForSubject(Model model, @PathVariable("id") UUID id) {
         model.addAttribute("teachers", userService.getAll());
-        model.addAttribute("subjects", subjectService.getAll());
-        model.addAttribute("role", getUser().getRole().name());
-        return "createEvent";
+        model.addAttribute("subject", subjectService.get(id));
+        User user = getUser();
+        model.addAttribute("role", user.getRole().name());
+        model.addAttribute("user", user);
+        return "createEventForSubject";
     }
 
-    @PostMapping("/events/create")
-    public String createEventPost(Model model,
-                                  @RequestParam("subjectUUID") UUID subjectUUID,
-                                  @RequestParam("teacherUUID") UUID teacherUUID,
-                                  @RequestParam("name") String name,
-                                  @RequestParam("group") String group,
-                                  @RequestParam("auditory") String auditory,
-                                  @RequestParam("date") List<String> date,
-                                  @RequestParam(value = "action", required = false) String action) {
+    @PostMapping("/subjects/{id}/events/create")
+    @PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('TEACHER')")
+    public String createEventForSubjectPost(Model model,
+                                            @PathVariable("id") UUID id,
+                                            @RequestParam("teacherUUID") UUID teacherUUID,
+                                            @RequestParam("name") String name,
+                                            @RequestParam("group") String group,
+                                            @RequestParam("auditory") String auditory,
+                                            @RequestParam("date") List<String> date,
+                                            @RequestParam(value = "action", required = false) String action) {
         if (action.equals("create")) {
 
             for (int i = 0; i < date.size(); i++) {
                 EventCreateDto event = EventCreateDto.builder()
-                        .subjectId(subjectUUID)
+                        .subjectId(id)
                         .userId(teacherUUID)
                         .name(name)
                         .group(group)
@@ -284,10 +288,10 @@ public class UserController {
             }
         }
 
-        return "redirect:/api/user";
+        return "redirect:/api/user/subjects/{id}";
     }
 
-
+    // todo
     @GetMapping("/events/delete/{id}/{place}")
     public String deleteEvent1(Model model) {
         // todo write to delte events in all [attendee, events]
@@ -295,6 +299,7 @@ public class UserController {
         return "redirect:/api/user/events/{id}";
     }
 
+    // todo
     @PostMapping("/events/delete/{id}/{place}")
     public String deleteEvent(@PathVariable("id") UUID id) {
         // todo write to delte events in all [attendee, events]
@@ -302,14 +307,20 @@ public class UserController {
     }
 
     @GetMapping("/events/edit/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('TEACHER')")
     public String editEventGet(Model model, @PathVariable("id") UUID id) {
         EventResponseDto event = eventService.get(id).orElse(null);
+        model.addAttribute("teachers", userService.getAllTeacher());
         model.addAttribute("event", event);
         model.addAttribute("datetime", transformTimestamp2String(event.getDatetime()));
+        User user = getUser();
+        model.addAttribute("role", user.getRole().name());
+        model.addAttribute("user", user);
         return "editEvent";
     }
 
     @PostMapping("/events/edit/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('TEACHER')")
     public String editEventPost(
             @PathVariable("id") UUID id,
             @RequestParam("group") String group,
@@ -332,7 +343,7 @@ public class UserController {
 
             requestService.create(request);
         }
-        return "redirect:/api/user/requests";
+        return "redirect:/api/user/calendar";
     }
 
     @GetMapping("/requests")

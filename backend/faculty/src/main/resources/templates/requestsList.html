@@ -15,7 +15,7 @@
     <div th:each="request,iter:${requests}">
 
         <form th:action="@{/api/user/requests/{id} (id=${request.getId()})}" method="post">
-            <div class="card">
+            <div class="card mt-3">
 
                 <div class="card-header">
                     <h4 th:text="'CREATED'+ ' ' + 'BY:'+' ' + ${request.getUser().getSurname() + ' ' +request.getUser().getName() + ' ' +request.getUser().getParental() }"/>
