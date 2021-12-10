@@ -291,19 +291,11 @@ public class UserController {
         return "redirect:/api/user/subjects/{id}";
     }
 
-    // todo
-    @GetMapping("/events/delete/{id}/{place}")
-    public String deleteEvent1(Model model) {
-        // todo write to delte events in all [attendee, events]
-        model.addAttribute("role", getUser().getRole().name());
-        return "redirect:/api/user/events/{id}";
-    }
-
-    // todo
-    @PostMapping("/events/delete/{id}/{place}")
+    @PostMapping("/events/delete/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     public String deleteEvent(@PathVariable("id") UUID id) {
-        // todo write to delte events in all [attendee, events]
-        return "redirect:/api/user/events/{id}";
+        eventService.delete(id);
+        return "redirect:/api/user/calendar";
     }
 
     @GetMapping("/events/edit/{id}")
