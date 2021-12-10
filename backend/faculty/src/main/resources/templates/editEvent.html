@@ -22,7 +22,7 @@
                 <td>
                     <select name="teacherUUID" class="custom-select">
                         <option th:each="t:${teachers}"
-                                th:checked="${user.getId().equals(t.getId())}"
+                                th:selected="${user.getId().equals(t.getId())}"
                                 th:text="${t.getSurname() + ' ' + t.getName() + ' ' + t.getParental()}"
                                 th:value="${t.getId()}"/>
                     </select>
