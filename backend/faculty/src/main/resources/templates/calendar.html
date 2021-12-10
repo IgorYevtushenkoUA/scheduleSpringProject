@@ -61,7 +61,7 @@
                 <div class="col " th:each="d: ${weekDays}">
                     <div th:each="w : ${weeks}" class="" style="height: 70px;">
                         <div th:if="${days.get(w*7+d)} == null">
-                            <div>Null</div>
+                            <div></div>
                         </div>
                         <div th:if="${days.get(w*7+d)} != null">
                             <div th:attr="onclick=|showDaySchedule(${days.get(w*7+d)})|">
