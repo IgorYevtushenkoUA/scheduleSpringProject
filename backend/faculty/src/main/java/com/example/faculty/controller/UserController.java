@@ -221,6 +221,7 @@ public class UserController {
         model.addAttribute("specialities", Arrays.asList(Speciality.values()));
         model.addAttribute("courseB", Arrays.asList(CourseB.values()));
         model.addAttribute("courseM", Arrays.asList(CourseM.values()));
+        model.addAttribute("courses", Arrays.asList(Courses.values()));
         model.addAttribute("trim", Arrays.asList(Trim.values()));
         model.addAttribute("role", getUser().getRole().name());
         return "createSubject";
@@ -255,9 +256,15 @@ public class UserController {
     @GetMapping("/subjects/{id}/events/create")
     @PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('TEACHER')")
     public String createEventForSubject(Model model, @PathVariable("id") UUID id) {
-        model.addAttribute("teachers", userService.getAll());
-        model.addAttribute("subject", subjectService.get(id));
         User user = getUser();
+        System.out.println(user.getId());
+        System.out.println(userService.getAllTeacher().get(0).getId());
+        System.out.println(user.getId().compareTo(userService.getAllTeacher().get(0).getId()));
+        List<UserResponseDto> teachers = user.getRole().equals(UserRole.TEACHER)
+                ? userService.getAllTeacher().stream().filter(x -> x.getId().toString().equals(user.getId().toString())).collect(Collectors.toList())
+                : userService.getAllTeacher();
+        model.addAttribute("teachers", teachers);
+        model.addAttribute("subject", subjectService.get(id));
         model.addAttribute("role", user.getRole().name());
         model.addAttribute("user", user);
         return "createEventForSubject";
