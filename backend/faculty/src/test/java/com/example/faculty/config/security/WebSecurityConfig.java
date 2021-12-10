@@ -1,6 +1,7 @@
 package com.example.faculty.config.security;
 
 import com.example.faculty.services.interfaces.IUserService;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@TestConfiguration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final IUserService service;
     private final AuthEntryPointJwt unauthorizedHandler;
@@ -26,10 +28,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.service = service;
     }
 
-    @Bean
-    public AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter();
-    }
+//    @Bean
+//    public AuthTokenFilter authenticationJwtTokenFilter() {
+//        return new AuthTokenFilter();
+//    }
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -66,6 +68,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/api/user/**").hasRole(UserRole.ADMINISTRATOR.name())
                 .anyRequest().authenticated();
 
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
     }
 }

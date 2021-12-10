@@ -26,7 +26,7 @@ public class SubjectRepositoryTests {
 
     @Test
     public void whenFindById_thenReturnSubject() {
-        Subject subject = new Subject("Test","Test","Test",1,1,"",null);
+        Subject subject = new Subject("Test","Test","Test",1,1,"spring",null);
         entityManager.persist(subject);
         entityManager.flush();
 
@@ -36,21 +36,20 @@ public class SubjectRepositoryTests {
     }
     @Test
     public void whenGetAll_thenReturnListOfSubject() {
-        Subject s1 = new Subject("Test1","Test","Test",1,1,"",null);
-        Subject s2 = new Subject("Test3","Test","Test",1,1,"",null);
-        Subject s3 = new Subject("Test3","Test","Test",1,1,"",null);
+        Subject s1 = new Subject("Test1","Test","Test",1,1,"spring",null);
+        Subject s2 = new Subject("Test2","Test","Test",1,1,"spring",null);
+        Subject s3 = new Subject("Test3","Test","Test",1,1,"spring",null);
         entityManager.persist(s1);
         entityManager.persist(s2);
         entityManager.persist(s3);
 
         List<Subject> found = subjectRepository.findAll();
-        // then
         assertThat(found).extracting(Subject::getName).contains(s1.getName(), s2.getName(), s3.getName());
 
     }
     @Test
     public void whenDelete_thenFindByIdReturnNull() {
-        Subject s = new Subject("Test","Test","Test",1,1,"",null);
+        Subject s = new Subject("Test","Test","Test",1,1,"spring",null);
         entityManager.persist(s);
         entityManager.flush();
 
@@ -61,7 +60,7 @@ public class SubjectRepositoryTests {
     }
     @Test
     public void whenUpdate_thenFindByIdReturnUpdated() {
-        Subject s = new Subject("Test","Test","Test",1,1,"",null);
+        Subject s = new Subject("Test","Test","Test",1,1,"spring",null);
         entityManager.persist(s);
         entityManager.flush();
         Subject dbSubject = subjectRepository.findById(s.getId()).get();

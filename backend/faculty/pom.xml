@@ -16,7 +16,7 @@
     <properties>
         <java.version>11</java.version>
         <logstash.host>com.example.faculty</logstash.host>
-    </properties>f
+    </properties>
 
     <profiles>
         <profile>
@@ -181,6 +181,12 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
 
