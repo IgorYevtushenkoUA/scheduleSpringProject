@@ -43,14 +43,7 @@ public class SecurityTests {
                 .andDo(print())
                 .andExpect(status().isUnauthorized());
     }
-    @Test
-    @WithMockUser(username = "admin",password = "password",authorities = "ADMINISTRATOR")
-    public void whenAdmin_thenCreateSubjectReturn200()
-            throws Exception {
-        mockMvc.perform(get("/api/user/subjects/create"))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
+   
     @Test
     @WithMockUser(username = "teacher",password = "password",authorities = "TEACHER")
     public void whenTeacher_thenCreateSubjectReturn403()
@@ -61,26 +54,34 @@ public class SecurityTests {
     }
     @Test
     @WithMockUser(username = "teacher",password = "password",authorities = "TEACHER")
-    public void whenTeacher_thenRequestsReturn200()
+    public void whenTeacher_thenRequestsReturn403()
             throws Exception {
         mockMvc.perform(get("/api/user/requests"))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isForbidden());
     }
+
     @Test
-    @WithMockUser(username = "admin",password = "password",authorities = "ADMINISTRATOR")
-    public void whenAdmin_thenRequestsReturn200()
+    @WithMockUser(username = "student",password = "password",authorities = "STUDENT")
+    public void whenStudent_thenRequestsReturn403()
             throws Exception {
         mockMvc.perform(get("/api/user/requests"))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isForbidden());
     }
     @Test
     @WithMockUser(username = "student",password = "password",authorities = "STUDENT")
-    public void whenStudent_thenRequestsReturn200()
+    public void whenAdmin_thenEventsReturn200()
             throws Exception {
-        mockMvc.perform(get("/api/user/requests"))
+        mockMvc.perform(get("/api/event"))
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+    @Test
+    public void whenUnathorized_thenUserInfoReturn401()
+            throws Exception {
+        mockMvc.perform(get("/api/user/"))
+                .andDo(print())
+                .andExpect(status().isUnauthorized());
     }
 }
