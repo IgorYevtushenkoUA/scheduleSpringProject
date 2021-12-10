@@ -53,4 +53,9 @@ public class RequestServiceImpl implements IRequestService {
         return IRequestMapper.MAPPER.requestToResponse(repository.save(request));
     }
 
+    @Override
+    public void deleteByEvent(UUID id) {
+        repository.deleteByEvent(id);
+    }
+
 }

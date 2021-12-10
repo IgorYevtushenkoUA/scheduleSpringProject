@@ -18,4 +18,6 @@ public interface IAttendeeService {
 
     Attendee getByUserAndEvent(UUID userUUId, UUID eventUUID);
 
+    void deleteByEvent(UUID id);
+
 }

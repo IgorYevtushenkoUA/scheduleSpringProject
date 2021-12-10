@@ -20,4 +20,6 @@ public interface IRequestService {
 
     RequestResponseDto update(RequestUpdateDto dto);
 
+    void deleteByEvent(UUID id);
+
 }

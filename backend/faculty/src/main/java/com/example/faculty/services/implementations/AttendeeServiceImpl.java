@@ -46,4 +46,9 @@ public class AttendeeServiceImpl implements IAttendeeService {
     public Attendee getByUserAndEvent(UUID userUUId, UUID eventUUID) {
         return repository.getByUserAndEvent(userUUId, eventUUID);
     }
+
+    @Override
+    public void deleteByEvent(UUID id) {
+        repository.deleteByEvent(id);
+    }
 }

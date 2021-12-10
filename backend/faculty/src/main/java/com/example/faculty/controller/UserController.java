@@ -301,6 +301,9 @@ public class UserController {
     @PostMapping("/events/delete/{id}")
     @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     public String deleteEvent(@PathVariable("id") UUID id) {
+//        requestService.deleteByEvent(id);
+//        attendeeService.deleteByEvent(id);
+
         eventService.delete(id);
         return "redirect:/api/user/calendar";
     }
