@@ -45,6 +45,7 @@
                    aria-label="With textarea"
                    type="text"
                    name="name"
+                   pattern="[A-Za-zА-Яа-яєі]*"
                    th:value="${subject.get().getName()}"
                    disabled>
         </div>
@@ -55,6 +56,7 @@
                    aria-label="With textarea"
                    type="text"
                    name="name"
+                   pattern="[A-Za-zА-Яа-яєі]*"
                    placeholder="Enter name">
         </div>
 
@@ -64,6 +66,7 @@
                    aria-label="With textarea"
                    type="text"
                    name="group"
+                   pattern="[A-Za-zА-Яа-яєі1-9+-]*"
                    placeholder="Enter Group">
         </div>
 
@@ -73,6 +76,7 @@
                    aria-label="With textarea"
                    type="text"
                    name="auditory"
+                   pattern="[1-9-]*"
                    placeholder="Enter Auditory">
         </div>
 

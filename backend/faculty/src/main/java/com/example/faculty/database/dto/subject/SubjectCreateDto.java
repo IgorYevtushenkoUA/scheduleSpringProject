@@ -1,6 +1,5 @@
 package com.example.faculty.database.dto.subject;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +15,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @SuperBuilder
 public class SubjectCreateDto {
+
     @NotBlank
     private String name;
 
