@@ -27,11 +27,11 @@ public class Event extends EventData {
     @NotNull
     private User user;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     @ToString.Exclude
     List<Request> requests;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     List<Attendee> attendees;
