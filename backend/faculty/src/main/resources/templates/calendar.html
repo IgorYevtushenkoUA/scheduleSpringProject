@@ -61,7 +61,7 @@
                 <div class="col " th:each="d: ${weekDays}">
                     <div th:each="w : ${weeks}" class="" style="height: 70px;">
                         <div th:if="${days.get(w*7+d)} == null">
-                            <div>Null</div>
+                            <div></div>
                         </div>
                         <div th:if="${days.get(w*7+d)} != null">
                             <div th:attr="onclick=|showDaySchedule(${days.get(w*7+d)})|">
@@ -99,6 +99,8 @@
 <script th:inline="javascript">
 
     var userEvent = [[${eventDto.getDaysAtCalendar()}]]
+    var role = [[${role}]]
+
 
     function showDaySchedule(day) {
         let events = userEvent[day];
@@ -113,14 +115,29 @@
 
                 let minutes = events[i].minutes === 0 ? "00" : events[i].minutes;
 
-                $("#schedule-list").append('<div class="card mt-1" id=' + i + '>\n' +
-                    '<div class="card-body">\n' +
-                    '                <h5 class="card-title">' + events[i].subject + '</h5>\n' +
-                    '                <p class="card-subtitle mb-2 text-muted">' + events[i].hours + ':' + minutes + '</p>\n' +
-                    '                <p class="card-subtitle mb-2 text-muted">' + events[i].name + '</p>\n' +
-                    '                <p class="card-subtitle mb-2 text-muted">' + events[i].auditory + '</p>\n' +
-                    '     </div> \n' +
-                    '       </div>')
+
+                if (role == 'TEACHER') {
+                    $("#schedule-list").append('<div class="card mt-1" id=' + i + '>\n' +
+                        '<div class="card-body">\n' +
+                        '                <h5 class="card-title">' + events[i].subject + '</h5>\n' +
+                        '                <p class="card-subtitle mb-2 text-muted">' + events[i].hours + ':' + minutes + '</p>\n' +
+                        '                <p class="card-subtitle mb-2 text-muted">' + events[i].name + '   |   ' + events[i].group + '</p>\n' +
+                        '                <p class="card-subtitle mb-2 text-muted">' + events[i].auditory + '</p>\n' +
+                        '<form action="/api/user/events/edit/' + events[i].id + '" method="get" enctype="multipart/form-data">' +
+                        '<button type="submit" name="action" value="edit" class="btn btn-dark text-light">Edit</button>\n' +
+                        '</form>\n' +
+                        '     </div> \n' +
+                        '       </div>')
+                } else {
+                    $("#schedule-list").append('<div class="card mt-1" id=' + i + '>\n' +
+                        '<div class="card-body">\n' +
+                        '                <h5 class="card-title">' + events[i].subject + '</h5>\n' +
+                        '                <p class="card-subtitle mb-2 text-muted">' + events[i].hours + ':' + minutes + '</p>\n' +
+                        '                <p class="card-subtitle mb-2 text-muted">' + events[i].name + '   |   ' + events[i].group + '</p>\n' +
+                        '                <p class="card-subtitle mb-2 text-muted">' + events[i].auditory + '</p>\n' +
+                        '     </div> \n' +
+                        '       </div>')
+                }
             }
         } else {
             $("#schedule-list").append('<div class="mt-5"' +

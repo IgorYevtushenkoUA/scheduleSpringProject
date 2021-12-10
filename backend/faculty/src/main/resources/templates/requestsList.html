@@ -12,60 +12,66 @@
 
 <div class="container">
 
-    <div th:each="request,iter:${requests}">
 
-        <form th:action="@{/api/user/requests/{id} (id=${request.getId()})}" method="post">
-            <div class="card">
+    <div th:if="${requests.size()!=0}">
+        <div th:each="request,iter:${requests}">
+            <form th:action="@{/api/user/requests/{id} (id=${request.getId()})}" method="post">
+                <div class="card mt-3">
 
-                <div class="card-header">
-                    <h4 th:text="'CREATED'+ ' ' + 'BY:'+' ' + ${request.getUser().getSurname() + ' ' +request.getUser().getName() + ' ' +request.getUser().getParental() }"/>
-                </div>
-
-                <div class="card-body">
-                    <table class="table table-bordered table-responsive-sm">
-                        <thead>
-                        <tr>
-                            <th>Change</th>
-                            <th>FROM</th>
-                            <th>TO</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        <tr>
-                            <td>Auditory</td>
-                            <td th:text="${oldEvents.get(iter.index).get().getAuditory()}"></td>
-                            <td th:text="${request.getAuditory()}"></td>
-                        </tr>
-
-                        <tr>
-                            <td>Group</td>
-                            <td th:text="${oldEvents.get(iter.index).get().getGroup()}"></td>
-                            <td th:text="${request.getGroup()}"></td>
-                        </tr>
-
-                        <tr>
-                            <td>Time</td>
-                            <td th:text="${oldEvents.get(iter.index).get().getDatetime()}"></td>
-                            <td th:text="${request.getDatetime()}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <div class="w-50 ml-3 mr-2">
-                        <button type="submit" name="action" value="cancel" class="btn btn btn-danger btn-block"
-                                th:text="Cancel"></button>
+                    <div class="card-header d-flex justify-content-center">
+                        <h5 th:text="'CREATED'+ ' ' + 'BY:'+' ' + ${request.getUser().getSurname() + ' ' +request.getUser().getName() + ' ' +request.getUser().getParental() }"/>
                     </div>
-                    <div class="w-50 ml-2 mr-3">
-                        <button type="submit" name="action" value="confirm" class="btn btn-dark btn-block"
-                                th:text="Confirm"></button>
+
+                    <div class="card-body">
+                        <table class="table table-bordered table-responsive-sm">
+                            <thead>
+                            <tr>
+                                <th>Change</th>
+                                <th>FROM</th>
+                                <th>TO</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>Auditory</td>
+                                <td th:text="${oldEvents.get(iter.index).get().getAuditory()}"></td>
+                                <td th:text="${request.getAuditory()}"></td>
+                            </tr>
+
+                            <tr>
+                                <td>Group</td>
+                                <td th:text="${oldEvents.get(iter.index).get().getGroup()}"></td>
+                                <td th:text="${request.getGroup()}"></td>
+                            </tr>
+
+                            <tr>
+                                <td>Time</td>
+                                <td th:text="${oldEvents.get(iter.index).get().getDatetime().toString().substring(0,16)}"></td>
+                                <td th:text="${request.getDatetime().toString().substring(0,16)}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center">
+                            <div class="w-50 ml-3 mr-2">
+                                <button type="submit" name="action" value="cancel" class="btn btn btn-danger btn-block"
+                                        th:text="Cancel"></button>
+                            </div>
+                            <div class="w-50 ml-2 mr-3">
+                                <button type="submit" name="action" value="confirm" class="btn btn-dark btn-block"
+                                        th:text="Confirm"></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-
+    <div th:if="${requests.size()==0}">
+        <div class="d-flex justify-content-center align-content-center mt-5">
+            <h1>Nothing</h1>
+        </div>
+    </div>
 </div>
 
 </body>
