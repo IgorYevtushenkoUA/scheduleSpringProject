@@ -315,7 +315,6 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('TEACHER')")
     public String editEventPost(
             @PathVariable("id") UUID id,
-            @RequestParam("teacherUUID") UUID teacherUUID,
             @RequestParam("group") String group,
             @RequestParam("auditory") String auditory,
             @RequestParam("date") String date,
@@ -325,7 +324,7 @@ public class UserController {
             EventResponseDto event = eventService.get(id).orElse(null);
             RequestCreateDto request = RequestCreateDto.builder()
                     .time(new Timestamp(System.currentTimeMillis()))
-                    .userId(teacherUUID)
+                    .userId(event.getUser().getId())
                     .eventId(event.getId())
                     .name(event.getName())
                     .group(group)

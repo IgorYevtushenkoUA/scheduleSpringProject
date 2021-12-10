@@ -141,7 +141,7 @@
                     '<div class="card-body">\n' +
                     '                <h5 class="card-title">' + events[i].subject + '</h5>\n' +
                     '                <p class="card-subtitle mb-2 text-muted">' + events[i].hours + ':' + minutes + '</p>\n' +
-                    '                <p class="card-subtitle mb-2 text-muted">' + events[i].name + '</p>\n' +
+                    '                <p class="card-subtitle mb-2 text-muted">' + events[i].name + '   |   ' + events[i].group + '</p>\n' +
                     '                <p class="card-subtitle mb-2 text-muted">' + events[i].auditory + '</p>\n' +
                     '<form action="/api/user/events/delete/' + events[i].id + '" method="post" enctype="multipart/form-data">' +
                     '<button type="submit" name="action" value="edit" class="btn btn-danger">Delete</button>\n' +
