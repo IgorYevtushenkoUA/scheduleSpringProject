@@ -12,9 +12,10 @@
 
 <div class="container mt-5">
 
-    <form th:action="@{/api/user/events/create}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/api/user/subjects/{id}/events/create (id=${subject.get().getId()})}" method="post">
 
-        <div class="input-group p-1">
+
+        <div th:if="${role=='ADMINISTRATOR'}" class="input-group p-1">
             <span class="input-group-text"
                   th:text="TEACHER"></span>
             <select name="teacherUUID" class="custom-select">
@@ -26,20 +27,30 @@
             </select>
         </div>
 
-        <div class="input-group p-1">
+        <div th:if="${role=='TEACHER'}" class="input-group p-1">
             <span class="input-group-text"
-                  th:text="SUBJECT"></span>
-            <select name="subjectUUID" class="custom-select">
-                <option
-                        th:each="s:${subjects}"
-                        th:text="${s.getName()}"
-                        th:value="${s.getId()}"
+                  th:text="TEACHER"></span>
+            <select name="teacherUUID" class="custom-select">
+                <option th:each="t:${teachers}"
+                        th:selected="${user.getId().equals(t.getId())}"
+                        th:text="${t.getSurname() + ' ' + t.getName() + ' ' + t.getParental()}"
+                        th:value="${t.getId()}"
                 />
             </select>
         </div>
 
         <div class="input-group p-1">
             <span class="input-group-text" th:text="NAME"></span>
+            <input class="form-control" autocomplete="off"
+                   aria-label="With textarea"
+                   type="text"
+                   name="name"
+                   th:value="${subject.get().getName()}"
+                   disabled>
+        </div>
+
+        <div class="input-group p-1">
+            <span class="input-group-text" th:text="TYPE"></span>
             <input class="form-control" autocomplete="off"
                    aria-label="With textarea"
                    type="text"

@@ -10,6 +10,9 @@
 </head>
 
 <body>
+
+<div th:insert="components/navbar :: navbar"/>
+
 <section class="vh-100 ">
     <div class="container py-5 h-100">
         <div class="row d-flex align-items-center justify-content-center h-100">
@@ -29,73 +32,73 @@
 
                     <div class="input-group p-1 mt-3">
                         <span class="input-group-text" th:text="Name"></span>
-                        <input type="text" class="form-control" th:field="*{name}" placeholder="Enter Name"/>
-                        <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
-                             th:errors="*{name}"></div>
+                        <input type="text" class="form-control" autocomplete="off" th:field="*{name}" placeholder="Enter Name"/>
                     </div>
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
+                         th:errors="*{name}"></div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Surname"></span>
-                        <input type="text" class="form-control" th:field="*{surname}" placeholder="Enter Surname">
-                        <div class="alert alert-warning" th:if="${#fields.hasErrors('surname')}"
-                             th:errors="*{surname}"></div>
+                        <input type="text" class="form-control" autocomplete="off" th:field="*{surname}" placeholder="Enter Surname">
                     </div>
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('surname')}"
+                         th:errors="*{surname}"></div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Parental"></span>
-                        <input type="text" class="form-control"  th:field="*{parental}" placeholder="Enter Parental">
-                        <div class="alert alert-warning" th:if="${#fields.hasErrors('parental')}"
-                             th:errors="*{parental}"></div>
+                        <input type="text" class="form-control" autocomplete="off" th:field="*{parental}" placeholder="Enter Parental">
                     </div>
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('parental')}"
+                         th:errors="*{parental}"></div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Email"></span>
-                        <input type="email" class="form-control" name="email" th:field="*{email}" placeholder="Enter Email">
-                        <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}"
-                             th:errors="*{email}"></div>
-                        <div class="alert alert-warning" th:if="${param.message}">This email already exists!</div>
+                        <input type="email" class="form-control" autocomplete="off" name="email" th:field="*{email}" placeholder="Enter Email">
                     </div>
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}"
+                         th:errors="*{email}"></div>
+                    <div class="alert alert-warning" th:if="${param.message}">This email already exists!</div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="About"></span>
                         <textarea type="email" class="form-control" name="about" placeholder="Enter About"></textarea>
-                        <div class="alert alert-warning" th:if="${#fields.hasErrors('about')}"
-                             th:errors="*{about}"></div>
                     </div>
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('about')}"
+                         th:errors="*{about}"></div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Course"></span>
-                        <input type="number" class="form-control" name="course" th:field="*{course}" placeholder="Enter Course">
-                        <div class="alert alert-warning" th:if="${#fields.hasErrors('course')}"
-                             th:errors="*{course}"></div>
+                        <input type="number" class="form-control" autocomplete="off" name="course" th:field="*{course}" placeholder="Enter Course">
                     </div>
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('course')}"
+                         th:errors="*{course}"></div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Faculty"></span>
-                        <input type="text" class="form-control" name="faculty" th:field="*{faculty}" placeholder="Enter faculty">
-                        <div class="alert alert-warning" th:if="${#fields.hasErrors('faculty')}"
-                             th:errors="*{faculty}"></div>
+                        <input type="text" class="form-control" autocomplete="off" name="faculty" th:field="*{faculty}" placeholder="Enter faculty">
                     </div>
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('faculty')}"
+                         th:errors="*{faculty}"></div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Password"></span>
-                        <input type="password" class="form-control" name="password" th:field="*{password}" placeholder="Enter Password">
-                        <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}"
-                             th:errors="*{password}"></div>
+                        <input type="password" class="form-control" autocomplete="off" name="password" th:field="*{password}" placeholder="Enter Password">
                     </div>
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}"
+                         th:errors="*{password}"></div>
 
                     <div class="input-group p-1">
                         <span class="input-group-text" th:text="Confirmpassword"></span>
-                        <input type="password" class="form-control" name="confirmPassword" th:field="*{confirmPassword}"
+                        <input type="password" class="form-control" autocomplete="off" name="confirmPassword" th:field="*{confirmPassword}"
                                placeholder="Enter one more time">
-                        <div class="alert alert-warning" th:if="${#fields.hasErrors('confirmPassword')}"
-                             th:errors="*{confirmPassword}"></div>
-                        <div class="alert alert-warning" th:if="${param.message}">Try repeat password one more time!
-                        </div>
+                    </div>
+                    <div class="alert alert-warning" th:if="${#fields.hasErrors('confirmPassword')}"
+                         th:errors="*{confirmPassword}"></div>
+                    <div class="alert alert-warning" th:if="${param.message}">Try repeat password one more time!
                     </div>
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Sign up</button>
 
                 </form>
             </div>

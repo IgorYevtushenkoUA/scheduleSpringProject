@@ -13,7 +13,7 @@
     <form th:action="@{/api/user/subjects/create}" method="post" >
         <div class="input-group p-1">
             <span class="input-group-text" th:text="NAME"></span>
-            <input class="form-control"
+            <input class="form-control" autocomplete="off"
                    aria-label="With textarea"
                    type="text"
                    name="name"
@@ -47,7 +47,7 @@
                   th:text="COURSE"></span>
             <select name="course" class="custom-select">
                 <option
-                        th:each="c:${courseB}"
+                        th:each="c:${courses}"
                         th:text="${c.getCourse()}"
                 />
             </select>
@@ -66,7 +66,7 @@
 
         <div class="input-group p-1">
             <span class="input-group-text" th:text="CODE"></span>
-            <input class="form-control"
+            <input class="form-control" autocomplete="off"
                    aria-label="With textarea"
                    type="number"
                    name="code"

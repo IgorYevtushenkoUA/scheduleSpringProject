@@ -12,22 +12,19 @@
 <div th:insert="components/navbar :: navbar"/>
 
 <div class="container">
-    <div class="row ">
+    <div class="row mt-5">
         <div class="col-4">
             <div th:if="${user.get().getRole()} == STUDENT">
-                <img src="/images/student.png" alt="student" width="256px" height="256px">
-                <img src="./images/student.png" alt="student" width="256px" height="256px">
-                <img src="static/images/student.png" alt="student" width="256px" height="256px">
-                <img src="./static/images/student.png" alt="student" width="256px" height="256px">
+                <img src="https://cdn-icons.flaticon.com/png/512/2940/premium/2940653.png?token=exp=1639122209~hmac=1df20f0ac9c49eac5fe2d543414cb37b" alt="student" width="256px" height="256px">
             </div>
             <div th:if="${user.get().getRole()} == TEACHER">
-                <img src="/images/teacher.png" alt="teacher" width="256px" height="256px">
+                <img src="https://cdn-icons-png.flaticon.com/512/2784/2784445.png" alt="teacher" width="256px" height="256px">
             </div>
             <div th:if="${user.get().getRole()} == ADMINISTRATOR">
-                <img src="/images/admin.png" alt="admin" width="256px" height="256px">
+                <img src="https://cdn-icons.flaticon.com/png/512/3281/premium/3281344.png?token=exp=1639122148~hmac=df8a902c3264186e3d5394440c53a89f" alt="admin" width="256px" height="256px">
             </div>
 
-            <div>
+            <div class="mt-3">
                 <span class="form-control" aria-label="With textarea"
                       type="text" name="name"
                       th:text="${user.get().getSurname()} + ' ' + ${user.get().getName()} "></span>

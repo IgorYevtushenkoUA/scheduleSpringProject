@@ -70,53 +70,43 @@ public class AuthController {
         return "signupStudent";
     }
 
-
     @GetMapping(value = "/login")
-    public ModelAndView displaySignIn(Model model, ModelAndView modelAndView, LoginRequest loginRequest) {
-//        modelAndView.addObject("user", loginRequest);
+    public ModelAndView displaySignIn(Model model,ModelAndView modelAndView, LoginRequest loginRequest) {
         modelAndView.setViewName("login");
         model.addAttribute("role", "GUEST");
-
-        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
-            System.out.println("GUEST");
-        } else {
-            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            System.out.println(user.getRole().name());
-        }
-
         return modelAndView;
     }
 
     @PostMapping("/login")
     public String authenticateUser(@Valid @ModelAttribute("loginRequest") LoginRequest loginRequest,
-                                   HttpServletResponse response, Model model) {
+                                   HttpServletResponse response, Model model, BindingResult result) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
-        User userDetails = (User) authentication.getPrincipal();
 
         Cookie cookie = new Cookie("token", jwt);
         cookie.setMaxAge(-1);
         cookie.setPath("/api");
         response.addCookie(cookie);
-
         return "redirect:/api/user/subjects";
 
     }
 
     @GetMapping(value = "/signup")
     public ModelAndView displayRegistration(Model model, ModelAndView modelAndView, SignupRequest signUpRequest) {
+        model.addAttribute("role", "GUEST");
         modelAndView.addObject("user", signUpRequest);
         modelAndView.setViewName("signupStudent");
-        model.addAttribute("role", "GUEST");
         return modelAndView;
     }
 
     @PostMapping("/signup")
     public String registerUser(@Valid @ModelAttribute("signUpRequest") SignupRequest signUpRequest,
                                BindingResult result, Model model) {
+        model.addAttribute("role", "GUEST");
+
         if (result.hasErrors()) {
             return "signupStudent";
         } else {
@@ -145,13 +135,11 @@ public class AuthController {
                 model.addAttribute("success", true);
             }
         }
-
         return "login";
     }
 
     @GetMapping(value = "/logout")
-    public ModelAndView logout(Model model,
-                               ModelAndView modelAndView, LoginRequest loginRequest,
+    public ModelAndView logout(Model model, ModelAndView modelAndView, LoginRequest loginRequest,
                                HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         List<Cookie> cookies = Arrays.stream(httpServletRequest.getCookies()).filter(x -> x.getName().equals("token")).collect(Collectors.toList());
         Cookie cookie = null;
