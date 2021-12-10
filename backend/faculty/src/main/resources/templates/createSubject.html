@@ -47,7 +47,7 @@
                   th:text="COURSE"></span>
             <select name="course" class="custom-select">
                 <option
-                        th:each="c:${courseB}"
+                        th:each="c:${courses}"
                         th:text="${c.getCourse()}"
                 />
             </select>
